@@ -1,7 +1,1 @@
-library input_quantity;
-
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'package:input_quantity/src/input_qty.dart';

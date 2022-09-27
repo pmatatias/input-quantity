@@ -1,22 +1,16 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Input Quantity
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+[![package publisher](https://img.shields.io/pub/publisher/logo_n_spinner.svg)](https://pub.dev/publishers/pmatatias.dev/packages)
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A flutter widget for input quantity. Increase or decrease number of input by press the button. Also support for type manually the number of quantity. The value will automatically return to maximum value that already set.
+Cursor will automatic move to right side after typing.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- Simple quantity input 
+- Function to move cursor automatically
+- Return to max value
 
 ## Getting started
 
@@ -34,6 +28,4 @@ const like = 'sample';
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+To contrib to this project, you can open a PR or an issue.
