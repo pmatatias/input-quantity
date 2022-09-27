@@ -35,4 +35,5 @@ To contrib to this project, you can open a PR or an issue.
 ## Buy me a coffe
 
 Want to thank me? you can buy me a coffe
-https://www.buymeacoffee.com/pmatatias
+
+<a href="https://www.buymeacoffee.com/pmatatias"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=👨‍💻&slug=pmatatias&button_colour=5F7FFF&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00" /></a>
