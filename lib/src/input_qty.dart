@@ -40,13 +40,20 @@ class InputQty extends StatefulWidget {
 }
 
 class _InputQtyState extends State<InputQty> {
+  /// text controller of textfield
   TextEditingController _valCtrl = TextEditingController();
-  late num value;
+
+  /// current value of quantity
+  /// late num value;
+  late ValueNotifier<num> currentval;
 
   @override
   void initState() {
-    value = widget.initVal;
+    // value = widget.initVal;
+    currentval = ValueNotifier(widget.initVal);
+
     _valCtrl = TextEditingController(text: "${widget.initVal}");
+
     widget.onQtyChanged(num.tryParse(_valCtrl.text));
     super.initState();
   }
@@ -55,18 +62,19 @@ class _InputQtyState extends State<InputQty> {
   /// based on stpes
   /// default steps = 1
   void plus() {
-    value = num.parse(_valCtrl.text);
-
+    num value = num.parse(_valCtrl.text);
     if (value < widget.maxVal) {
-      setState(() {
-        value += widget.steps;
-      });
+      value += widget.steps;
+      currentval = ValueNotifier(value);
     } else {
-      setState(() {
-        value = widget.maxVal;
-      });
+      value = widget.maxVal;
+      currentval = ValueNotifier(value);
     }
+
+    /// set back to the controller
     _valCtrl.text = "$value";
+
+    /// move cursor to the right side
     _valCtrl.selection =
         TextSelection.fromPosition(TextPosition(offset: _valCtrl.text.length));
     widget.onQtyChanged(num.tryParse(value.toString()));
@@ -76,17 +84,19 @@ class _InputQtyState extends State<InputQty> {
   /// based on stpes
   /// default steps = 1
   void minus() {
-    value = num.parse(_valCtrl.text);
+    num value = num.parse(_valCtrl.text);
     if (value > 0) {
-      setState(() {
-        value -= widget.steps;
-      });
+      value -= widget.steps;
+      currentval = ValueNotifier(value);
     } else {
-      setState(() {
-        value = 0;
-      });
+      value = widget.minVal;
+      currentval = ValueNotifier(value);
     }
+
+    /// set back to the controller
     _valCtrl.text = "$value";
+
+    /// move cursor to the right side
     _valCtrl.selection =
         TextSelection.fromPosition(TextPosition(offset: _valCtrl.text.length));
     widget.onQtyChanged(num.tryParse(value.toString()));
@@ -94,7 +104,6 @@ class _InputQtyState extends State<InputQty> {
 
   @override
   Widget build(BuildContext context) {
-    print("this is rebuild");
     return IntrinsicHeight(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
@@ -119,7 +128,7 @@ class _InputQtyState extends State<InputQty> {
               ),
             ),
             const SizedBox(
-              width: 12,
+              width: 8,
             ),
             Container(
               alignment: Alignment.center,
@@ -162,7 +171,7 @@ class _InputQtyState extends State<InputQty> {
               ),
             ),
             const SizedBox(
-              width: 12,
+              width: 8,
             ),
             IconButton(
               color: Colors.teal,
