@@ -3,27 +3,27 @@ import 'package:flutter/services.dart';
 
 class InputQty extends StatefulWidget {
   /// maximum value input
-  /// default  maxVal = double.maxFinite,
-  final double maxVal;
+  /// default  maxVal = num.maxFinite,
+  final num maxVal;
 
   /// intial value
   /// default = 0
-  final double initVal;
+  final num initVal;
 
   /// color of icon
   final Color iconColor;
 
   /// minimum value
   /// default is 0
-  final double minVal;
+  final num minVal;
 
   /// steps increase and decrease
   /// defalult =1
-  final double steps;
+  final num steps;
 
   /// Funnction(value) onChanged
   /// update value every changes
-  final ValueChanged<double?> onQtyChanged;
+  final ValueChanged<num?> onQtyChanged;
 
   const InputQty({
     Key? key,
@@ -40,139 +40,159 @@ class InputQty extends StatefulWidget {
 }
 
 class _InputQtyState extends State<InputQty> {
+  /// text controller of textfield
   TextEditingController _valCtrl = TextEditingController();
-  late double value;
+
+  /// current value of quantity
+  /// late num value;
+  late ValueNotifier<num> currentval;
 
   @override
   void initState() {
-    value = widget.initVal;
+    // value = widget.initVal;
+    currentval = ValueNotifier(widget.initVal);
+
     _valCtrl = TextEditingController(text: "${widget.initVal}");
-    widget.onQtyChanged(double.tryParse(_valCtrl.text));
+
+    widget.onQtyChanged(num.tryParse(_valCtrl.text));
     super.initState();
   }
 
+  /// Increase current value
+  /// based on stpes
+  /// default steps = 1
   void plus() {
-    value = double.parse(_valCtrl.text);
-
+    num value = num.parse(_valCtrl.text);
     if (value < widget.maxVal) {
-      setState(() {
-        value += widget.steps;
-      });
+      value += widget.steps;
+      currentval = ValueNotifier(value);
     } else {
-      setState(() {
-        value = widget.maxVal;
-      });
+      value = widget.maxVal;
+      currentval = ValueNotifier(value);
     }
+
+    /// set back to the controller
     _valCtrl.text = "$value";
+
+    /// move cursor to the right side
     _valCtrl.selection =
         TextSelection.fromPosition(TextPosition(offset: _valCtrl.text.length));
-    widget.onQtyChanged(double.tryParse(value.toString()));
+    widget.onQtyChanged(num.tryParse(value.toString()));
   }
 
+  /// decrese current value
+  /// based on stpes
+  /// default steps = 1
   void minus() {
-    value = double.parse(_valCtrl.text);
+    num value = num.parse(_valCtrl.text);
     if (value > 0) {
-      setState(() {
-        value -= widget.steps;
-      });
+      value -= widget.steps;
+      currentval = ValueNotifier(value);
     } else {
-      setState(() {
-        value = 0;
-      });
+      value = widget.minVal;
+      currentval = ValueNotifier(value);
     }
+
+    /// set back to the controller
     _valCtrl.text = "$value";
+
+    /// move cursor to the right side
     _valCtrl.selection =
         TextSelection.fromPosition(TextPosition(offset: _valCtrl.text.length));
-    widget.onQtyChanged(double.tryParse(value.toString()));
+    widget.onQtyChanged(num.tryParse(value.toString()));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey, width: 0.8),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: minus,
-                constraints: const BoxConstraints(),
-                padding: EdgeInsets.zero,
-                icon: Icon(
-                  Icons.remove,
-                  size: 16,
-                  color: widget.iconColor,
-                ),
+    return IntrinsicHeight(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey, width: 0.8),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              onPressed: minus,
+              constraints: const BoxConstraints(),
+              padding: EdgeInsets.zero,
+              icon: Icon(
+                Icons.remove,
+                size: 16,
+                color: widget.iconColor,
               ),
-              const SizedBox(
-                width: 12,
-              ),
-              Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: IntrinsicWidth(
-                  child: TextFormField(
-                    textAlign: TextAlign.center,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      isDense: true,
-                      isCollapsed: true,
-                    ),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                    controller: _valCtrl,
-                    onChanged: (String strVal) {
-                      double? temp = double.tryParse(_valCtrl.text);
-                      if (temp == null) return;
-
-                      if (temp > widget.maxVal) {
-                        temp = widget.maxVal;
-                        _valCtrl.text = "${widget.maxVal}";
-                      } else if (temp <= widget.minVal) {
-                        temp = widget.minVal;
-                        _valCtrl.text = temp.toString();
-                      }
-                      widget.onQtyChanged(double.tryParse(_valCtrl.text));
-
-                      _valCtrl.selection = TextSelection.fromPosition(
-                          TextPosition(offset: _valCtrl.text.length));
-                    },
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(10),
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: IntrinsicWidth(
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    isDense: true,
+                    isCollapsed: true,
                   ),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                  controller: _valCtrl,
+                  onChanged: (String strVal) {
+                    num? temp = num.tryParse(_valCtrl.text);
+                    if (temp == null) return;
+
+                    if (temp > widget.maxVal) {
+                      temp = widget.maxVal;
+                      _valCtrl.text = "${widget.maxVal}";
+                    } else if (temp <= widget.minVal) {
+                      temp = widget.minVal;
+                      _valCtrl.text = temp.toString();
+                    }
+                    widget.onQtyChanged(num.tryParse(_valCtrl.text));
+
+                    _valCtrl.selection = TextSelection.fromPosition(
+                        TextPosition(offset: _valCtrl.text.length));
+                  },
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    // LengthLimitingTextInputFormatter(10),
+                    FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
+                  ],
                 ),
               ),
-              const SizedBox(
-                width: 12,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            IconButton(
+              color: Colors.teal,
+              constraints: const BoxConstraints(),
+              padding: EdgeInsets.zero,
+              onPressed: plus,
+              icon: Icon(
+                Icons.add,
+                size: 16,
+                color: widget.iconColor,
               ),
-              IconButton(
-                color: Colors.teal,
-                constraints: const BoxConstraints(),
-                padding: EdgeInsets.zero,
-                onPressed: plus,
-                icon: Icon(
-                  Icons.add,
-                  size: 16,
-                  color: widget.iconColor,
-                ),
-              ),
-            ],
-          ),
-        )
-      ],
+            ),
+          ],
+        ),
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _valCtrl.dispose();
   }
 }

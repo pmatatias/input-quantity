@@ -37,19 +37,14 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            InputQty(
-              maxVal: 100,
-              initVal: 0,
-              onQtyChanged: (val) {
-                if (kDebugMode) {
-                  print(val);
-                }
-              },
-            ),
-          ],
+        child: InputQty(
+          maxVal: 100,
+          initVal: 0,
+          onQtyChanged: (val) {
+            if (kDebugMode) {
+              print(val);
+            }
+          },
         ),
       ),
     );
