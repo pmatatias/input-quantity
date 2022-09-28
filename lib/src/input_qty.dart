@@ -95,86 +95,88 @@ class _InputQtyState extends State<InputQty> {
   @override
   Widget build(BuildContext context) {
     print("this is rebuild");
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey, width: 0.8),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            onPressed: minus,
-            constraints: const BoxConstraints(),
-            padding: EdgeInsets.zero,
-            icon: Icon(
-              Icons.remove,
-              size: 16,
-              color: widget.iconColor,
-            ),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: IntrinsicWidth(
-              child: TextFormField(
-                textAlign: TextAlign.center,
-                decoration: const InputDecoration(
-                  border: UnderlineInputBorder(),
-                  isDense: true,
-                  isCollapsed: true,
-                ),
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-                controller: _valCtrl,
-                onChanged: (String strVal) {
-                  num? temp = num.tryParse(_valCtrl.text);
-                  if (temp == null) return;
-
-                  if (temp > widget.maxVal) {
-                    temp = widget.maxVal;
-                    _valCtrl.text = "${widget.maxVal}";
-                  } else if (temp <= widget.minVal) {
-                    temp = widget.minVal;
-                    _valCtrl.text = temp.toString();
-                  }
-                  widget.onQtyChanged(num.tryParse(_valCtrl.text));
-
-                  _valCtrl.selection = TextSelection.fromPosition(
-                      TextPosition(offset: _valCtrl.text.length));
-                },
-                keyboardType: TextInputType.number,
-                inputFormatters: [
-                  // LengthLimitingTextInputFormatter(10),
-                  FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
-                ],
+    return IntrinsicHeight(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey, width: 0.8),
+          borderRadius: BorderRadius.circular(5),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              onPressed: minus,
+              constraints: const BoxConstraints(),
+              padding: EdgeInsets.zero,
+              icon: Icon(
+                Icons.remove,
+                size: 16,
+                color: widget.iconColor,
               ),
             ),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          IconButton(
-            color: Colors.teal,
-            constraints: const BoxConstraints(),
-            padding: EdgeInsets.zero,
-            onPressed: plus,
-            icon: Icon(
-              Icons.add,
-              size: 16,
-              color: widget.iconColor,
+            const SizedBox(
+              width: 12,
             ),
-          ),
-        ],
+            Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: IntrinsicWidth(
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    isDense: true,
+                    isCollapsed: true,
+                  ),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                  controller: _valCtrl,
+                  onChanged: (String strVal) {
+                    num? temp = num.tryParse(_valCtrl.text);
+                    if (temp == null) return;
+
+                    if (temp > widget.maxVal) {
+                      temp = widget.maxVal;
+                      _valCtrl.text = "${widget.maxVal}";
+                    } else if (temp <= widget.minVal) {
+                      temp = widget.minVal;
+                      _valCtrl.text = temp.toString();
+                    }
+                    widget.onQtyChanged(num.tryParse(_valCtrl.text));
+
+                    _valCtrl.selection = TextSelection.fromPosition(
+                        TextPosition(offset: _valCtrl.text.length));
+                  },
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    // LengthLimitingTextInputFormatter(10),
+                    FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 12,
+            ),
+            IconButton(
+              color: Colors.teal,
+              constraints: const BoxConstraints(),
+              padding: EdgeInsets.zero,
+              onPressed: plus,
+              icon: Icon(
+                Icons.add,
+                size: 16,
+                color: widget.iconColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
