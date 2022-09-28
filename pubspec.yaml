@@ -1,6 +1,6 @@
 name: input_quantity
 description: A widget for input quntity. Quantity input buult with textfield, type manually or increase/decrease by button
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/pmatatias/input-quantity
 issue_tracker: https://github.com/pmatatias/input-quantity/issues
 
