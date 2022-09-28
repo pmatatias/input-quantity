@@ -63,20 +63,15 @@ class _InputQtyState extends State<InputQty> {
   /// default steps = 1
   void plus() {
     num value = num.parse(_valCtrl.text);
-
     if (value < widget.maxVal) {
       value += widget.steps;
       currentval = ValueNotifier(value);
-      // setState(() {
-      //   value += widget.steps;
-      // });
     } else {
       value = widget.maxVal;
       currentval = ValueNotifier(value);
-      // setState(() {
-      //   value = widget.maxVal;
-      // });
     }
+
+    /// set back to the controller
     _valCtrl.text = "$value";
 
     /// move cursor to the right side
@@ -93,17 +88,12 @@ class _InputQtyState extends State<InputQty> {
     if (value > 0) {
       value -= widget.steps;
       currentval = ValueNotifier(value);
-
-      // setState(() {
-      //   value -= widget.steps;
-      // });
     } else {
       value = widget.minVal;
       currentval = ValueNotifier(value);
-      // setState(() {
-      //   value =widget.minVal;
-      // });
     }
+
+    /// set back to the controller
     _valCtrl.text = "$value";
 
     /// move cursor to the right side
@@ -114,7 +104,6 @@ class _InputQtyState extends State<InputQty> {
 
   @override
   Widget build(BuildContext context) {
-    print("this is rebuild");
     return IntrinsicHeight(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
@@ -139,53 +128,50 @@ class _InputQtyState extends State<InputQty> {
               ),
             ),
             const SizedBox(
-              width: 12,
+              width: 8,
             ),
             Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 20.0),
               child: IntrinsicWidth(
-                child: Builder(builder: (context) {
-                  print('textfield rebuild');
-                  return TextFormField(
-                    textAlign: TextAlign.center,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      isDense: true,
-                      isCollapsed: true,
-                    ),
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
-                    controller: _valCtrl,
-                    onChanged: (String strVal) {
-                      num? temp = num.tryParse(_valCtrl.text);
-                      if (temp == null) return;
+                child: TextFormField(
+                  textAlign: TextAlign.center,
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    isDense: true,
+                    isCollapsed: true,
+                  ),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                  controller: _valCtrl,
+                  onChanged: (String strVal) {
+                    num? temp = num.tryParse(_valCtrl.text);
+                    if (temp == null) return;
 
-                      if (temp > widget.maxVal) {
-                        temp = widget.maxVal;
-                        _valCtrl.text = "${widget.maxVal}";
-                      } else if (temp <= widget.minVal) {
-                        temp = widget.minVal;
-                        _valCtrl.text = temp.toString();
-                      }
-                      widget.onQtyChanged(num.tryParse(_valCtrl.text));
+                    if (temp > widget.maxVal) {
+                      temp = widget.maxVal;
+                      _valCtrl.text = "${widget.maxVal}";
+                    } else if (temp <= widget.minVal) {
+                      temp = widget.minVal;
+                      _valCtrl.text = temp.toString();
+                    }
+                    widget.onQtyChanged(num.tryParse(_valCtrl.text));
 
-                      _valCtrl.selection = TextSelection.fromPosition(
-                          TextPosition(offset: _valCtrl.text.length));
-                    },
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      // LengthLimitingTextInputFormatter(10),
-                      FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
-                    ],
-                  );
-                }),
+                    _valCtrl.selection = TextSelection.fromPosition(
+                        TextPosition(offset: _valCtrl.text.length));
+                  },
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    // LengthLimitingTextInputFormatter(10),
+                    FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
+                  ],
+                ),
               ),
             ),
             const SizedBox(
-              width: 12,
+              width: 8,
             ),
             IconButton(
               color: Colors.teal,
