@@ -25,10 +25,15 @@ class InputQty extends StatefulWidget {
   /// update value every changes
   final ValueChanged<num?> onQtyChanged;
 
+  /// wrap [TextFormField] with [IntrinsicWidth] widget
+  /// if `false` wrapped with [Expanded]
+  final bool isIntrinsicWidth;
+
   const InputQty({
     Key? key,
     this.iconColor = Colors.blueGrey,
     this.initVal = 0,
+    this.isIntrinsicWidth = true,
     required this.onQtyChanged,
     this.maxVal = double.maxFinite,
     this.minVal = 0,
@@ -62,7 +67,7 @@ class _InputQtyState extends State<InputQty> {
   /// based on stpes
   /// default steps = 1
   void plus() {
-    num value = num.parse(_valCtrl.text);
+    num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
     if (value < widget.maxVal) {
       value += widget.steps;
       currentval = ValueNotifier(value);
@@ -84,7 +89,7 @@ class _InputQtyState extends State<InputQty> {
   /// based on stpes
   /// default steps = 1
   void minus() {
-    num value = num.parse(_valCtrl.text);
+    num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
     if (value > 0) {
       value -= widget.steps;
       currentval = ValueNotifier(value);
@@ -104,8 +109,13 @@ class _InputQtyState extends State<InputQty> {
 
   @override
   Widget build(BuildContext context) {
-    return IntrinsicHeight(
-      child: Container(
+    return widget.isIntrinsicWidth
+        ? IntrinsicWidth(child: _buildQtyInput())
+        : _buildQtyInput();
+  }
+
+  /// build widget
+  Widget _buildQtyInput() => Container(
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -130,46 +140,7 @@ class _InputQtyState extends State<InputQty> {
             const SizedBox(
               width: 8,
             ),
-            Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: IntrinsicWidth(
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    isDense: true,
-                    isCollapsed: true,
-                  ),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                  controller: _valCtrl,
-                  onChanged: (String strVal) {
-                    num? temp = num.tryParse(_valCtrl.text);
-                    if (temp == null) return;
-
-                    if (temp > widget.maxVal) {
-                      temp = widget.maxVal;
-                      _valCtrl.text = "${widget.maxVal}";
-                    } else if (temp <= widget.minVal) {
-                      temp = widget.minVal;
-                      _valCtrl.text = temp.toString();
-                    }
-                    widget.onQtyChanged(num.tryParse(_valCtrl.text));
-
-                    _valCtrl.selection = TextSelection.fromPosition(
-                        TextPosition(offset: _valCtrl.text.length));
-                  },
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    // LengthLimitingTextInputFormatter(10),
-                    FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
-                  ],
-                ),
-              ),
-            ),
+            Expanded(child: _buildtextfield()),
             const SizedBox(
               width: 8,
             ),
@@ -186,9 +157,47 @@ class _InputQtyState extends State<InputQty> {
             ),
           ],
         ),
-      ),
-    );
-  }
+      );
+
+  /// widget textformfield
+  Widget _buildtextfield() => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+        child: TextFormField(
+          textAlign: TextAlign.center,
+          decoration: const InputDecoration(
+            border: UnderlineInputBorder(),
+            isDense: true,
+            isCollapsed: true,
+          ),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
+          controller: _valCtrl,
+          onChanged: (String strVal) {
+            num? temp = num.tryParse(_valCtrl.text);
+            if (temp == null) return;
+
+            if (temp > widget.maxVal) {
+              temp = widget.maxVal;
+              _valCtrl.text = "${widget.maxVal}";
+              _valCtrl.selection = TextSelection.fromPosition(
+                  TextPosition(offset: _valCtrl.text.length));
+            } else if (temp <= widget.minVal) {
+              temp = widget.minVal;
+              _valCtrl.text = temp.toString();
+              _valCtrl.selection = TextSelection.fromPosition(
+                  TextPosition(offset: _valCtrl.text.length));
+            }
+            widget.onQtyChanged(num.tryParse(_valCtrl.text));
+          },
+          keyboardType: TextInputType.number,
+          inputFormatters: [
+            // LengthLimitingTextInputFormatter(10),
+            FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
+          ],
+        ),
+      );
 
   @override
   void dispose() {

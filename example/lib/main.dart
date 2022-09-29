@@ -36,16 +36,33 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: InputQty(
-          maxVal: 100,
-          initVal: 0,
-          onQtyChanged: (val) {
-            if (kDebugMode) {
-              print(val);
-            }
-          },
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          InputQty(
+            maxVal: 100,
+            initVal: 0,
+            onQtyChanged: (val) {
+              if (kDebugMode) {
+                print(val);
+              }
+            },
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          InputQty(
+            maxVal: 100,
+            initVal: 0,
+            isIntrinsicWidth: false,
+            onQtyChanged: (val) {
+              if (kDebugMode) {
+                print(val);
+              }
+            },
+          ),
+        ],
       ),
     );
   }
