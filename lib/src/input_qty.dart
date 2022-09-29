@@ -10,9 +10,6 @@ class InputQty extends StatefulWidget {
   /// default = 0
   final num initVal;
 
-  /// color of icon
-  final Color iconColor;
-
   /// minimum value
   /// default is 0
   final num minVal;
@@ -31,7 +28,6 @@ class InputQty extends StatefulWidget {
 
   const InputQty({
     Key? key,
-    this.iconColor = Colors.blueGrey,
     this.initVal = 0,
     this.isIntrinsicWidth = true,
     required this.onQtyChanged,
@@ -90,7 +86,7 @@ class _InputQtyState extends State<InputQty> {
   /// default steps = 1
   void minus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
-    if (value > 0) {
+    if (value > widget.minVal) {
       value -= widget.steps;
       currentval = ValueNotifier(value);
     } else {
@@ -131,10 +127,10 @@ class _InputQtyState extends State<InputQty> {
               onPressed: minus,
               constraints: const BoxConstraints(),
               padding: EdgeInsets.zero,
-              icon: Icon(
+              icon: const Icon(
                 Icons.remove,
                 size: 16,
-                color: widget.iconColor,
+                color: Colors.blueGrey,
               ),
             ),
             const SizedBox(
@@ -149,10 +145,10 @@ class _InputQtyState extends State<InputQty> {
               constraints: const BoxConstraints(),
               padding: EdgeInsets.zero,
               onPressed: plus,
-              icon: Icon(
+              icon: const Icon(
                 Icons.add,
                 size: 16,
-                color: widget.iconColor,
+                color: Colors.blueGrey,
               ),
             ),
           ],
