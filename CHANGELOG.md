@@ -1,3 +1,7 @@
+## 1.0.0-beta.3
+
+- Add comment description
+
 ## 1.0.0-beta.2
 
 - Add intrinsic and expanded size
