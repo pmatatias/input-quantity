@@ -3,32 +3,55 @@ import 'package:flutter/services.dart';
 
 class InputQty extends StatefulWidget {
   /// maximum value input
-  /// default  maxVal = num.maxFinite,
+  /// default  [maxVal] = [num.maxFinite],
   final num maxVal;
 
   /// intial value
-  /// default = 0
+  /// default [initVal] = 0
+  /// To show decimal number, set [initVal] with decimal format
+  /// eg: [initVal] = 0.0
+  ///
   final num initVal;
 
   /// minimum value
-  /// default is 0
+  /// default [minVal] = 0
   final num minVal;
 
   /// steps increase and decrease
-  /// defalult =1
+  /// defalult [steps] = 1
+  /// also support for decimal steps
+  /// eg: [steps] = 3.14
   final num steps;
 
-  /// Funnction(value) onChanged
+  /// Function([num] value) [onChanged]
   /// update value every changes
+  /// the [runType] is [num].
+  /// parse to [int] : value.toInt();
+  /// parse to [double] : value.toDouble();
   final ValueChanged<num?> onQtyChanged;
 
   /// wrap [TextFormField] with [IntrinsicWidth] widget
+  /// this will make the width of [InputQty] set to intrinsic width
+  /// default  [isIntrinsicWidth] = true
   /// if `false` wrapped with [Expanded]
   final bool isIntrinsicWidth;
+
+  /// Custom decoration of [TextFormField]
+  /// default value:
+  ///
+  /// const InputDecoration(
+  ///  border: UnderlineInputBorder(),
+  ///  isDense: true,
+  ///  isCollapsed: true,)
+  ///
+  /// add [contentPadding] to costumize distance between value
+  /// and the button
+  final InputDecoration? textFieldDecoration;
 
   const InputQty({
     Key? key,
     this.initVal = 0,
+    this.textFieldDecoration,
     this.isIntrinsicWidth = true,
     required this.onQtyChanged,
     this.maxVal = double.maxFinite,
@@ -48,20 +71,27 @@ class _InputQtyState extends State<InputQty> {
   /// late num value;
   late ValueNotifier<num> currentval;
 
+  /// [InputDecoration] use for [TextFormField]
+  /// use when [textFieldDecoration] not null
+  final _inputDecoration = const InputDecoration(
+    border: UnderlineInputBorder(),
+    isDense: true,
+    isCollapsed: true,
+  );
   @override
   void initState() {
-    // value = widget.initVal;
     currentval = ValueNotifier(widget.initVal);
-
     _valCtrl = TextEditingController(text: "${widget.initVal}");
-
     widget.onQtyChanged(num.tryParse(_valCtrl.text));
     super.initState();
   }
 
   /// Increase current value
-  /// based on stpes
-  /// default steps = 1
+  /// based on steps
+  /// default [steps] = 1
+  /// When the current value is empty string, and press [plus] button
+  /// then firstly, it set the [value]= [initVal],
+  /// after that [value] += [steps]
   void plus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
     if (value < widget.maxVal) {
@@ -81,9 +111,11 @@ class _InputQtyState extends State<InputQty> {
     widget.onQtyChanged(num.tryParse(value.toString()));
   }
 
-  /// decrese current value
-  /// based on stpes
-  /// default steps = 1
+  /// decrese current value based on stpes
+  /// default [steps] = 1
+  /// When the current [value] is empty string, and press [minus] button
+  /// then firstly, it set the [value]= [initVal],
+  /// after that [value] -= [steps]
   void minus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
     if (value > widget.minVal) {
@@ -106,12 +138,12 @@ class _InputQtyState extends State<InputQty> {
   @override
   Widget build(BuildContext context) {
     return widget.isIntrinsicWidth
-        ? IntrinsicWidth(child: _buildQtyInput())
-        : _buildQtyInput();
+        ? IntrinsicWidth(child: _buildInputQty())
+        : _buildInputQty();
   }
 
-  /// build widget
-  Widget _buildQtyInput() => Container(
+  /// build widget input quantity
+  Widget _buildInputQty() => Container(
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -160,11 +192,7 @@ class _InputQtyState extends State<InputQty> {
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
         child: TextFormField(
           textAlign: TextAlign.center,
-          decoration: const InputDecoration(
-            border: UnderlineInputBorder(),
-            isDense: true,
-            isCollapsed: true,
-          ),
+          decoration: widget.textFieldDecoration ?? _inputDecoration,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 14,
@@ -173,7 +201,6 @@ class _InputQtyState extends State<InputQty> {
           onChanged: (String strVal) {
             num? temp = num.tryParse(_valCtrl.text);
             if (temp == null) return;
-
             if (temp > widget.maxVal) {
               temp = widget.maxVal;
               _valCtrl.text = "${widget.maxVal}";
@@ -190,7 +217,7 @@ class _InputQtyState extends State<InputQty> {
           keyboardType: TextInputType.number,
           inputFormatters: [
             // LengthLimitingTextInputFormatter(10),
-            FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
+            FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\-?\d*")),
           ],
         ),
       );
