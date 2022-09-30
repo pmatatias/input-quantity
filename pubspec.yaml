@@ -1,11 +1,11 @@
 name: input_quantity
-description: A widget for input quntity. Quantity input buult with textfield, type manually or increase/decrease by button
-version: 0.1.0
-homepage: https://github.com/pmatatias/input-quantity
-issue_tracker: https://github.com/pmatatias/input-quantity/issues
+description: A widget to input quantity. Built with TextFormField. Type manually or increase and decrease value with the btn
+version: 1.0.0
+homepage: https://pmatatias.dev
+repository: https://github.com/pmatatias/input-quantity
 
 environment:
-  sdk: ">=2.17.3 <3.3.2"
+  sdk: ">=2.17.3 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
@@ -18,5 +18,3 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
-
- 

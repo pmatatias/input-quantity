@@ -4,10 +4,7 @@
 [![package publisher](https://img.shields.io/pub/publisher/logo_n_spinner.svg)](https://pub.dev/publishers/pmatatias.dev/packages)
 [![GitHub stars](https://img.shields.io/github/stars/pmatatias/input-quantity.svg?style=social)](https://github.com/pmatatias/input-quantity)
 
-A Flutter widget for quantity input. Increase or decrease the input value by pressing the button.
-Built with text field, **InputQty** also supports to type input quantity manually.
-The input value will automatically return to the preset maximum/minimum value.
-The cursor will automatically move to the right side after typing.
+Flutter widget for quantity input. Increase or decrease the input value by pressing the button. Built with text fields, so **InputQty** also supports typing quantity manually. The input value will automatically return to the pre-set maximum/minimum value. The cursor will automatically move to the right side after typing for a better user experience.
 
 <p align="center">
  <img src="https://github.com/pmatatias/input-quantity/blob/master/assets/DEMO.gif">
@@ -21,8 +18,6 @@ The cursor will automatically move to the right side after typing.
 - Deveoped with changenotifier to avoid rebuilding the widget every time it changes its value
 - Use the steps to change every key pressed
 - Intrinsic and expanded size
-
-
 
 ## Usage
 

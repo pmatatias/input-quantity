@@ -1,7 +1,14 @@
+## 1.0.0
+
+- Release stable version
+- Update documentation
+
 ## 1.0.0-beta.3
 
 - Add comment description
 - Extract Input Decoration from TextFromField
+- fix keyboard for minus input
+- add image preview
 
 ## 1.0.0-beta.2
 
