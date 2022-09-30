@@ -64,6 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
             InputQty(
               maxVal: 100.0,
               initVal: 0.0,
+              textFieldDecoration: const InputDecoration(
+                  isDense: false,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10)),
               minVal: -100.0,
               onQtyChanged: (val) {
                 if (kDebugMode) {
@@ -93,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             InputQty(
               maxVal: 100,
-              initVal: 0,
+              initVal: 0.0,
               steps: 10,
               minVal: -100,
               onQtyChanged: (val) {

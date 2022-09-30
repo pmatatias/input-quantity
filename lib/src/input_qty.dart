@@ -36,9 +36,22 @@ class InputQty extends StatefulWidget {
   /// if `false` wrapped with [Expanded]
   final bool isIntrinsicWidth;
 
+  /// Custom decoration of [TextFormField]
+  /// default value:
+  ///
+  /// const InputDecoration(
+  ///  border: UnderlineInputBorder(),
+  ///  isDense: true,
+  ///  isCollapsed: true,)
+  ///
+  /// add [contentPadding] to costumize distance between value
+  /// and the button
+  final InputDecoration? textFieldDecoration;
+
   const InputQty({
     Key? key,
     this.initVal = 0,
+    this.textFieldDecoration,
     this.isIntrinsicWidth = true,
     required this.onQtyChanged,
     this.maxVal = double.maxFinite,
@@ -58,6 +71,13 @@ class _InputQtyState extends State<InputQty> {
   /// late num value;
   late ValueNotifier<num> currentval;
 
+  /// [InputDecoration] use for [TextFormField]
+  /// use when [textFieldDecoration] not null
+  final _inputDecoration = const InputDecoration(
+    border: UnderlineInputBorder(),
+    isDense: true,
+    isCollapsed: true,
+  );
   @override
   void initState() {
     currentval = ValueNotifier(widget.initVal);
@@ -70,7 +90,7 @@ class _InputQtyState extends State<InputQty> {
   /// based on steps
   /// default [steps] = 1
   /// When the current value is empty string, and press [plus] button
-  /// then firstly, it set the [value]= [initVal], 
+  /// then firstly, it set the [value]= [initVal],
   /// after that [value] += [steps]
   void plus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
@@ -94,7 +114,7 @@ class _InputQtyState extends State<InputQty> {
   /// decrese current value based on stpes
   /// default [steps] = 1
   /// When the current [value] is empty string, and press [minus] button
-  /// then firstly, it set the [value]= [initVal], 
+  /// then firstly, it set the [value]= [initVal],
   /// after that [value] -= [steps]
   void minus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
@@ -172,11 +192,7 @@ class _InputQtyState extends State<InputQty> {
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
         child: TextFormField(
           textAlign: TextAlign.center,
-          decoration: const InputDecoration(
-            border: UnderlineInputBorder(),
-            isDense: true,
-            isCollapsed: true,
-          ),
+          decoration: widget.textFieldDecoration ?? _inputDecoration,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 14,
