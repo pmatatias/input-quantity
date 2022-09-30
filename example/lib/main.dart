@@ -49,6 +49,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
               ),
             ),
+            const Padding(
+              padding: EdgeInsets.all(4.0),
+              child: Text(
+                'by: pmatatias.dev',
+                style: TextStyle(fontSize: 14, color: Colors.blue),
+              ),
+            ),
             const Divider(),
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -123,16 +130,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   print(val);
                 }
               },
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'by: pmatatias.dev',
-                style: TextStyle(fontSize: 14, color: Colors.blue),
-              ),
             ),
           ],
         ),

@@ -27,6 +27,9 @@ import 'package:input_quantity/input_quantity.dart';
   InputQty(
     maxVal: 100,
     initVal: 0,
+    minVal: -100,
+    isIntrinsicWidth: false,
+    steps: 10,
     onQtyChanged: (val) {
       print(val);
     },
