@@ -9,6 +9,10 @@ Built with text field, **InputQty** also supports to type input quantity manuall
 The input value will automatically return to the preset maximum/minimum value.
 The cursor will automatically move to the right side after typing.
 
+<p align="center">
+ <img src="https://github.com/pmatatias/input-quantity/blob/master/assets/DEMO.gif">
+</p>
+
 ## Features
 
 - Simple quantity input
@@ -17,6 +21,8 @@ The cursor will automatically move to the right side after typing.
 - Deveoped with changenotifier to avoid rebuilding the widget every time it changes its value
 - Use the steps to change every key pressed
 - Intrinsic and expanded size
+
+
 
 ## Usage
 
