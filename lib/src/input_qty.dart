@@ -217,7 +217,7 @@ class _InputQtyState extends State<InputQty> {
           keyboardType: TextInputType.number,
           inputFormatters: [
             // LengthLimitingTextInputFormatter(10),
-            FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\d*")),
+            FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\-?\d*")),
           ],
         ),
       );
