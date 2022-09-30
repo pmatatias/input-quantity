@@ -1,3 +1,8 @@
+## 1.0.1
+
+- update image preview
+- update description
+
 ## 1.0.0
 
 - Release stable version
