@@ -1,6 +1,7 @@
 ## 1.0.0-beta.3
 
 - Add comment description
+- Extract Input Decoration from TextFromField
 
 ## 1.0.0-beta.2
 

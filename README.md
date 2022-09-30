@@ -2,6 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/input_quantity.svg)](https://pub.dev/packages/input_quantity)
 [![package publisher](https://img.shields.io/pub/publisher/logo_n_spinner.svg)](https://pub.dev/publishers/pmatatias.dev/packages)
+[![GitHub stars](https://img.shields.io/github/stars/pmatatias/input-quantity.svg?style=social)](https://github.com/pmatatias/input-quantity)
 
 A Flutter widget for quantity input. Increase or decrease the input value by pressing the button.
 Built with text field, **InputQty** also supports to type input quantity manually.
@@ -39,7 +40,8 @@ import 'package:input_quantity/input_quantity.dart';
 ## To Do
 
 - Develop Widgets of alternative `IntrinsicHeight` and `IntrinsicWidth` , for inexpensive widgets.
-- Extract `Icon` properties. So more customizable
+- Extract `Icon` properties. So that be more customizable
+- Validator feature
 
 ## Additional information
 
