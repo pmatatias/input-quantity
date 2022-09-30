@@ -11,8 +11,11 @@ The cursor will automatically move to the right side after typing.
 ## Features
 
 - Simple quantity input
-- Function to move cursor automatically
-- Return to max value
+- Cursor automatically moves to the right for better user experience
+- Set maximum, minimum and initial value
+- Deveoped with changenotifier to avoid rebuilding the widget every time it changes its value
+- Use the steps to change every key pressed
+- Intrinsic and expanded size
 
 ## Usage
 
@@ -21,14 +24,22 @@ example:
 ```dart
 import 'package:input_quantity/input_quantity.dart';
 ...
-    InputQty(
-        maxVal: 100,
-        initVal: 0,
-        onQtyChanged: (val) {
-            print(val);
-        },
-    ),
+  InputQty(
+    maxVal: 100,
+    initVal: 0,
+    minVal: -100,
+    isIntrinsicWidth: false,
+    steps: 10,
+    onQtyChanged: (val) {
+      print(val);
+    },
+  ),
 ```
+
+## To Do
+
+- Develop Widgets of alternative `IntrinsicHeight` and `IntrinsicWidth` , for inexpensive widgets.
+- Extract `Icon` properties. So more customizable
 
 ## Additional information
 
