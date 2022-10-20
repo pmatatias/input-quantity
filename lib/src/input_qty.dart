@@ -3,47 +3,49 @@ import 'package:flutter/services.dart';
 
 class InputQty extends StatefulWidget {
   /// maximum value input
-  /// default  [maxVal] = [num.maxFinite],
+  /// default  `maxVal = num.maxFinite`,
   final num maxVal;
 
   /// intial value
-  /// default [initVal] = 0
-  /// To show decimal number, set [initVal] with decimal format
-  /// eg: [initVal] = 0.0
+  /// default `initVal = 0`
+  /// To show decimal number, set `initVal` with decimal format
+  /// eg: `initVal = 0.0`
   ///
   final num initVal;
 
   /// minimum value
-  /// default [minVal] = 0
+  /// default `minVal = 0`
   final num minVal;
 
   /// steps increase and decrease
-  /// defalult [steps] = 1
+  /// defalult `steps = 1`
   /// also support for decimal steps
-  /// eg: [steps] = 3.14
+  /// eg: `steps = 3.14`
   final num steps;
 
-  /// Function([num] value) [onChanged]
+  /// ```dart
+  /// Function(num? value) onChanged
+  /// ```
   /// update value every changes
-  /// the [runType] is [num].
-  /// parse to [int] : value.toInt();
-  /// parse to [double] : value.toDouble();
+  /// the `runType` is `num`.
+  /// parse to `int` : `value.toInt();`
+  /// parse to `double` : `value.toDouble();`
   final ValueChanged<num?> onQtyChanged;
 
   /// wrap [TextFormField] with [IntrinsicWidth] widget
   /// this will make the width of [InputQty] set to intrinsic width
-  /// default  [isIntrinsicWidth] = true
-  /// if `false` wrapped with [Expanded]
+  /// default  `isIntrinsicWidth = true`
+  /// if `false` wrapped with `Expanded`
   final bool isIntrinsicWidth;
 
   /// Custom decoration of [TextFormField]
   /// default value:
-  ///
+  ///```dart
   /// const InputDecoration(
   ///  border: UnderlineInputBorder(),
   ///  isDense: true,
   ///  isCollapsed: true,)
-  ///
+  ///```
   /// add [contentPadding] to costumize distance between value
   /// and the button
   final InputDecoration? textFieldDecoration;
