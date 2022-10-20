@@ -1,4 +1,5 @@
 import 'package:example/potatoo.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
 
@@ -50,7 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 steps: 10,
                 minVal: -100,
                 onQtyChanged: (val) {
-                  print(val);
+                  if (kDebugMode) {
+                    print(val);
+                  }
                 },
               ),
               const SizedBox(

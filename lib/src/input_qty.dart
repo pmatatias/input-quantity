@@ -50,6 +50,11 @@ class InputQty extends StatefulWidget {
   /// and the button
   final InputDecoration? textFieldDecoration;
 
+  /// button color
+  ///
+  final Color btnColor1;
+  final Color btnColor2;
+
   const InputQty({
     Key? key,
     this.initVal = 0,
@@ -59,6 +64,8 @@ class InputQty extends StatefulWidget {
     this.maxVal = double.maxFinite,
     this.minVal = 0,
     this.steps = 1,
+    this.btnColor1 = Colors.green,
+    this.btnColor2 = Colors.grey,
   }) : super(key: key);
 
   @override
@@ -174,6 +181,7 @@ class _InputQtyState extends State<InputQty> {
             const SizedBox(
               width: 8,
             ),
+            BuildBtn(isPlus: true, onChanged: plus),
             IconButton(
               color: Colors.teal,
               constraints: const BoxConstraints(),
@@ -228,5 +236,40 @@ class _InputQtyState extends State<InputQty> {
   void dispose() {
     super.dispose();
     _valCtrl.dispose();
+  }
+}
+
+enum BorderShape { circle, square, rhombus }
+
+class BuildBtn extends StatelessWidget {
+  final Widget? child;
+  final Function() onChanged;
+  final bool isPlus;
+  final bool withBorder;
+  final BorderShape borderShape;
+
+  const BuildBtn({
+    super.key,
+    this.borderShape = BorderShape.circle,
+    this.withBorder = true,
+    required this.isPlus,
+    required this.onChanged,
+    this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      onPointerDown: (event) => onChanged,
+      child: Container(
+        padding: const EdgeInsets.all(4),
+        decoration: BoxDecoration(
+          border: Border.all(),
+        ),
+        child: Icon(
+          isPlus ? Icons.add : Icons.remove,
+        ),
+      ),
+    );
   }
 }
