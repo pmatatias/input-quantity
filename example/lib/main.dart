@@ -1,4 +1,5 @@
 import 'package:example/potatoo.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
 
@@ -49,8 +50,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 initVal: 0.0,
                 steps: 10,
                 minVal: -100,
+                plusBtn: const Icon(Icons.ac_unit,size: 18,),
                 onQtyChanged: (val) {
-                  print(val);
+                  if (kDebugMode) {
+                    print(val);
+                  }
                 },
               ),
               const SizedBox(

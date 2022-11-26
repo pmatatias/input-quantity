@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+enum BorderShapeBtn {
+  none,
+  circle,
+  square,
+  //rhombus
+}
+
 class InputQty extends StatefulWidget {
   /// maximum value input
   /// default  `maxVal = num.maxFinite`,
@@ -50,6 +57,12 @@ class InputQty extends StatefulWidget {
   /// and the button
   final InputDecoration? textFieldDecoration;
 
+  /// custom icon for button plus
+  final Widget? plusBtn;
+
+  /// Custom icon for button minus
+  final Widget? minusBtn;
+
   const InputQty({
     Key? key,
     this.initVal = 0,
@@ -58,6 +71,8 @@ class InputQty extends StatefulWidget {
     required this.onQtyChanged,
     this.maxVal = double.maxFinite,
     this.minVal = 0,
+    this.plusBtn,
+    this.minusBtn,
     this.steps = 1,
   }) : super(key: key);
 
@@ -157,15 +172,10 @@ class _InputQtyState extends State<InputQty> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            IconButton(
-              onPressed: minus,
-              constraints: const BoxConstraints(),
-              padding: EdgeInsets.zero,
-              icon: const Icon(
-                Icons.remove,
-                size: 16,
-                color: Colors.blueGrey,
-              ),
+            BuildBtn(
+              isPlus: false,
+              onChanged: minus,
+              child: widget.minusBtn,
             ),
             const SizedBox(
               width: 8,
@@ -174,16 +184,10 @@ class _InputQtyState extends State<InputQty> {
             const SizedBox(
               width: 8,
             ),
-            IconButton(
-              color: Colors.teal,
-              constraints: const BoxConstraints(),
-              padding: EdgeInsets.zero,
-              onPressed: plus,
-              icon: const Icon(
-                Icons.add,
-                size: 16,
-                color: Colors.blueGrey,
-              ),
+            BuildBtn(
+              isPlus: true,
+              onChanged: plus,
+              child: widget.plusBtn,
             ),
           ],
         ),
@@ -228,5 +232,51 @@ class _InputQtyState extends State<InputQty> {
   void dispose() {
     super.dispose();
     _valCtrl.dispose();
+  }
+}
+
+class BuildBtn extends StatelessWidget {
+  final Widget? child;
+  final Function() onChanged;
+  final bool isPlus;
+  final bool withBorder;
+
+  final BorderShapeBtn borderShape;
+
+  const BuildBtn({
+    super.key,
+    this.borderShape = BorderShapeBtn.circle,
+    this.withBorder = true,
+    required this.isPlus,
+    required this.onChanged,
+    this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      // padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        border: borderShape == BorderShapeBtn.none
+            ? null
+            : Border.all(color: Colors.blueGrey),
+        borderRadius: borderShape == BorderShapeBtn.circle
+            ? BorderRadius.circular(300)
+            : null,
+      ),
+      child: IconButton(
+        color: Colors.teal,
+        constraints: const BoxConstraints(),
+        padding: EdgeInsets.zero,
+        onPressed: onChanged,
+        splashRadius: 16,
+        icon: child ??
+            Icon(
+              isPlus ? Icons.add : Icons.remove,
+              size: 16,
+              color: Colors.blueGrey,
+            ),
+      ),
+    );
   }
 }

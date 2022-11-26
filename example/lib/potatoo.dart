@@ -9,7 +9,7 @@ class PreviewExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Example Preview"),
+        title: const Text("Example Preview"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
