@@ -63,6 +63,14 @@ class InputQty extends StatefulWidget {
   /// Custom icon for button minus
   final Widget? minusBtn;
 
+  /// button color
+  /// availabe to press
+  final Color btnColor1;
+
+  /// btton color 2
+  /// not able to press
+  final Color btnColor2;
+
   const InputQty({
     Key? key,
     this.initVal = 0,
@@ -74,6 +82,8 @@ class InputQty extends StatefulWidget {
     this.plusBtn,
     this.minusBtn,
     this.steps = 1,
+    this.btnColor1 = Colors.green,
+    this.btnColor2 = Colors.grey,
   }) : super(key: key);
 
   @override
