@@ -1,3 +1,8 @@
+## 1.1.0-dev
+ - change color button
+ - border circle and border none of button
+ - custom widget or icon button
+
 ## 1.0.1
 
 - update image preview

@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 initVal: 0.0,
                 steps: 10,
                 minVal: -100,
+                btnColor1: Colors.blue,
                 plusBtn: const Icon(Icons.ac_unit,size: 18,),
                 onQtyChanged: (val) {
                   if (kDebugMode) {
