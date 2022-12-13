@@ -199,8 +199,7 @@ class _InputQtyState extends State<InputQty> {
           mainAxisSize: MainAxisSize.min,
           children: [
             BuildBtn(
-              primaryColor: widget.btnColor1,
-              secondaryColor: widget.btnColor2,
+              btnColor: widget.btnColor1,
               isPlus: false,
               splashRadius: widget.splashRadius,
               onChanged: minus,
@@ -214,8 +213,7 @@ class _InputQtyState extends State<InputQty> {
               width: 8,
             ),
             BuildBtn(
-              primaryColor: widget.btnColor1,
-              secondaryColor: widget.btnColor2,
+              btnColor: widget.btnColor1,
               isPlus: true,
               borderShape: widget.borderShape,
               onChanged: plus,
@@ -273,8 +271,7 @@ class BuildBtn extends StatelessWidget {
   final Function() onChanged;
   final bool isPlus;
   final bool withBorder;
-  final Color primaryColor;
-  final Color secondaryColor;
+  final Color btnColor;
   final double? splashRadius;
 
   final BorderShapeBtn borderShape;
@@ -286,8 +283,7 @@ class BuildBtn extends StatelessWidget {
     this.withBorder = true,
     required this.isPlus,
     required this.onChanged,
-    this.primaryColor = Colors.teal,
-    this.secondaryColor = Colors.grey,
+    this.btnColor = Colors.teal,
     this.child,
   });
 
@@ -298,13 +294,13 @@ class BuildBtn extends StatelessWidget {
       decoration: BoxDecoration(
         border: borderShape == BorderShapeBtn.none
             ? null
-            : Border.all(color: Colors.blueGrey),
+            : Border.all(color: btnColor),
         borderRadius: borderShape == BorderShapeBtn.circle
             ? BorderRadius.circular(300)
             : null,
       ),
       child: IconButton(
-        color: primaryColor,
+        color: btnColor,
         constraints: const BoxConstraints(),
         padding: EdgeInsets.zero,
         onPressed: onChanged,
