@@ -201,6 +201,7 @@ class _InputQtyState extends State<InputQty> {
             BuildBtn(
               btnColor: widget.btnColor1,
               isPlus: false,
+              borderShape: widget.borderShape,
               splashRadius: widget.splashRadius,
               onChanged: minus,
               child: widget.minusBtn,
@@ -270,7 +271,6 @@ class BuildBtn extends StatelessWidget {
   final Widget? child;
   final Function() onChanged;
   final bool isPlus;
-  final bool withBorder;
   final Color btnColor;
   final double? splashRadius;
 
@@ -280,7 +280,6 @@ class BuildBtn extends StatelessWidget {
     super.key,
     this.splashRadius,
     this.borderShape = BorderShapeBtn.circle,
-    this.withBorder = true,
     required this.isPlus,
     required this.onChanged,
     this.btnColor = Colors.teal,
