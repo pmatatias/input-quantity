@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 enum BorderShapeBtn {
   none,
   circle,
-  square,
-  //rhombus
+  // square, // on development
+  //rhombus  // on development
 }
 
 class InputQty extends StatefulWidget {
@@ -61,19 +61,31 @@ class InputQty extends StatefulWidget {
   final Widget? plusBtn;
 
   /// Custom icon for button minus
+  /// default size is 16
   final Widget? minusBtn;
 
   /// button color
   /// availabe to press
   final Color btnColor1;
 
-  /// btton color 2
+  /// button color 2
   /// not able to press
   final Color btnColor2;
+
+  /// spalsh radius effect
+  /// default = 16
+  final double? splashRadius;
+
+  /// border shape of button
+  /// - none
+  /// - circle
+  final BorderShapeBtn borderShape;
 
   const InputQty({
     Key? key,
     this.initVal = 0,
+    this.borderShape = BorderShapeBtn.circle,
+    this.splashRadius,
     this.textFieldDecoration,
     this.isIntrinsicWidth = true,
     required this.onQtyChanged,
@@ -97,6 +109,7 @@ class _InputQtyState extends State<InputQty> {
   /// current value of quantity
   /// late num value;
   late ValueNotifier<num> currentval;
+  late ValueNotifier<Color> limitColor;
 
   /// [InputDecoration] use for [TextFormField]
   /// use when [textFieldDecoration] not null
@@ -107,7 +120,8 @@ class _InputQtyState extends State<InputQty> {
   );
   @override
   void initState() {
-    currentval = ValueNotifier(widget.initVal);
+    // currentval = ValueNotifier(widget.initVal);
+    limitColor = ValueNotifier(widget.btnColor1);
     _valCtrl = TextEditingController(text: "${widget.initVal}");
     widget.onQtyChanged(num.tryParse(_valCtrl.text));
     super.initState();
@@ -121,12 +135,13 @@ class _InputQtyState extends State<InputQty> {
   /// after that [value] += [steps]
   void plus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
+
     if (value < widget.maxVal) {
       value += widget.steps;
-      currentval = ValueNotifier(value);
+      // currentval = ValueNotifier(value);
     } else {
       value = widget.maxVal;
-      currentval = ValueNotifier(value);
+      // currentval = ValueNotifier(value);
     }
 
     /// set back to the controller
@@ -145,12 +160,13 @@ class _InputQtyState extends State<InputQty> {
   /// after that [value] -= [steps]
   void minus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
+
     if (value > widget.minVal) {
       value -= widget.steps;
-      currentval = ValueNotifier(value);
+      // currentval = ValueNotifier(value);
     } else {
       value = widget.minVal;
-      currentval = ValueNotifier(value);
+      // currentval = ValueNotifier(value);
     }
 
     /// set back to the controller
@@ -183,7 +199,10 @@ class _InputQtyState extends State<InputQty> {
           mainAxisSize: MainAxisSize.min,
           children: [
             BuildBtn(
+              primaryColor: widget.btnColor1,
+              secondaryColor: widget.btnColor2,
               isPlus: false,
+              splashRadius: widget.splashRadius,
               onChanged: minus,
               child: widget.minusBtn,
             ),
@@ -195,8 +214,12 @@ class _InputQtyState extends State<InputQty> {
               width: 8,
             ),
             BuildBtn(
+              primaryColor: widget.btnColor1,
+              secondaryColor: widget.btnColor2,
               isPlus: true,
+              borderShape: widget.borderShape,
               onChanged: plus,
+              splashRadius: widget.splashRadius,
               child: widget.plusBtn,
             ),
           ],
@@ -250,15 +273,21 @@ class BuildBtn extends StatelessWidget {
   final Function() onChanged;
   final bool isPlus;
   final bool withBorder;
+  final Color primaryColor;
+  final Color secondaryColor;
+  final double? splashRadius;
 
   final BorderShapeBtn borderShape;
 
   const BuildBtn({
     super.key,
+    this.splashRadius,
     this.borderShape = BorderShapeBtn.circle,
     this.withBorder = true,
     required this.isPlus,
     required this.onChanged,
+    this.primaryColor = Colors.teal,
+    this.secondaryColor = Colors.grey,
     this.child,
   });
 
@@ -275,17 +304,12 @@ class BuildBtn extends StatelessWidget {
             : null,
       ),
       child: IconButton(
-        color: Colors.teal,
+        color: primaryColor,
         constraints: const BoxConstraints(),
         padding: EdgeInsets.zero,
         onPressed: onChanged,
-        splashRadius: 16,
-        icon: child ??
-            Icon(
-              isPlus ? Icons.add : Icons.remove,
-              size: 16,
-              color: Colors.blueGrey,
-            ),
+        splashRadius: splashRadius ?? 16,
+        icon: child ?? Icon(isPlus ? Icons.add : Icons.remove, size: 16),
       ),
     );
   }
