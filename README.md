@@ -31,6 +31,8 @@ import 'package:input_quantity/input_quantity.dart';
     initVal: 0,
     minVal: -100,
     isIntrinsicWidth: false,
+    borderShape: BorderShapeBtn.circle,
+    boxDecoration: const BoxDecoration(),
     steps: 10,
     onQtyChanged: (val) {
       print(val);
@@ -41,7 +43,6 @@ import 'package:input_quantity/input_quantity.dart';
 ## To Do
 
 - Develop Widgets of alternative `IntrinsicHeight` and `IntrinsicWidth` , for inexpensive widgets.
-- Extract `Icon` properties. So that be more customizable
 - Validator feature
 
 ## Additional information

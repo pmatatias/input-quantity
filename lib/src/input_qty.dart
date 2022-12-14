@@ -64,12 +64,12 @@ class InputQty extends StatefulWidget {
   /// default size is 16
   final Widget? minusBtn;
 
-  /// button color
-  /// availabe to press
+  /// button color primary
+  /// used when availabe to press
   final Color btnColor1;
 
-  /// button color 2
-  /// not able to press
+  /// button color secondary
+  /// used when not able to press
   final Color btnColor2;
 
   /// spalsh radius effect
@@ -77,11 +77,14 @@ class InputQty extends StatefulWidget {
   final double? splashRadius;
 
   /// border shape of button
-  /// - none
-  /// - circle
+  /// - none,
+  /// - circle,
+  /// - square
   final BorderShapeBtn borderShape;
 
   ///boxdecoration
+  ///use when you want to customize border
+  ///around widget
   final BoxDecoration? boxDecoration;
 
   const InputQty({
@@ -223,6 +226,7 @@ class _InputQtyState extends State<InputQty> {
                 builder: (context, value, child) {
                   bool limitTopState =
                       (value ?? widget.initVal) < widget.maxVal;
+                      print(limitTopState);
                   return BuildBtn(
                     btnColor:
                         limitTopState ? widget.btnColor1 : widget.btnColor2,
@@ -302,6 +306,7 @@ class BuildBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(btnColor);
     return Container(
       // padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
@@ -317,6 +322,7 @@ class BuildBtn extends StatelessWidget {
         constraints: const BoxConstraints(),
         padding: EdgeInsets.zero,
         onPressed: onChanged,
+        disabledColor: btnColor,
         splashRadius: splashRadius ?? 16,
         icon: child ?? Icon(isPlus ? Icons.add : Icons.remove, size: 16),
       ),

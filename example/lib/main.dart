@@ -63,10 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text('Easy and solid'),
               ),
               InputQty(
-                maxVal: 50,
+                maxVal: 5,
                 initVal: 0,
-                steps: 10,
-                minVal: -50,
+                steps: 1,
+                minVal: -5,
                 borderShape: BorderShapeBtn.circle,
                 boxDecoration: const BoxDecoration(),
                 minusBtn: const Icon(
@@ -106,9 +106,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text('Set Minimum,maximum and initial value.'),
               ),
               InputQty(
-                maxVal: 100,
+                maxVal: 50,
                 initVal: 0,
-                minVal: -100,
+                minVal: -50,
+                steps: 10,
+                borderShape: BorderShapeBtn.none,
+                plusBtn: const Icon(Icons.add_box),
+                minusBtn: const Icon(Icons.indeterminate_check_box),
+                btnColor1: Colors.teal,
+                btnColor2: Colors.red,
                 onQtyChanged: (val) {
                   if (kDebugMode) {
                     print(val);
