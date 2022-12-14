@@ -12,7 +12,9 @@ Flutter widget for quantity input. Increase or decrease the input value by press
 
 ## Features
 
-- Simple quantity input
+- Simple and easy to use
+- Customizeable
+- Button changed color automatically when reach max/min value and function disabled
 - Cursor automatically moves to the right for better user experience
 - Set maximum, minimum and initial value
 - Deveoped with changenotifier to avoid rebuilding the widget every time it changes its value

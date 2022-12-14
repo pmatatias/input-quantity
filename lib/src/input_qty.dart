@@ -226,7 +226,6 @@ class _InputQtyState extends State<InputQty> {
                 builder: (context, value, child) {
                   bool limitTopState =
                       (value ?? widget.initVal) < widget.maxVal;
-                      print(limitTopState);
                   return BuildBtn(
                     btnColor:
                         limitTopState ? widget.btnColor1 : widget.btnColor2,
@@ -306,7 +305,6 @@ class BuildBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(btnColor);
     return Container(
       // padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(

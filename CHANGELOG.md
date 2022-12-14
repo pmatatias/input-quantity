@@ -1,3 +1,7 @@
+## 1.1.0
+ - release patch 5
+ - update demo image gif
+
 ## 1.1.0-dev (patch-5)
 
 - valuenotifier for any changes value

@@ -103,11 +103,11 @@ class _MyHomePageState extends State<MyHomePage> {
               const Divider(),
               const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text('Set Minimum,maximum and initial value.'),
+                child: Text('Min,max and initial value. Change color'),
               ),
               InputQty(
                 maxVal: 50,
-                initVal: 0,
+                initVal: 12,
                 minVal: -50,
                 steps: 10,
                 borderShape: BorderShapeBtn.none,
