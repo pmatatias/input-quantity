@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 enum BorderShapeBtn {
   none,
   circle,
-  // square, // on development
+  square,
   //rhombus  // on development
 }
 
@@ -81,9 +81,13 @@ class InputQty extends StatefulWidget {
   /// - circle
   final BorderShapeBtn borderShape;
 
+  ///boxdecoration
+  final BoxDecoration? boxDecoration;
+
   const InputQty({
     Key? key,
     this.initVal = 0,
+    this.boxDecoration,
     this.borderShape = BorderShapeBtn.circle,
     this.splashRadius,
     this.textFieldDecoration,
@@ -119,7 +123,7 @@ class _InputQtyState extends State<InputQty> {
   );
   @override
   void initState() {
-    currentval.value = widget.initVal;
+    currentval = ValueNotifier(widget.initVal);
     _valCtrl = TextEditingController(text: "${widget.initVal}");
     widget.onQtyChanged(num.tryParse(_valCtrl.text));
     super.initState();
@@ -133,17 +137,15 @@ class _InputQtyState extends State<InputQty> {
   /// after that [value] += [steps]
   void plus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
+    value += widget.steps;
 
-    if (value < widget.maxVal) {
-      value += widget.steps;
-      currentval.value = value;
-    } else {
+    if (value >= widget.maxVal) {
       value = widget.maxVal;
-      currentval.value = value;
     }
 
     /// set back to the controller
     _valCtrl.text = "$value";
+    currentval.value = value;
 
     /// move cursor to the right side
     _valCtrl.selection =
@@ -158,17 +160,14 @@ class _InputQtyState extends State<InputQty> {
   /// after that [value] -= [steps]
   void minus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
-
-    if (value > widget.minVal) {
-      value -= widget.steps;
-      currentval.value = value;
-    } else {
+    value -= widget.steps;
+    if (value <= widget.minVal) {
       value = widget.minVal;
-      currentval.value = value;
     }
 
     /// set back to the controller
     _valCtrl.text = "$value";
+    currentval.value = value;
 
     /// move cursor to the right side
     _valCtrl.selection =
@@ -187,10 +186,11 @@ class _InputQtyState extends State<InputQty> {
   Widget _buildInputQty() => Container(
         padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
         alignment: Alignment.center,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey, width: 0.8),
-          borderRadius: BorderRadius.circular(5),
-        ),
+        decoration: widget.boxDecoration ??
+            BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 0.8),
+              borderRadius: BorderRadius.circular(5),
+            ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -309,7 +309,7 @@ class BuildBtn extends StatelessWidget {
             ? null
             : Border.all(color: btnColor),
         borderRadius: borderShape == BorderShapeBtn.circle
-            ? BorderRadius.circular(300)
+            ? BorderRadius.circular(9999)
             : null,
       ),
       child: IconButton(
