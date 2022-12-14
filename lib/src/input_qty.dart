@@ -109,7 +109,6 @@ class _InputQtyState extends State<InputQty> {
   /// current value of quantity
   /// late num value;
   late ValueNotifier<num?> currentval;
-  late ValueNotifier<bool> limitMaxVal;
 
   /// [InputDecoration] use for [TextFormField]
   /// use when [textFieldDecoration] not null
@@ -120,8 +119,7 @@ class _InputQtyState extends State<InputQty> {
   );
   @override
   void initState() {
-    currentval = ValueNotifier(widget.initVal);
-    // limitMaxVal = ValueNotifier(widget.initVal == widget.maxVal);
+    currentval.value = widget.initVal;
     _valCtrl = TextEditingController(text: "${widget.initVal}");
     widget.onQtyChanged(num.tryParse(_valCtrl.text));
     super.initState();
@@ -180,7 +178,6 @@ class _InputQtyState extends State<InputQty> {
 
   @override
   Widget build(BuildContext context) {
-    print('Rebuild all...');
     return widget.isIntrinsicWidth
         ? IntrinsicWidth(child: _buildInputQty())
         : _buildInputQty();

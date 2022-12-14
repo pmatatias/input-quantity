@@ -1,3 +1,7 @@
+## 1.1.0-dev.1
+ - valuenotifier for any changes value
+ - feat: autochange color when reach limit value top/bottom 
+
 ## 1.1.0-dev
  - change color button
  - border circle and border none of button
