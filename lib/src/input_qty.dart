@@ -108,8 +108,8 @@ class _InputQtyState extends State<InputQty> {
 
   /// current value of quantity
   /// late num value;
-  late ValueNotifier<num> currentval;
-  late ValueNotifier<Color> limitColor;
+  late ValueNotifier<num?> currentval;
+  late ValueNotifier<bool> limitMaxVal;
 
   /// [InputDecoration] use for [TextFormField]
   /// use when [textFieldDecoration] not null
@@ -120,8 +120,8 @@ class _InputQtyState extends State<InputQty> {
   );
   @override
   void initState() {
-    // currentval = ValueNotifier(widget.initVal);
-    limitColor = ValueNotifier(widget.btnColor1);
+    currentval = ValueNotifier(widget.initVal);
+    // limitMaxVal = ValueNotifier(widget.initVal == widget.maxVal);
     _valCtrl = TextEditingController(text: "${widget.initVal}");
     widget.onQtyChanged(num.tryParse(_valCtrl.text));
     super.initState();
@@ -138,10 +138,10 @@ class _InputQtyState extends State<InputQty> {
 
     if (value < widget.maxVal) {
       value += widget.steps;
-      // currentval = ValueNotifier(value);
+      currentval.value = value;
     } else {
       value = widget.maxVal;
-      // currentval = ValueNotifier(value);
+      currentval.value = value;
     }
 
     /// set back to the controller
@@ -163,10 +163,10 @@ class _InputQtyState extends State<InputQty> {
 
     if (value > widget.minVal) {
       value -= widget.steps;
-      // currentval = ValueNotifier(value);
+      currentval.value = value;
     } else {
       value = widget.minVal;
-      // currentval = ValueNotifier(value);
+      currentval.value = value;
     }
 
     /// set back to the controller
@@ -180,6 +180,7 @@ class _InputQtyState extends State<InputQty> {
 
   @override
   Widget build(BuildContext context) {
+    print('Rebuild all...');
     return widget.isIntrinsicWidth
         ? IntrinsicWidth(child: _buildInputQty())
         : _buildInputQty();
@@ -198,14 +199,21 @@ class _InputQtyState extends State<InputQty> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BuildBtn(
-              btnColor: widget.btnColor1,
-              isPlus: false,
-              borderShape: widget.borderShape,
-              splashRadius: widget.splashRadius,
-              onChanged: minus,
-              child: widget.minusBtn,
-            ),
+            ValueListenableBuilder<num?>(
+                valueListenable: currentval,
+                builder: (context, value, child) {
+                  bool limitBtmState =
+                      (value ?? widget.initVal) > widget.minVal;
+                  return BuildBtn(
+                    btnColor:
+                        limitBtmState ? widget.btnColor1 : widget.btnColor2,
+                    isPlus: false,
+                    borderShape: widget.borderShape,
+                    splashRadius: widget.splashRadius,
+                    onChanged: limitBtmState ? minus : null,
+                    child: widget.minusBtn,
+                  );
+                }),
             const SizedBox(
               width: 8,
             ),
@@ -213,14 +221,21 @@ class _InputQtyState extends State<InputQty> {
             const SizedBox(
               width: 8,
             ),
-            BuildBtn(
-              btnColor: widget.btnColor1,
-              isPlus: true,
-              borderShape: widget.borderShape,
-              onChanged: plus,
-              splashRadius: widget.splashRadius,
-              child: widget.plusBtn,
-            ),
+            ValueListenableBuilder<num?>(
+                valueListenable: currentval,
+                builder: (context, value, child) {
+                  bool limitTopState =
+                      (value ?? widget.initVal) < widget.maxVal;
+                  return BuildBtn(
+                    btnColor:
+                        limitTopState ? widget.btnColor1 : widget.btnColor2,
+                    isPlus: true,
+                    borderShape: widget.borderShape,
+                    onChanged: limitTopState ? plus : null,
+                    splashRadius: widget.splashRadius,
+                    child: widget.plusBtn,
+                  );
+                }),
           ],
         ),
       );
@@ -250,7 +265,9 @@ class _InputQtyState extends State<InputQty> {
               _valCtrl.selection = TextSelection.fromPosition(
                   TextPosition(offset: _valCtrl.text.length));
             }
-            widget.onQtyChanged(num.tryParse(_valCtrl.text));
+            num? newVal = num.tryParse(_valCtrl.text);
+            widget.onQtyChanged(newVal);
+            currentval.value = newVal;
           },
           keyboardType: TextInputType.number,
           inputFormatters: [
@@ -269,7 +286,7 @@ class _InputQtyState extends State<InputQty> {
 
 class BuildBtn extends StatelessWidget {
   final Widget? child;
-  final Function() onChanged;
+  final Function()? onChanged;
   final bool isPlus;
   final Color btnColor;
   final double? splashRadius;
@@ -281,7 +298,7 @@ class BuildBtn extends StatelessWidget {
     this.splashRadius,
     this.borderShape = BorderShapeBtn.circle,
     required this.isPlus,
-    required this.onChanged,
+    this.onChanged,
     this.btnColor = Colors.teal,
     this.child,
   });
