@@ -12,7 +12,9 @@ Flutter widget for quantity input. Increase or decrease the input value by press
 
 ## Features
 
-- Simple quantity input
+- Simple and easy to use
+- Customizeable
+- Button changed color automatically when reach max/min value and function disabled
 - Cursor automatically moves to the right for better user experience
 - Set maximum, minimum and initial value
 - Deveoped with changenotifier to avoid rebuilding the widget every time it changes its value
@@ -31,6 +33,8 @@ import 'package:input_quantity/input_quantity.dart';
     initVal: 0,
     minVal: -100,
     isIntrinsicWidth: false,
+    borderShape: BorderShapeBtn.circle,
+    boxDecoration: const BoxDecoration(),
     steps: 10,
     onQtyChanged: (val) {
       print(val);
@@ -41,7 +45,6 @@ import 'package:input_quantity/input_quantity.dart';
 ## To Do
 
 - Develop Widgets of alternative `IntrinsicHeight` and `IntrinsicWidth` , for inexpensive widgets.
-- Extract `Icon` properties. So that be more customizable
 - Validator feature
 
 ## Additional information

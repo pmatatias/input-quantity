@@ -1,3 +1,17 @@
+## 1.1.0
+ - release patch 5
+ - update demo image gif
+
+## 1.1.0-dev (patch-5)
+
+- valuenotifier for any changes value
+- feat: autochange color when reach limit value top/bottom
+- change color button
+- border circle and border none of button
+- custom widget or icon button
+- fix: logic max and min value on steps
+- add boxdecoration for reset border
+
 ## 1.0.1
 
 - update image preview
