@@ -199,14 +199,21 @@ class _InputQtyState extends State<InputQty> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            BuildBtn(
-              btnColor: widget.btnColor1,
-              isPlus: false,
-              borderShape: widget.borderShape,
-              splashRadius: widget.splashRadius,
-              onChanged: minus,
-              child: widget.minusBtn,
-            ),
+            ValueListenableBuilder<num?>(
+                valueListenable: currentval,
+                builder: (context, value, child) {
+                  bool limitBtmState =
+                      (value ?? widget.initVal) > widget.minVal;
+                  return BuildBtn(
+                    btnColor:
+                        limitBtmState ? widget.btnColor1 : widget.btnColor2,
+                    isPlus: false,
+                    borderShape: widget.borderShape,
+                    splashRadius: widget.splashRadius,
+                    onChanged: limitBtmState ? minus : null,
+                    child: widget.minusBtn,
+                  );
+                }),
             const SizedBox(
               width: 8,
             ),
@@ -217,12 +224,14 @@ class _InputQtyState extends State<InputQty> {
             ValueListenableBuilder<num?>(
                 valueListenable: currentval,
                 builder: (context, value, child) {
-                  bool limitState = (value ?? widget.initVal) < widget.maxVal;
+                  bool limitTopState =
+                      (value ?? widget.initVal) < widget.maxVal;
                   return BuildBtn(
-                    btnColor: limitState ? widget.btnColor1 : widget.btnColor2,
+                    btnColor:
+                        limitTopState ? widget.btnColor1 : widget.btnColor2,
                     isPlus: true,
                     borderShape: widget.borderShape,
-                    onChanged: limitState ? plus : null,
+                    onChanged: limitTopState ? plus : null,
                     splashRadius: widget.splashRadius,
                     child: widget.plusBtn,
                   );
