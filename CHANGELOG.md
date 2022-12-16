@@ -1,3 +1,6 @@
+## 1.1.1
+ - doc: update image demo size
+
 ## 1.1.0
  - release patch 5
  - update demo image gif
