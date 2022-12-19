@@ -1,3 +1,6 @@
+# 1.1.2 
+ - doc: add width and heght to demo image
+
 ## 1.1.1
  - doc: update image demo size
 
