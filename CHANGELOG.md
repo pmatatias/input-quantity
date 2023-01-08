@@ -1,12 +1,20 @@
-# 1.1.2 
- - doc: add width and heght to demo image
+## 1.1.3
+
+- feat: add message limit at the bottom of widget
+- doc: fix change log 1.1.2
+
+## 1.1.2
+
+- doc: add width and heght to demo image
 
 ## 1.1.1
- - doc: update image demo size
+
+- doc: update image demo size
 
 ## 1.1.0
- - release patch 5
- - update demo image gif
+
+- release patch 5
+- update demo image gif
 
 ## 1.1.0-dev (patch-5)
 

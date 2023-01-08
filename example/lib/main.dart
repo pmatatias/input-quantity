@@ -93,6 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 maxVal: 100,
                 initVal: 0.0,
                 steps: 10,
+                showMessageLimit: false,
                 minVal: -100,
                 onQtyChanged: (val) {
                   if (kDebugMode) {

@@ -87,9 +87,14 @@ class InputQty extends StatefulWidget {
   ///around widget
   final BoxDecoration? boxDecoration;
 
+  /// show message when the value reach the maximum or
+  /// minimum value
+  final bool showMessageLimit;
+
   const InputQty({
     Key? key,
-    this.initVal = 0,
+    this.initVal = 1,
+    this.showMessageLimit = true,
     this.boxDecoration,
     this.borderShape = BorderShapeBtn.circle,
     this.splashRadius,
@@ -186,58 +191,66 @@ class _InputQtyState extends State<InputQty> {
   }
 
   /// build widget input quantity
-  Widget _buildInputQty() => Container(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-        alignment: Alignment.center,
-        decoration: widget.boxDecoration ??
-            BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 0.8),
-              borderRadius: BorderRadius.circular(5),
+  Widget _buildInputQty() => Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+            alignment: Alignment.center,
+            decoration: widget.boxDecoration ??
+                BoxDecoration(
+                  border: Border.all(color: Colors.grey, width: 0.8),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ValueListenableBuilder<num?>(
+                    valueListenable: currentval,
+                    builder: (context, value, child) {
+                      bool limitBtmState =
+                          (value ?? widget.initVal) > widget.minVal;
+                      return BuildBtn(
+                        btnColor:
+                            limitBtmState ? widget.btnColor1 : widget.btnColor2,
+                        isPlus: false,
+                        borderShape: widget.borderShape,
+                        splashRadius: widget.splashRadius,
+                        onChanged: limitBtmState ? minus : null,
+                        child: widget.minusBtn,
+                      );
+                    }),
+                const SizedBox(
+                  width: 8,
+                ),
+                Expanded(child: _buildtextfield()),
+                const SizedBox(
+                  width: 8,
+                ),
+                ValueListenableBuilder<num?>(
+                    valueListenable: currentval,
+                    builder: (context, value, child) {
+                      bool limitTopState =
+                          (value ?? widget.initVal) < widget.maxVal;
+
+                      return BuildBtn(
+                        btnColor:
+                            limitTopState ? widget.btnColor1 : widget.btnColor2,
+                        isPlus: true,
+                        borderShape: widget.borderShape,
+                        onChanged: limitTopState ? plus : null,
+                        splashRadius: widget.splashRadius,
+                        child: widget.plusBtn,
+                      );
+                    }),
+              ],
             ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ValueListenableBuilder<num?>(
-                valueListenable: currentval,
-                builder: (context, value, child) {
-                  bool limitBtmState =
-                      (value ?? widget.initVal) > widget.minVal;
-                  return BuildBtn(
-                    btnColor:
-                        limitBtmState ? widget.btnColor1 : widget.btnColor2,
-                    isPlus: false,
-                    borderShape: widget.borderShape,
-                    splashRadius: widget.splashRadius,
-                    onChanged: limitBtmState ? minus : null,
-                    child: widget.minusBtn,
-                  );
-                }),
-            const SizedBox(
-              width: 8,
-            ),
-            Expanded(child: _buildtextfield()),
-            const SizedBox(
-              width: 8,
-            ),
-            ValueListenableBuilder<num?>(
-                valueListenable: currentval,
-                builder: (context, value, child) {
-                  bool limitTopState =
-                      (value ?? widget.initVal) < widget.maxVal;
-                  return BuildBtn(
-                    btnColor:
-                        limitTopState ? widget.btnColor1 : widget.btnColor2,
-                    isPlus: true,
-                    borderShape: widget.borderShape,
-                    onChanged: limitTopState ? plus : null,
-                    splashRadius: widget.splashRadius,
-                    child: widget.plusBtn,
-                  );
-                }),
-          ],
-        ),
+          ),
+          if (widget.showMessageLimit) _buildMsgLimit()
+        ],
       );
 
   /// widget textformfield
@@ -276,6 +289,33 @@ class _InputQtyState extends State<InputQty> {
           ],
         ),
       );
+
+  Widget _buildMsgLimit() => ValueListenableBuilder<num?>(
+      valueListenable: currentval,
+      builder: (context, val, __) {
+        if (val == null) return const SizedBox();
+        final value = val;
+
+        if (value <= widget.minVal) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              'Min Val: ${widget.minVal}',
+              style: const TextStyle(color: Colors.red),
+            ),
+          );
+        } else if (value >= widget.maxVal) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              "Max Val: ${widget.maxVal}",
+              style: const TextStyle(color: Colors.red),
+            ),
+          );
+        } else {
+          return const SizedBox();
+        }
+      });
 
   @override
   void dispose() {
