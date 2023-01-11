@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -127,6 +128,7 @@ class _InputQtyState extends State<InputQty> {
   final _inputDecoration = const InputDecoration(
     border: UnderlineInputBorder(),
     isDense: true,
+    contentPadding: kIsWeb ? EdgeInsets.only(bottom: 4) : null,
     isCollapsed: true,
   );
   @override
@@ -255,7 +257,7 @@ class _InputQtyState extends State<InputQty> {
 
   /// widget textformfield
   Widget _buildtextfield() => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: TextFormField(
           textAlign: TextAlign.center,
           decoration: widget.textFieldDecoration ?? _inputDecoration,

@@ -1,3 +1,7 @@
+## 1.1.4
+
+ - Fix : padding bottom on web version. 
+
 ## 1.1.3
 
 - feat: add message limit at the bottom of widget
