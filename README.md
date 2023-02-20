@@ -1,6 +1,9 @@
 # Input Quantity
 
 [![pub package](https://img.shields.io/pub/v/input_quantity.svg)](https://pub.dev/packages/input_quantity)
+[![likes](https://img.shields.io/pub/likes/input_quantity?logo=dart)](https://pub.dev/packages/input_quantity/score) 
+[![popularity](https://img.shields.io/pub/popularity/input_quantity?logo=dart)](https://pub.dev/packages/input_quantity/score) 
+[![pub points](https://img.shields.io/pub/points/input_quantity?logo=dart)](https://pub.dev/packages/input_quantity/score)
 [![package publisher](https://img.shields.io/pub/publisher/logo_n_spinner.svg)](https://pub.dev/publishers/pmatatias.dev/packages)
 <a href="https://github.com/pmatatias/input-quantity"><img src="https://img.shields.io/github/stars/pmatatias/input-quantity.svg?style=flat&logo=github&colorB=deepgreen&label=stars" alt="Star on Github"></a>
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-red.svg" alt="License: MIT"></a>
