@@ -1,6 +1,10 @@
+## 1.1.5
+
+- doc: update readme
+
 ## 1.1.4
 
- - Fix : padding bottom on web version. 
+- Fix : padding bottom on web version.
 
 ## 1.1.3
 
