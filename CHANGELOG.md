@@ -1,3 +1,9 @@
+## 1.1.6
+
+- upgrade sdk `>=2.17.3 <4.0.0`
+- test: Run with dart 3.0 and flutter 3.10
+- Add screenshoot info on `pubspec.ymal` file
+
 ## 1.1.5
 
 - doc: update readme
