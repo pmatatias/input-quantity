@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'build_btn.dart';
+
 enum BorderShapeBtn {
   none,
   circle,
@@ -88,6 +90,7 @@ class InputQty extends StatefulWidget {
   ///around widget
   final BoxDecoration? boxDecoration;
 
+  
   /// show message when the value reach the maximum or
   /// minimum value
   final bool showMessageLimit;
@@ -97,7 +100,7 @@ class InputQty extends StatefulWidget {
     this.initVal = 1,
     this.showMessageLimit = true,
     this.boxDecoration,
-    this.borderShape = BorderShapeBtn.circle,
+    this.borderShape = BorderShapeBtn.none,
     this.splashRadius,
     this.textFieldDecoration,
     this.isIntrinsicWidth = true,
@@ -225,13 +228,9 @@ class _InputQtyState extends State<InputQty> {
                         child: widget.minusBtn,
                       );
                     }),
-                const SizedBox(
-                  width: 8,
-                ),
+                const SizedBox(width: 8),
                 Expanded(child: _buildtextfield()),
-                const SizedBox(
-                  width: 8,
-                ),
+                const SizedBox(width: 8),
                 ValueListenableBuilder<num?>(
                     valueListenable: currentval,
                     builder: (context, value, child) {
@@ -297,7 +296,6 @@ class _InputQtyState extends State<InputQty> {
       builder: (context, val, __) {
         if (val == null) return const SizedBox();
         final value = val;
-
         if (value <= widget.minVal) {
           return Padding(
             padding: const EdgeInsets.only(top: 4),
@@ -323,49 +321,5 @@ class _InputQtyState extends State<InputQty> {
   void dispose() {
     super.dispose();
     _valCtrl.dispose();
-  }
-}
-
-class BuildBtn extends StatelessWidget {
-  final Widget? child;
-  final Function()? onChanged;
-  final bool isPlus;
-  final Color btnColor;
-  final double? splashRadius;
-
-  final BorderShapeBtn borderShape;
-
-  const BuildBtn({
-    super.key,
-    this.splashRadius,
-    this.borderShape = BorderShapeBtn.circle,
-    required this.isPlus,
-    this.onChanged,
-    this.btnColor = Colors.teal,
-    this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // padding: const EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        border: borderShape == BorderShapeBtn.none
-            ? null
-            : Border.all(color: btnColor),
-        borderRadius: borderShape == BorderShapeBtn.circle
-            ? BorderRadius.circular(9999)
-            : null,
-      ),
-      child: IconButton(
-        color: btnColor,
-        constraints: const BoxConstraints(),
-        padding: EdgeInsets.zero,
-        onPressed: onChanged,
-        disabledColor: btnColor,
-        splashRadius: splashRadius ?? 16,
-        icon: child ?? Icon(isPlus ? Icons.add : Icons.remove, size: 16),
-      ),
-    );
   }
 }

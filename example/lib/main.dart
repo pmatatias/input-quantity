@@ -58,6 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const Divider(),
+              InputQty(onQtyChanged: (val){}),
+              const Divider(),
+              
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text('Easy and solid'),
@@ -69,10 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 minVal: -5,
                 borderShape: BorderShapeBtn.circle,
                 boxDecoration: const BoxDecoration(),
-                minusBtn: const Icon(
-                  Icons.accessibility_new_outlined,
-                  size: 18,
-                ),
+                minusBtn:
+                    const Icon(Icons.accessibility_new_outlined, size: 18),
                 plusBtn: const Icon(
                   Icons.accessible_forward,
                   size: 18,
