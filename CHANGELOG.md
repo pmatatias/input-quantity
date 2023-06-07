@@ -1,3 +1,11 @@
+## 1.2.0
+
+#### Jun 7, 2023 https://github.com/pmatatias/input-quantity/pull/22
+
+- refactor: separeted Buildbtn widget
+- initial border = none
+- Use BoxShape insted of border radius on decoration
+
 ## 1.1.6
 
 - upgrade sdk `>=2.17.3 <4.0.0`
