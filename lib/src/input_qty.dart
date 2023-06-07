@@ -286,7 +286,7 @@ class _InputQtyState extends State<InputQty> {
           inputFormatters: [
             // LengthLimitingTextInputFormatter(10),
             FilteringTextInputFormatter.allow(
-                RegExp(r'^-?[1-9]\d*(\.\d+)?([0]*)?$')),
+                RegExp(r'^\d*\.?\-?\d*')),
           ],
         ),
       );
