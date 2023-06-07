@@ -1,9 +1,13 @@
+## 1.2.1
+
+- doc: fix typo changelog
+
 ## 1.2.0
 
- Jun 7, 2023  [#22](https://github.com/pmatatias/input-quantity/pull/22)
+Jun 7, 2023 [#22](https://github.com/pmatatias/input-quantity/pull/22)
 
 - refactor: separeted `BuildBtn` widget
-- initial `border = none`
+- initial `borderShape = BorderShapeBtn.none`
 - Use `BoxShape` insted of border radius on decoration
 
 ## 1.1.6

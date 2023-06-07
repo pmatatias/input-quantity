@@ -14,7 +14,7 @@ class BuildBtn extends StatelessWidget {
   const BuildBtn({
     super.key,
     this.splashRadius,
-    this.borderShape = BorderShapeBtn.circle,
+    this.borderShape = BorderShapeBtn.none,
     required this.isPlus,
     this.onChanged,
     this.btnColor = Colors.teal,
