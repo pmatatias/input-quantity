@@ -58,9 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const Divider(),
-              InputQty(onQtyChanged: (val){}),
+              InputQty(onQtyChanged: (val) {}),
               const Divider(),
-              
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text('Easy and solid'),

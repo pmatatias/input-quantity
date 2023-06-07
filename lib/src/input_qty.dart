@@ -90,7 +90,6 @@ class InputQty extends StatefulWidget {
   ///around widget
   final BoxDecoration? boxDecoration;
 
-  
   /// show message when the value reach the maximum or
   /// minimum value
   final bool showMessageLimit;
@@ -286,7 +285,8 @@ class _InputQtyState extends State<InputQty> {
           keyboardType: TextInputType.number,
           inputFormatters: [
             // LengthLimitingTextInputFormatter(10),
-            FilteringTextInputFormatter.allow(RegExp(r"^\d*\.?\-?\d*")),
+            FilteringTextInputFormatter.allow(
+                RegExp(r'^-?[1-9]\d*(\.\d+)?([0]*)?$')),
           ],
         ),
       );

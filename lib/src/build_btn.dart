@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 
 import '../input_quantity.dart';
@@ -29,12 +26,15 @@ class BuildBtn extends StatelessWidget {
     return Container(
       // padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
+        shape: borderShape == BorderShapeBtn.circle
+            ? BoxShape.circle
+            : BoxShape.rectangle,
         border: borderShape == BorderShapeBtn.none
             ? null
             : Border.all(color: btnColor),
-        borderRadius: borderShape == BorderShapeBtn.circle
-            ? BorderRadius.circular(9999)
-            : null,
+        // borderRadius: borderShape == BorderShapeBtn.circle
+        //     ? BorderRadius.circular(9999)
+        //     : null,
       ),
       child: IconButton(
         color: btnColor,
