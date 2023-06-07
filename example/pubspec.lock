@@ -78,7 +78,7 @@ packages:
   input_quantity:
     dependency: "direct main"
     description:
-      path: "/Users/gspe/developments/input-quantity"
+      path: "C:\\Users\\user\\Documents\\VScode\\flutter-project\\input_quantity"
       relative: false
     source: path
     version: "1.1.6"
