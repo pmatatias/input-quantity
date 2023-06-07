@@ -78,10 +78,10 @@ packages:
   input_quantity:
     dependency: "direct main"
     description:
-      path: "C:\\Users\\user\\Documents\\VScode\\flutter-project\\input_quantity"
-      relative: false
+      path: ".."
+      relative: true
     source: path
-    version: "1.1.6"
+    version: "1.2.0"
   js:
     dependency: transitive
     description:
