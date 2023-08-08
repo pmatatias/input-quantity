@@ -1,6 +1,13 @@
+## 1.2.3
+
+Aug 8, 2023 [#25](https://github.com/pmatatias/input-quantity/pull/26)
+
+- remove initial value change on initstate
+- add `onTapOutside` property to dismiss soft keyboard
+
 ## 1.2.2
 
-Jun 7, 2023 [#25](https://github.com/pmatatias/input-quantity/pull/25)
+Aug 8, 2023 [#25](https://github.com/pmatatias/input-quantity/pull/25)
 
 - fix `super.initState()` and `super.dispose()`
 
