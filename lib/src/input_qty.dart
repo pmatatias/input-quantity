@@ -1,15 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:input_quantity/src/constant.dart';
 
 import 'build_btn.dart';
-
-enum BorderShapeBtn {
-  none,
-  circle,
-  square,
-  //rhombus  // on development
-}
 
 class InputQty extends StatefulWidget {
   /// maximum value input
