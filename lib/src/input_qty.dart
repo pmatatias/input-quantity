@@ -138,7 +138,6 @@ class _InputQtyState extends State<InputQty> {
     super.initState();
     currentval = ValueNotifier(widget.initVal);
     _valCtrl = TextEditingController(text: "${widget.initVal}");
-    widget.onQtyChanged(num.tryParse(_valCtrl.text));
   }
 
   /// Increase current value
@@ -259,10 +258,9 @@ class _InputQtyState extends State<InputQty> {
         child: TextFormField(
           textAlign: TextAlign.center,
           decoration: widget.textFieldDecoration ?? _inputDecoration,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          onTapOutside: (event) =>
+              FocusManager.instance.primaryFocus?.unfocus(),
           controller: _valCtrl,
           onChanged: (String strVal) {
             num? temp = num.tryParse(_valCtrl.text);
