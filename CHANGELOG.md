@@ -1,3 +1,9 @@
+## 1.2.2
+
+Jun 7, 2023 [#25](https://github.com/pmatatias/input-quantity/pull/25)
+
+- fix `super.initState()` and `super.dispose()`
+
 ## 1.2.1
 
 - doc: fix typo changelog

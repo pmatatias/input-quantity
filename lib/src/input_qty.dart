@@ -135,10 +135,10 @@ class _InputQtyState extends State<InputQty> {
   );
   @override
   void initState() {
+    super.initState();
     currentval = ValueNotifier(widget.initVal);
     _valCtrl = TextEditingController(text: "${widget.initVal}");
     widget.onQtyChanged(num.tryParse(_valCtrl.text));
-    super.initState();
   }
 
   /// Increase current value
@@ -318,7 +318,7 @@ class _InputQtyState extends State<InputQty> {
 
   @override
   void dispose() {
-    super.dispose();
     _valCtrl.dispose();
+    super.dispose();
   }
 }
