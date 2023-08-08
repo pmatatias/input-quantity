@@ -13,8 +13,8 @@ dependencies:
     sdk: flutter
 
   input_quantity:
-    path: ../../input_quantity
-    # path: ../../input-quantity
+    # path: ../../input_quantity
+    path: ../../input-quantity
 
   cupertino_icons: ^1.0.2
 
