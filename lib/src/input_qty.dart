@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:input_quantity/src/constant.dart';
 
@@ -188,62 +191,15 @@ class _InputQtyState extends State<InputQty> {
   }
 
   /// build widget input quantity
-  Widget _buildInputQty() => Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-            alignment: Alignment.center,
-            decoration: widget.boxDecoration ??
-                BoxDecoration(
-                  border: Border.all(color: Colors.grey, width: 0.8),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ValueListenableBuilder<num?>(
-                    valueListenable: currentval,
-                    builder: (context, value, child) {
-                      bool limitBtmState =
-                          (value ?? widget.initVal) > widget.minVal;
-                      return BuildBtn(
-                        btnColor:
-                            limitBtmState ? widget.btnColor1 : widget.btnColor2,
-                        isPlus: false,
-                        borderShape: widget.borderShape,
-                        splashRadius: widget.splashRadius,
-                        onChanged: limitBtmState ? minus : null,
-                        child: widget.minusBtn,
-                      );
-                    }),
-                const SizedBox(width: 8),
-                Expanded(child: _buildtextfield()),
-                const SizedBox(width: 8),
-                ValueListenableBuilder<num?>(
-                    valueListenable: currentval,
-                    builder: (context, value, child) {
-                      bool limitTopState =
-                          (value ?? widget.initVal) < widget.maxVal;
-
-                      return BuildBtn(
-                        btnColor:
-                            limitTopState ? widget.btnColor1 : widget.btnColor2,
-                        isPlus: true,
-                        borderShape: widget.borderShape,
-                        onChanged: limitTopState ? plus : null,
-                        splashRadius: widget.splashRadius,
-                        child: widget.plusBtn,
-                      );
-                    }),
-              ],
+  Widget _buildInputQty() => Container(
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+        alignment: Alignment.center,
+        decoration: widget.boxDecoration ??
+            BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 0.8),
+              borderRadius: BorderRadius.circular(5),
             ),
-          ),
-          if (widget.showMessageLimit) _buildMsgLimit()
-        ],
+        child: _buildtextfield(),
       );
 
   /// widget textformfield
@@ -251,7 +207,56 @@ class _InputQtyState extends State<InputQty> {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: TextFormField(
           textAlign: TextAlign.center,
-          decoration: widget.textFieldDecoration ?? _inputDecoration,
+          // decoration: widget.textFieldDecoration ?? _inputDecoration,
+          decoration: InputDecoration(
+            border: const OutlineInputBorder(
+              gapPadding: 52,
+              // borderSide: BorderSide(width: 2),
+            ),
+            // border: InputBorder.none,
+            isDense: true,
+            // contentPadding: kIsWeb ? const EdgeInsets.only(bottom: 4) : null,
+            // isCollapsed: true,
+            prefixIcon: Padding(
+              padding: const EdgeInsets.only(right: 0.0),
+              child: ValueListenableBuilder<num?>(
+                  valueListenable: currentval,
+                  builder: (context, value, child) {
+                    bool limitBtmState =
+                        (value ?? widget.initVal) > widget.minVal;
+                    return BuildBtn(
+                      btnColor:
+                          limitBtmState ? widget.btnColor1 : widget.btnColor2,
+                      isPlus: false,
+                      borderShape: widget.borderShape,
+                      splashRadius: widget.splashRadius,
+                      onChanged: limitBtmState ? minus : null,
+                      child: widget.minusBtn,
+                    );
+                  }),
+            ),
+            prefixIconConstraints: const BoxConstraints(),
+            suffixIconConstraints: const BoxConstraints(),
+            suffixIcon: Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: ValueListenableBuilder<num?>(
+                  valueListenable: currentval,
+                  builder: (context, value, child) {
+                    bool limitTopState =
+                        (value ?? widget.initVal) < widget.maxVal;
+
+                    return BuildBtn(
+                      btnColor:
+                          limitTopState ? widget.btnColor1 : widget.btnColor2,
+                      isPlus: true,
+                      borderShape: widget.borderShape,
+                      onChanged: limitTopState ? plus : null,
+                      splashRadius: widget.splashRadius,
+                      child: widget.plusBtn,
+                    );
+                  }),
+            ),
+          ),
           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
           onTapOutside: (event) =>
               FocusManager.instance.primaryFocus?.unfocus(),
@@ -282,31 +287,31 @@ class _InputQtyState extends State<InputQty> {
         ),
       );
 
-  Widget _buildMsgLimit() => ValueListenableBuilder<num?>(
-      valueListenable: currentval,
-      builder: (context, val, __) {
-        if (val == null) return const SizedBox();
-        final value = val;
-        if (value <= widget.minVal) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Text(
-              'Min Val: ${widget.minVal}',
-              style: const TextStyle(color: Colors.red),
-            ),
-          );
-        } else if (value >= widget.maxVal) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Text(
-              "Max Val: ${widget.maxVal}",
-              style: const TextStyle(color: Colors.red),
-            ),
-          );
-        } else {
-          return const SizedBox();
-        }
-      });
+  // Widget _buildMsgLimit() => ValueListenableBuilder<num?>(
+  //     valueListenable: currentval,
+  //     builder: (context, val, __) {
+  //       if (val == null) return const SizedBox();
+  //       final value = val;
+  //       if (value <= widget.minVal) {
+  //         return Padding(
+  //           padding: const EdgeInsets.only(top: 4),
+  //           child: Text(
+  //             'Min Val: ${widget.minVal}',
+  //             style: const TextStyle(color: Colors.red),
+  //           ),
+  //         );
+  //       } else if (value >= widget.maxVal) {
+  //         return Padding(
+  //           padding: const EdgeInsets.only(top: 4),
+  //           child: Text(
+  //             "Max Val: ${widget.maxVal}",
+  //             style: const TextStyle(color: Colors.red),
+  //           ),
+  //         );
+  //       } else {
+  //         return const SizedBox();
+  //       }
+  //     });
 
   @override
   void dispose() {

@@ -32,10 +32,7 @@ class BuildBtn extends StatelessWidget {
             : BoxShape.rectangle,
         border: borderShape == BorderShapeBtn.none
             ? null
-            : Border.all(color: btnColor),
-        // borderRadius: borderShape == BorderShapeBtn.circle
-        //     ? BorderRadius.circular(9999)
-        //     : null,
+            : Border.all(color: btnColor, width: 2),
       ),
       child: IconButton(
         color: btnColor,

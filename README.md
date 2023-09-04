@@ -52,6 +52,7 @@ import 'package:input_quantity/input_quantity.dart';
 
 - Develop Widgets of alternative `IntrinsicHeight` and `IntrinsicWidth` , for inexpensive widgets.
 - Validator feature
+- Longpress to change value cuntinuesly
 
 ## Additional information
 
