@@ -126,7 +126,7 @@ class _InputQtyState extends State<InputQty> {
   /// use when [textFieldDecoration] not null
   final _inputDecoration = const InputDecoration(
     border: UnderlineInputBorder(),
-    isDense: true,
+    // isDense: true,
     contentPadding: kIsWeb ? EdgeInsets.only(bottom: 4) : null,
     isCollapsed: true,
   );
@@ -192,99 +192,97 @@ class _InputQtyState extends State<InputQty> {
 
   /// build widget input quantity
   Widget _buildInputQty() => Container(
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+        // padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
         alignment: Alignment.center,
-        decoration: widget.boxDecoration ??
-            BoxDecoration(
-              border: Border.all(color: Colors.grey, width: 0.8),
-              borderRadius: BorderRadius.circular(5),
-            ),
+        // decoration: widget.boxDecoration ??
+        //     BoxDecoration(
+        //       border: Border.all(color: Colors.grey, width: 0.8),
+        //       borderRadius: BorderRadius.circular(5),
+        //     ),
         child: _buildtextfield(),
       );
 
   /// widget textformfield
-  Widget _buildtextfield() => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: TextFormField(
-          textAlign: TextAlign.center,
-          // decoration: widget.textFieldDecoration ?? _inputDecoration,
-          decoration: InputDecoration(
-            border: const OutlineInputBorder(
-              gapPadding: 52,
-              // borderSide: BorderSide(width: 2),
-            ),
-            // border: InputBorder.none,
-            isDense: true,
-            // contentPadding: kIsWeb ? const EdgeInsets.only(bottom: 4) : null,
-            // isCollapsed: true,
-            prefixIcon: Padding(
-              padding: const EdgeInsets.only(right: 0.0),
-              child: ValueListenableBuilder<num?>(
-                  valueListenable: currentval,
-                  builder: (context, value, child) {
-                    bool limitBtmState =
-                        (value ?? widget.initVal) > widget.minVal;
-                    return BuildBtn(
-                      btnColor:
-                          limitBtmState ? widget.btnColor1 : widget.btnColor2,
-                      isPlus: false,
-                      borderShape: widget.borderShape,
-                      splashRadius: widget.splashRadius,
-                      onChanged: limitBtmState ? minus : null,
-                      child: widget.minusBtn,
-                    );
-                  }),
-            ),
-            prefixIconConstraints: const BoxConstraints(),
-            suffixIconConstraints: const BoxConstraints(),
-            suffixIcon: Padding(
-              padding: const EdgeInsets.only(left: 12.0),
-              child: ValueListenableBuilder<num?>(
-                  valueListenable: currentval,
-                  builder: (context, value, child) {
-                    bool limitTopState =
-                        (value ?? widget.initVal) < widget.maxVal;
+  Widget _buildtextfield() => TextFormField(
+        textAlign: TextAlign.center,
+        textAlignVertical: TextAlignVertical.center,
+        // decoration: widget.textFieldDecoration ?? _inputDecoration,
 
-                    return BuildBtn(
-                      btnColor:
-                          limitTopState ? widget.btnColor1 : widget.btnColor2,
-                      isPlus: true,
-                      borderShape: widget.borderShape,
-                      onChanged: limitTopState ? plus : null,
-                      splashRadius: widget.splashRadius,
-                      child: widget.plusBtn,
-                    );
-                  }),
-            ),
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(
+
+              // borderSide: BorderSide(width: 2),
+              ),
+          // border: InputBorder.none,
+          // isDense: true,
+          // contentPadding: kIsWeb ? const EdgeInsets.only(bottom: 4) : null,
+          isCollapsed: true,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.fromLTRB(4, 4, 8, 4),
+            child: ValueListenableBuilder<num?>(
+                valueListenable: currentval,
+                builder: (context, value, child) {
+                  bool limitBtmState =
+                      (value ?? widget.initVal) > widget.minVal;
+                  return BuildBtn(
+                    btnColor:
+                        limitBtmState ? widget.btnColor1 : widget.btnColor2,
+                    isPlus: false,
+                    borderShape: widget.borderShape,
+                    splashRadius: widget.splashRadius,
+                    onChanged: limitBtmState ? minus : null,
+                    child: widget.minusBtn,
+                  );
+                }),
           ),
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-          onTapOutside: (event) =>
-              FocusManager.instance.primaryFocus?.unfocus(),
-          controller: _valCtrl,
-          onChanged: (String strVal) {
-            num? temp = num.tryParse(_valCtrl.text);
-            if (temp == null) return;
-            if (temp > widget.maxVal) {
-              temp = widget.maxVal;
-              _valCtrl.text = "${widget.maxVal}";
-              _valCtrl.selection = TextSelection.fromPosition(
-                  TextPosition(offset: _valCtrl.text.length));
-            } else if (temp <= widget.minVal) {
-              temp = widget.minVal;
-              _valCtrl.text = temp.toString();
-              _valCtrl.selection = TextSelection.fromPosition(
-                  TextPosition(offset: _valCtrl.text.length));
-            }
-            num? newVal = num.tryParse(_valCtrl.text);
-            widget.onQtyChanged(newVal);
-            currentval.value = newVal;
-          },
-          keyboardType: TextInputType.number,
-          inputFormatters: [
-            // LengthLimitingTextInputFormatter(10),
-            FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*')),
-          ],
+          prefixIconConstraints: const BoxConstraints(),
+          suffixIconConstraints: const BoxConstraints(),
+          suffixIcon: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 4, 4, 4),
+            child: ValueListenableBuilder<num?>(
+                valueListenable: currentval,
+                builder: (context, value, child) {
+                  bool limitTopState =
+                      (value ?? widget.initVal) < widget.maxVal;
+
+                  return BuildBtn(
+                    btnColor:
+                        limitTopState ? widget.btnColor1 : widget.btnColor2,
+                    isPlus: true,
+                    borderShape: widget.borderShape,
+                    onChanged: limitTopState ? plus : null,
+                    splashRadius: widget.splashRadius,
+                    child: widget.plusBtn,
+                  );
+                }),
+          ),
         ),
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
+        controller: _valCtrl,
+        onChanged: (String strVal) {
+          num? temp = num.tryParse(_valCtrl.text);
+          if (temp == null) return;
+          if (temp > widget.maxVal) {
+            temp = widget.maxVal;
+            _valCtrl.text = "${widget.maxVal}";
+            _valCtrl.selection = TextSelection.fromPosition(
+                TextPosition(offset: _valCtrl.text.length));
+          } else if (temp <= widget.minVal) {
+            temp = widget.minVal;
+            _valCtrl.text = temp.toString();
+            _valCtrl.selection = TextSelection.fromPosition(
+                TextPosition(offset: _valCtrl.text.length));
+          }
+          num? newVal = num.tryParse(_valCtrl.text);
+          widget.onQtyChanged(newVal);
+          currentval.value = newVal;
+        },
+        keyboardType: TextInputType.number,
+        inputFormatters: [
+          // LengthLimitingTextInputFormatter(10),
+          FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*')),
+        ],
       );
 
   // Widget _buildMsgLimit() => ValueListenableBuilder<num?>(
