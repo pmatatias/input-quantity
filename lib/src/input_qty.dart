@@ -139,11 +139,7 @@ class _InputQtyState extends State<InputQty> {
     /// set back to the controller
     _valCtrl.text = "$value";
     currentval.value = value;
-
-    /// move cursor to the right side
-    _valCtrl.selection =
-        TextSelection.fromPosition(TextPosition(offset: _valCtrl.text.length));
-    widget.onQtyChanged(num.tryParse(value.toString()));
+    widget.onQtyChanged(value);
   }
 
   /// decrese current value based on stpes
@@ -161,18 +157,7 @@ class _InputQtyState extends State<InputQty> {
     /// set back to the controller
     _valCtrl.text = "$value";
     currentval.value = value;
-
-    /// move cursor to the right side
-    _valCtrl.selection =
-        TextSelection.fromPosition(TextPosition(offset: _valCtrl.text.length));
-    widget.onQtyChanged(num.tryParse(value.toString()));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.isIntrinsicWidth
-        ? IntrinsicWidth(child: _buildInputQty())
-        : _buildInputQty();
+    widget.onQtyChanged(value);
   }
 
   /// build widget input quantity
@@ -233,27 +218,20 @@ class _InputQtyState extends State<InputQty> {
         onChanged: (String strVal) {
           // avoid parsing value
           if (strVal.isEmpty || strVal == '-') return;
-          num? temp = num.tryParse(_valCtrl.text);
-          if (temp == null) {
-            // set back to latest value
-            _valCtrl.text = currentval.value.toString();
-            return;
-          }
-          
-          if (temp > widget.maxVal) {
+          num? temp = num.tryParse(strVal);
+          if (temp == null) return;
+          // temp = temp.clamp(widget.minVal, widget.maxVal);
+
+          // not using clamp, since need to update controller each limit
+          if (temp >= widget.maxVal) {
             temp = widget.maxVal;
-            _valCtrl.text = "${widget.maxVal}";
-            _valCtrl.selection = TextSelection.fromPosition(
-                TextPosition(offset: _valCtrl.text.length));
+            _valCtrl.text = "$temp";
           } else if (temp <= widget.minVal) {
-            temp = widget.minVal;
-            _valCtrl.text = temp.toString();
-            _valCtrl.selection = TextSelection.fromPosition(
-                TextPosition(offset: _valCtrl.text.length));
+            temp = widget.maxVal;
+            _valCtrl.text = "$temp";
           }
-          num? newVal = num.tryParse(_valCtrl.text);
-          widget.onQtyChanged(newVal);
-          currentval.value = newVal;
+          widget.onQtyChanged(temp);
+          currentval.value = temp;
         },
         keyboardType: TextInputType.number,
         inputFormatters: [
@@ -286,6 +264,13 @@ class _InputQtyState extends State<InputQty> {
   //         return const SizedBox();
   //       }
   //     });
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.isIntrinsicWidth
+        ? IntrinsicWidth(child: _buildInputQty())
+        : _buildInputQty();
+  }
 
   @override
   void dispose() {
