@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 btnColor1: Colors.indigo,
                 onQtyChanged: (val) {
                   if (kDebugMode) {
-                    print(val);
+                    print("UI : $val ");
                   }
                 },
               ),
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 minVal: -100,
                 onQtyChanged: (val) {
                   if (kDebugMode) {
-                    print(val);
+                    print("UI : $val ");
                   }
                 },
               ),
@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 btnColor2: Colors.red,
                 onQtyChanged: (val) {
                   if (kDebugMode) {
-                    print(val);
+                    print("UI : $val ");
                   }
                 },
               ),
@@ -130,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 initVal: 0,
                 onQtyChanged: (val) {
                   if (kDebugMode) {
-                    print(val);
+                    print("UI : $val ");
                   }
                 },
               ),
@@ -145,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 isIntrinsicWidth: false,
                 onQtyChanged: (val) {
                   if (kDebugMode) {
-                    print(val);
+                    print("UI : $val ");
                   }
                 },
               ),
@@ -163,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 minVal: -100.0,
                 onQtyChanged: (val) {
                   if (kDebugMode) {
-                    print(val);
+                    print("UI : $val ");
                   }
                 },
               ),
