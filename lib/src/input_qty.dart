@@ -109,7 +109,7 @@ class InputQty extends StatefulWidget {
 
 class _InputQtyState extends State<InputQty> {
   /// text controller of textfield
-  TextEditingController _valCtrl = TextEditingController();
+  final TextEditingController _valCtrl = TextEditingController();
 
   /// current value of quantity
   /// late num value;
@@ -119,7 +119,7 @@ class _InputQtyState extends State<InputQty> {
   void initState() {
     super.initState();
     currentval = ValueNotifier(widget.initVal);
-    _valCtrl = TextEditingController(text: "${widget.initVal}");
+    _valCtrl.text = "${widget.initVal}";
   }
 
   /// Increase current value
@@ -215,7 +215,6 @@ class _InputQtyState extends State<InputQty> {
                 builder: (context, value, child) {
                   bool limitTopState =
                       (value ?? widget.initVal) < widget.maxVal;
-
                   return BuildBtn(
                     btnColor:
                         limitTopState ? widget.btnColor1 : widget.btnColor2,
@@ -232,8 +231,14 @@ class _InputQtyState extends State<InputQty> {
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         controller: _valCtrl,
         onChanged: (String strVal) {
+          // avoid parsing value
+          if (strVal.isEmpty || strVal == '-') return;
           num? temp = num.tryParse(_valCtrl.text);
-          if (temp == null) return;
+          if (temp == null) {
+            // set back to latest value
+            _valCtrl.text = currentval.value.toString();
+            return;
+          }
           if (temp > widget.maxVal) {
             temp = widget.maxVal;
             _valCtrl.text = "${widget.maxVal}";
@@ -251,7 +256,6 @@ class _InputQtyState extends State<InputQty> {
         },
         keyboardType: TextInputType.number,
         inputFormatters: [
-          // LengthLimitingTextInputFormatter(10),
           FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*')),
         ],
       );
