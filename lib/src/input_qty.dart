@@ -239,6 +239,7 @@ class _InputQtyState extends State<InputQty> {
             _valCtrl.text = currentval.value.toString();
             return;
           }
+          
           if (temp > widget.maxVal) {
             temp = widget.maxVal;
             _valCtrl.text = "${widget.maxVal}";
