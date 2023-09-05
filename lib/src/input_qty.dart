@@ -1,8 +1,4 @@
-import 'dart:ui';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:input_quantity/src/constant.dart';
 
@@ -50,7 +46,6 @@ class InputQty extends StatefulWidget {
   ///```dart
   /// const InputDecoration(
   ///  border: UnderlineInputBorder(),
-  ///  isDense: true,
   ///  isCollapsed: true,)
   ///```
   /// add [contentPadding] to costumize distance between value
@@ -122,14 +117,6 @@ class _InputQtyState extends State<InputQty> {
   /// late num value;
   late ValueNotifier<num?> currentval;
 
-  /// [InputDecoration] use for [TextFormField]
-  /// use when [textFieldDecoration] not null
-  final _inputDecoration = const InputDecoration(
-    border: UnderlineInputBorder(),
-    // isDense: true,
-    contentPadding: kIsWeb ? EdgeInsets.only(bottom: 4) : null,
-    isCollapsed: true,
-  );
   @override
   void initState() {
     super.initState();
@@ -192,13 +179,7 @@ class _InputQtyState extends State<InputQty> {
 
   /// build widget input quantity
   Widget _buildInputQty() => Container(
-        // padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 6),
         alignment: Alignment.center,
-        // decoration: widget.boxDecoration ??
-        //     BoxDecoration(
-        //       border: Border.all(color: Colors.grey, width: 0.8),
-        //       borderRadius: BorderRadius.circular(5),
-        //     ),
         child: _buildtextfield(),
       );
 
@@ -206,16 +187,8 @@ class _InputQtyState extends State<InputQty> {
   Widget _buildtextfield() => TextFormField(
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
-        // decoration: widget.textFieldDecoration ?? _inputDecoration,
-
         decoration: InputDecoration(
-          border: const OutlineInputBorder(
-
-              // borderSide: BorderSide(width: 2),
-              ),
-          // border: InputBorder.none,
-          // isDense: true,
-          // contentPadding: kIsWeb ? const EdgeInsets.only(bottom: 4) : null,
+          border: const OutlineInputBorder(),
           isCollapsed: true,
           prefixIcon: Padding(
             padding: const EdgeInsets.fromLTRB(4, 4, 8, 4),
