@@ -10,10 +10,9 @@ class InputQty extends StatefulWidget {
   final num maxVal;
 
   /// intial value
-  /// default `initVal = 0`
+  /// default `initVal = 1`
   /// To show decimal number, set `initVal` with decimal format
   /// eg: `initVal = 0.0`
-  ///
   final num initVal;
 
   /// minimum value
@@ -30,7 +29,7 @@ class InputQty extends StatefulWidget {
   /// Function(num? value) onChanged
   /// ```
   /// update value every changes
-  /// the `runType` is `num`.
+  /// the `runType` is `num`. you may need to parse the data type
   /// parse to `int` : `value.toInt();`
   /// parse to `double` : `value.toDouble();`
   final ValueChanged<num?> onQtyChanged;
@@ -41,34 +40,22 @@ class InputQty extends StatefulWidget {
   /// if `false` wrapped with `Expanded`
   final bool isIntrinsicWidth;
 
-  /// Custom decoration of [TextFormField]
-  /// default value:
-  ///```dart
-  /// const InputDecoration(
-  ///  border: UnderlineInputBorder(),
-  ///  isCollapsed: true,)
-  ///```
-  /// add [contentPadding] to costumize distance between value
-  /// and the button
-  final InputDecoration? textFieldDecoration;
-
-  /// custom icon for button plus
+  /// Icon widget for button plus
   final Widget? plusBtn;
 
-  /// Custom icon for button minus
-  /// default size is 16
+  /// Icon widget for button minus
   final Widget? minusBtn;
 
-  /// button color primary
+  /// primary color applied on Button widget
   /// used when availabe to press
   final Color btnColor1;
 
-  /// button color secondary
-  /// used when not able to press
+  /// secondary color applied for button
+  /// This value will used for disabled color button
   final Color btnColor2;
 
   /// spalsh radius effect
-  /// default = 16
+  /// show spalsh effect when the button are pressed
   final double? splashRadius;
 
   /// border shape of button
@@ -85,6 +72,17 @@ class InputQty extends StatefulWidget {
   /// show message when the value reach the maximum or
   /// minimum value
   final bool showMessageLimit;
+
+  /// Custom decoration of [TextFormField]
+  /// default value:
+  ///```dart
+  /// const InputDecoration(
+  ///  border: UnderlineInputBorder(),
+  ///  isCollapsed: true,)
+  ///```
+  /// add [contentPadding] to costumize distance between value
+  /// and the button
+  final InputDecoration? textFieldDecoration;
 
   const InputQty({
     Key? key,
