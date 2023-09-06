@@ -6,8 +6,6 @@ import 'package:input_quantity/src/constant.dart';
 
 import 'build_btn.dart';
 
-
-
 class InputQty extends StatefulWidget {
   /// maximum value input
   /// default  `maxVal = num.maxFinite`,
@@ -36,7 +34,7 @@ class InputQty extends StatefulWidget {
   /// the `runType` is `num`. you may need to parse the data type
   /// parse to `int` : `value.toInt();`
   /// parse to `double` : `value.toDouble();`
-  final ValueChanged<num?> onQtyChanged;
+  final ValueChanged onQtyChanged;
 
   /// wrap [TextFormField] with [IntrinsicWidth] widget
   /// this will make the width of [InputQty] set to intrinsic width
@@ -88,6 +86,9 @@ class InputQty extends StatefulWidget {
   /// and the button
   final InputDecoration? textFieldDecoration;
 
+  /// if `true` use value as double
+  final bool _isDecimal;
+
   const InputQty({
     Key? key,
     this.initVal = 1,
@@ -105,7 +106,28 @@ class InputQty extends StatefulWidget {
     this.steps = 1,
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
-  }) : super(key: key);
+  })  : _isDecimal = false,
+        super(key: key);
+
+  const InputQty.double({
+    Key? key,
+    this.initVal = 1.0,
+    this.showMessageLimit = true,
+    this.boxDecoration,
+    this.borderShape = BorderShapeBtn.none,
+    this.splashRadius,
+    this.textFieldDecoration,
+    this.isIntrinsicWidth = true,
+    required this.onQtyChanged,
+    this.maxVal = double.maxFinite,
+    this.minVal = 0.0,
+    this.plusBtn,
+    this.minusBtn,
+    this.steps = 1.0,
+    this.btnColor1 = Colors.green,
+    this.btnColor2 = Colors.grey,
+  })  : _isDecimal = true,
+        super(key: key);
 
   @override
   State<InputQty> createState() => _InputQtyState();
@@ -116,7 +138,6 @@ class _InputQtyState extends State<InputQty> {
   final TextEditingController _valCtrl = TextEditingController();
 
   /// current value of quantity
-  /// late num value;
   late ValueNotifier<num?> currentval;
 
   @override
@@ -135,10 +156,10 @@ class _InputQtyState extends State<InputQty> {
   void plus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
     value += widget.steps;
-
     if (value >= widget.maxVal) {
       value = widget.maxVal;
     }
+    value = widget._isDecimal ? value.toDouble() : value.toInt();
 
     /// set back to the controller
     _valCtrl.text = "$value";
@@ -157,6 +178,7 @@ class _InputQtyState extends State<InputQty> {
     if (value <= widget.minVal) {
       value = widget.minVal;
     }
+    value = widget._isDecimal ? value.toDouble() : value.toInt();
 
     /// set back to the controller
     _valCtrl.text = "$value";
@@ -164,50 +186,40 @@ class _InputQtyState extends State<InputQty> {
     widget.onQtyChanged(value);
   }
 
-  /// build widget input quantity
-  Widget _buildInputQty() => Container(
-        alignment: Alignment.center,
-        child: _buildtextfield(),
-      );
-
   InputDecoration decorationProps(InputDecoration? customProps) =>
       InputDecoration(
         border: const OutlineInputBorder(),
         isCollapsed: true,
-        prefix: Padding(
-          padding: const EdgeInsets.fromLTRB(4, 4, 8, 4),
-          child: ValueListenableBuilder<num?>(
-              valueListenable: currentval,
-              builder: (context, value, child) {
-                bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
-                return BuildBtn(
-                  btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
-                  isPlus: false,
-                  borderShape: widget.borderShape,
-                  splashRadius: widget.splashRadius,
-                  onChanged: limitBtmState ? minus : null,
-                  child: widget.minusBtn,
-                );
-              }),
-        ),
+        hintText: "____",
+        constraints: const BoxConstraints(),
+        prefixIcon: ValueListenableBuilder<num?>(
+            valueListenable: currentval,
+            builder: (context, value, child) {
+              bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
+              return BuildBtn(
+                btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
+                isPlus: false,
+                borderShape: widget.borderShape,
+                splashRadius: widget.splashRadius,
+                onChanged: limitBtmState ? minus : null,
+                child: widget.minusBtn,
+              );
+            }),
         prefixIconConstraints: const BoxConstraints(),
         suffixIconConstraints: const BoxConstraints(),
-        suffixIcon: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 4, 4, 4),
-          child: ValueListenableBuilder<num?>(
-              valueListenable: currentval,
-              builder: (context, value, child) {
-                bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
-                return BuildBtn(
-                  btnColor: limitTopState ? widget.btnColor1 : widget.btnColor2,
-                  isPlus: true,
-                  borderShape: widget.borderShape,
-                  onChanged: limitTopState ? plus : null,
-                  splashRadius: widget.splashRadius,
-                  child: widget.plusBtn,
-                );
-              }),
-        ),
+        suffixIcon: ValueListenableBuilder<num?>(
+            valueListenable: currentval,
+            builder: (context, value, child) {
+              bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
+              return BuildBtn(
+                btnColor: limitTopState ? widget.btnColor1 : widget.btnColor2,
+                isPlus: true,
+                borderShape: widget.borderShape,
+                onChanged: limitTopState ? plus : null,
+                splashRadius: widget.splashRadius,
+                child: widget.plusBtn,
+              );
+            }),
       );
 
   /// widget textformfield
@@ -223,6 +235,7 @@ class _InputQtyState extends State<InputQty> {
           if (strVal.isEmpty || strVal == '-') return;
           num? temp = num.tryParse(strVal);
           if (temp == null) return;
+          temp = widget._isDecimal ? temp.toDouble() : temp.toInt();
           // temp = temp.clamp(widget.minVal, widget.maxVal);
 
           // not using clamp, since need to update controller each limit
@@ -238,7 +251,10 @@ class _InputQtyState extends State<InputQty> {
         },
         keyboardType: TextInputType.number,
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*')),
+          FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*'))
+          // widget._isDecimal
+          //     ? FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*'))
+          //     : FilteringTextInputFormatter.allow(RegExp(r'^\d*\-?\d*')),
         ],
       );
 
@@ -271,8 +287,8 @@ class _InputQtyState extends State<InputQty> {
   @override
   Widget build(BuildContext context) {
     return widget.isIntrinsicWidth
-        ? IntrinsicWidth(child: _buildInputQty())
-        : _buildInputQty();
+        ? IntrinsicWidth(child: _buildtextfield())
+        : _buildtextfield();
   }
 
   @override

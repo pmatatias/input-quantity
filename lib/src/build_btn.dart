@@ -25,7 +25,6 @@ class BuildBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         shape: borderShape == BorderShapeBtn.circle
             ? BoxShape.circle

@@ -30,6 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int abf = 123;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +57,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const Divider(),
-              InputQty(onQtyChanged: (val) {}),
+              InputQty(onQtyChanged: (val) {
+                print(val.runtimeType);
+                abf = val;
+              }),
               const Divider(),
               const Padding(
                 padding: EdgeInsets.all(8.0),
@@ -78,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 btnColor1: Colors.indigo,
                 onQtyChanged: (val) {
                   if (kDebugMode) {
+                    print(val.runtimeType);
                     print("UI : $val ");
                   }
                 },
@@ -94,6 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 showMessageLimit: false,
                 minVal: -100,
                 onQtyChanged: (val) {
+                  print(val.runtimeType);
+
                   if (kDebugMode) {
                     print("UI : $val ");
                   }

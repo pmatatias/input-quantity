@@ -12,4 +12,4 @@ enum BorderShapeBtn {
   //rhombus  // on development
 }
 
-enum QtyStyle { classic, classicVertical, btnOnLeft, btnOnRight }
+enum QtyStyle { classic, btnOnLeft, btnOnRight }
