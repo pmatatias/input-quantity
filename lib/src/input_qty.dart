@@ -1,8 +1,12 @@
+// library input_quantity;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:input_quantity/src/constant.dart';
 
 import 'build_btn.dart';
+
+
 
 class InputQty extends StatefulWidget {
   /// maximum value input
@@ -166,52 +170,51 @@ class _InputQtyState extends State<InputQty> {
         child: _buildtextfield(),
       );
 
+  InputDecoration decorationProps(InputDecoration? customProps) =>
+      InputDecoration(
+        border: const OutlineInputBorder(),
+        isCollapsed: true,
+        prefix: Padding(
+          padding: const EdgeInsets.fromLTRB(4, 4, 8, 4),
+          child: ValueListenableBuilder<num?>(
+              valueListenable: currentval,
+              builder: (context, value, child) {
+                bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
+                return BuildBtn(
+                  btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
+                  isPlus: false,
+                  borderShape: widget.borderShape,
+                  splashRadius: widget.splashRadius,
+                  onChanged: limitBtmState ? minus : null,
+                  child: widget.minusBtn,
+                );
+              }),
+        ),
+        prefixIconConstraints: const BoxConstraints(),
+        suffixIconConstraints: const BoxConstraints(),
+        suffixIcon: Padding(
+          padding: const EdgeInsets.fromLTRB(8, 4, 4, 4),
+          child: ValueListenableBuilder<num?>(
+              valueListenable: currentval,
+              builder: (context, value, child) {
+                bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
+                return BuildBtn(
+                  btnColor: limitTopState ? widget.btnColor1 : widget.btnColor2,
+                  isPlus: true,
+                  borderShape: widget.borderShape,
+                  onChanged: limitTopState ? plus : null,
+                  splashRadius: widget.splashRadius,
+                  child: widget.plusBtn,
+                );
+              }),
+        ),
+      );
+
   /// widget textformfield
   Widget _buildtextfield() => TextFormField(
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          isCollapsed: true,
-          prefixIcon: Padding(
-            padding: const EdgeInsets.fromLTRB(4, 4, 8, 4),
-            child: ValueListenableBuilder<num?>(
-                valueListenable: currentval,
-                builder: (context, value, child) {
-                  bool limitBtmState =
-                      (value ?? widget.initVal) > widget.minVal;
-                  return BuildBtn(
-                    btnColor:
-                        limitBtmState ? widget.btnColor1 : widget.btnColor2,
-                    isPlus: false,
-                    borderShape: widget.borderShape,
-                    splashRadius: widget.splashRadius,
-                    onChanged: limitBtmState ? minus : null,
-                    child: widget.minusBtn,
-                  );
-                }),
-          ),
-          prefixIconConstraints: const BoxConstraints(),
-          suffixIconConstraints: const BoxConstraints(),
-          suffixIcon: Padding(
-            padding: const EdgeInsets.fromLTRB(8, 4, 4, 4),
-            child: ValueListenableBuilder<num?>(
-                valueListenable: currentval,
-                builder: (context, value, child) {
-                  bool limitTopState =
-                      (value ?? widget.initVal) < widget.maxVal;
-                  return BuildBtn(
-                    btnColor:
-                        limitTopState ? widget.btnColor1 : widget.btnColor2,
-                    isPlus: true,
-                    borderShape: widget.borderShape,
-                    onChanged: limitTopState ? plus : null,
-                    splashRadius: widget.splashRadius,
-                    child: widget.plusBtn,
-                  );
-                }),
-          ),
-        ),
+        decoration: decorationProps(widget.textFieldDecoration),
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         controller: _valCtrl,
