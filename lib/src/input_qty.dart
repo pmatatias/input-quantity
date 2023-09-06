@@ -188,7 +188,10 @@ class _InputQtyState extends State<InputQty> {
 
   InputDecoration decorationProps(InputDecoration? customProps) =>
       InputDecoration(
-        border: const OutlineInputBorder(),
+        icon: const Icon(Icons.abc),
+        error: const Text("eror text"),
+        counter: const Text("asas"),
+        border: const UnderlineInputBorder(),
         isCollapsed: true,
         hintText: "____",
         constraints: const BoxConstraints(),
