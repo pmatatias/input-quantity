@@ -7,6 +7,8 @@ import 'package:input_quantity/src/decoration_props.dart';
 
 import 'build_btn.dart';
 
+typedef CounterBuilder<T> = Widget Function(T minVal, T maxVal, T? value);
+
 class InputQty extends StatefulWidget {
   /// maximum value input
   /// default  `maxVal = num.maxFinite`,
@@ -93,6 +95,9 @@ class InputQty extends StatefulWidget {
   /// decoration property for input quantity
   final QtyDecorationProps decoration;
 
+  /// validator
+  final String? Function(String?)? validator;
+
   const InputQty({
     Key? key,
     this.initVal = 1,
@@ -110,6 +115,7 @@ class InputQty extends StatefulWidget {
     this.steps = 1,
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
+    this.validator,
     this.decoration = const QtyDecorationProps(),
   })  : _isDecimal = false,
         super(key: key);
@@ -127,6 +133,7 @@ class InputQty extends StatefulWidget {
     this.maxVal = double.maxFinite,
     this.minVal = 0.0,
     this.plusBtn,
+    this.validator,
     this.minusBtn,
     this.decoration = const QtyDecorationProps(),
     this.steps = 1.0,
@@ -145,6 +152,7 @@ class _InputQtyState extends State<InputQty> {
 
   /// current value of quantity
   late ValueNotifier<num?> currentval;
+  ValueNotifier<Widget?> counterWidget = ValueNotifier(const SizedBox());
 
   @override
   void initState() {
@@ -194,17 +202,16 @@ class _InputQtyState extends State<InputQty> {
 
   InputDecoration decorationProps(InputDecoration? customProps) {
     return InputDecoration(
-      error: Container(
-        color: Colors.red,
-        child: _buildMsgLimit(),
-      ),
-      // errorText: "spp",
-
+      counter: Center(child: _buildMsgLimit()),
+      // counter: counterWidget.value,
+      fillColor: Colors.amber,
+      filled: true,
       // counter: const Text("asas"),
-      border: const UnderlineInputBorder(),
+      // border: InputBorder.none,
       isCollapsed: true,
       hoverColor: Colors.red,
-      hintText: "____",
+      hintText: "_____",
+      border: const OutlineInputBorder(),
       constraints: const BoxConstraints(),
       prefixIcon: ValueListenableBuilder<num?>(
           valueListenable: currentval,
@@ -245,7 +252,7 @@ class _InputQtyState extends State<InputQty> {
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         controller: _valCtrl,
-        validator: ((value) => "sadads"),
+        validator: (value) => "sadads",
         onChanged: (String strVal) {
           // avoid parsing value
           if (strVal.isEmpty || strVal == '-') return;
@@ -274,36 +281,21 @@ class _InputQtyState extends State<InputQty> {
         ],
       );
 
-  String msge() => currentval.value.toString();
-
   Widget _buildMsgLimit() => ValueListenableBuilder<num?>(
       valueListenable: currentval,
       builder: (context, val, __) {
+        final widge = widget.decoration.counterBuilder
+            ?.call(widget.maxVal, widget.minVal, val);
         if (val == null) return const SizedBox();
-        final value = val;
-        if (value <= widget.minVal) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Text(
-              'Min Val: ${widget.minVal}',
-              style: const TextStyle(color: Colors.red),
-            ),
-          );
-        } else if (value >= widget.maxVal) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 4),
-            child: Text(
-              "Max Val: ${widget.maxVal}",
-              style: const TextStyle(color: Colors.red),
-            ),
-          );
-        } else {
-          return Text(value.toString());
-        }
+        return widge ?? const Text("defautlr");
       });
 
   @override
   Widget build(BuildContext context) {
+    if (widget.decoration.counterBuilder != null) {
+      widget.decoration.counterBuilder!(
+          widget.maxVal, widget.minVal, currentval.value ?? widget.initVal);
+    }
     return widget.isIntrinsicWidth
         ? IntrinsicWidth(child: _buildtextfield())
         : _buildtextfield();

@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Example',
+      title: 'Inout Quantity Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -72,9 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 }),
                 const Divider(),
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Easy and solid'),
-                ),
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Easy and solid')),
                 InputQty(
                   maxVal: 5,
                   initVal: 0,
@@ -82,6 +81,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   minVal: -5,
                   borderShape: BorderShapeBtn.circle,
                   boxDecoration: const BoxDecoration(),
+                  decoration: QtyDecorationProps(
+                    icon: const Icon(Icons.abc),
+                    counterBuilder: (maxVal, minVal, value) {
+                      print(value);
+                      print("UI this value");
+                      return Text("$maxVal, $minVal, $value");
+                    },
+                  ),
                   minusBtn:
                       const Icon(Icons.accessibility_new_outlined, size: 18),
                   plusBtn: const Icon(
@@ -91,8 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   btnColor1: Colors.indigo,
                   onQtyChanged: (val) {
                     if (kDebugMode) {
-                      print(val.runtimeType);
-                      print("UI : $val ");
+                      // print("UI : $val ");
                     }
                   },
                 ),

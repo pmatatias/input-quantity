@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:input_quantity/src/constant.dart';
+
+import '../input_quantity.dart';
 
 class QtyDecorationProps {
+  final CounterBuilder<num>? counterBuilder;
   // An icon to show before the input field and outside of the decoration's
   /// container.
   final Widget? icon;
@@ -65,16 +67,6 @@ class QtyDecorationProps {
   /// This property is false by default.
   final bool? filled;
 
-  /// Optional text to place below the line as a character count.
-  /// If null or an empty string and [counter] isn't specified, then nothing
-  /// will appear in the counter's location.
-  final String? counterText;
-
-  /// Optional custom counter widget to go in the place otherwise occupied by
-  /// [counterText]. If this property is non null, then [counterText] is
-  /// ignored.
-  final Widget? counter;
-
   /// Whether the decoration is the same size as the input field.
   /// Defaults to true
   final bool isCollapsed;
@@ -85,17 +77,25 @@ class QtyDecorationProps {
   /// Defaults to false.
   final bool? isDense;
 
+  /// Optional text to place below the line as a character count.
+  /// If null or an empty string and [counter] isn't specified, then nothing
+  /// will appear in the counter's location.
+  final String? counterText;
+
+  /// Optional custom counter widget to go in the place otherwise occupied by
+  /// [counterText]. If this property is non null, then [counterText] is
+  /// ignored.
+  final Widget? counter;
+
   /// Only one of [error] and [errorText] can be specified.
   final Widget? error;
 
   /// Only one of [error] and [errorText] can be specified.
   final String? errorText;
 
-  /// The maximum number of lines the [errorText] can occupy.
-  final int? errorMaxLines;
-
   const QtyDecorationProps({
     this.icon,
+    this.counterBuilder,
     this.minusBtn,
     this.minusButtonConstrains = const BoxConstraints(),
     this.plusBtn,
@@ -112,7 +112,6 @@ class QtyDecorationProps {
     this.counter,
     this.counterText,
     this.error,
-    this.errorMaxLines,
     this.errorText,
     this.filled,
     this.isCollapsed = true,
