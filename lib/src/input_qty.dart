@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:input_quantity/src/constant.dart';
+import 'package:input_quantity/src/decoration_props.dart';
 
 import 'build_btn.dart';
 
@@ -89,6 +90,9 @@ class InputQty extends StatefulWidget {
   /// if `true` use value as double
   final bool _isDecimal;
 
+  /// decoration property for input quantity
+  final QtyDecorationProps decoration;
+
   const InputQty({
     Key? key,
     this.initVal = 1,
@@ -106,6 +110,7 @@ class InputQty extends StatefulWidget {
     this.steps = 1,
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
+    this.decoration = const QtyDecorationProps(),
   })  : _isDecimal = false,
         super(key: key);
 
@@ -123,6 +128,7 @@ class InputQty extends StatefulWidget {
     this.minVal = 0.0,
     this.plusBtn,
     this.minusBtn,
+    this.decoration = const QtyDecorationProps(),
     this.steps = 1.0,
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
@@ -186,44 +192,50 @@ class _InputQtyState extends State<InputQty> {
     widget.onQtyChanged(value);
   }
 
-  InputDecoration decorationProps(InputDecoration? customProps) =>
-      InputDecoration(
-        icon: const Icon(Icons.abc),
-        error: const Text("eror text"),
-        counter: const Text("asas"),
-        border: const UnderlineInputBorder(),
-        isCollapsed: true,
-        hintText: "____",
-        constraints: const BoxConstraints(),
-        prefixIcon: ValueListenableBuilder<num?>(
-            valueListenable: currentval,
-            builder: (context, value, child) {
-              bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
-              return BuildBtn(
-                btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
-                isPlus: false,
-                borderShape: widget.borderShape,
-                splashRadius: widget.splashRadius,
-                onChanged: limitBtmState ? minus : null,
-                child: widget.minusBtn,
-              );
-            }),
-        prefixIconConstraints: const BoxConstraints(),
-        suffixIconConstraints: const BoxConstraints(),
-        suffixIcon: ValueListenableBuilder<num?>(
-            valueListenable: currentval,
-            builder: (context, value, child) {
-              bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
-              return BuildBtn(
-                btnColor: limitTopState ? widget.btnColor1 : widget.btnColor2,
-                isPlus: true,
-                borderShape: widget.borderShape,
-                onChanged: limitTopState ? plus : null,
-                splashRadius: widget.splashRadius,
-                child: widget.plusBtn,
-              );
-            }),
-      );
+  InputDecoration decorationProps(InputDecoration? customProps) {
+    return InputDecoration(
+      error: Container(
+        color: Colors.red,
+        child: _buildMsgLimit(),
+      ),
+      // errorText: "spp",
+
+      // counter: const Text("asas"),
+      border: const UnderlineInputBorder(),
+      isCollapsed: true,
+      hoverColor: Colors.red,
+      hintText: "____",
+      constraints: const BoxConstraints(),
+      prefixIcon: ValueListenableBuilder<num?>(
+          valueListenable: currentval,
+          builder: (context, value, child) {
+            bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
+            return BuildBtn(
+              btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
+              isPlus: false,
+              borderShape: widget.borderShape,
+              splashRadius: widget.splashRadius,
+              onChanged: limitBtmState ? minus : null,
+              child: widget.minusBtn,
+            );
+          }),
+      prefixIconConstraints: const BoxConstraints(),
+      suffixIconConstraints: const BoxConstraints(),
+      suffixIcon: ValueListenableBuilder<num?>(
+          valueListenable: currentval,
+          builder: (context, value, child) {
+            bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
+            return BuildBtn(
+              btnColor: limitTopState ? widget.btnColor1 : widget.btnColor2,
+              isPlus: true,
+              borderShape: widget.borderShape,
+              onChanged: limitTopState ? plus : null,
+              splashRadius: widget.splashRadius,
+              child: widget.plusBtn,
+            );
+          }),
+    );
+  }
 
   /// widget textformfield
   Widget _buildtextfield() => TextFormField(
@@ -233,6 +245,7 @@ class _InputQtyState extends State<InputQty> {
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         controller: _valCtrl,
+        validator: ((value) => "sadads"),
         onChanged: (String strVal) {
           // avoid parsing value
           if (strVal.isEmpty || strVal == '-') return;
@@ -261,31 +274,33 @@ class _InputQtyState extends State<InputQty> {
         ],
       );
 
-  // Widget _buildMsgLimit() => ValueListenableBuilder<num?>(
-  //     valueListenable: currentval,
-  //     builder: (context, val, __) {
-  //       if (val == null) return const SizedBox();
-  //       final value = val;
-  //       if (value <= widget.minVal) {
-  //         return Padding(
-  //           padding: const EdgeInsets.only(top: 4),
-  //           child: Text(
-  //             'Min Val: ${widget.minVal}',
-  //             style: const TextStyle(color: Colors.red),
-  //           ),
-  //         );
-  //       } else if (value >= widget.maxVal) {
-  //         return Padding(
-  //           padding: const EdgeInsets.only(top: 4),
-  //           child: Text(
-  //             "Max Val: ${widget.maxVal}",
-  //             style: const TextStyle(color: Colors.red),
-  //           ),
-  //         );
-  //       } else {
-  //         return const SizedBox();
-  //       }
-  //     });
+  String msge() => currentval.value.toString();
+
+  Widget _buildMsgLimit() => ValueListenableBuilder<num?>(
+      valueListenable: currentval,
+      builder: (context, val, __) {
+        if (val == null) return const SizedBox();
+        final value = val;
+        if (value <= widget.minVal) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              'Min Val: ${widget.minVal}',
+              style: const TextStyle(color: Colors.red),
+            ),
+          );
+        } else if (value >= widget.maxVal) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(
+              "Max Val: ${widget.maxVal}",
+              style: const TextStyle(color: Colors.red),
+            ),
+          );
+        } else {
+          return Text(value.toString());
+        }
+      });
 
   @override
   Widget build(BuildContext context) {
