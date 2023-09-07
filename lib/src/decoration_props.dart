@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../input_quantity.dart';
 
 class QtyDecorationProps {
-  final CounterBuilder<num>? counterBuilder;
+  final MessageBuilder<num>? messageBuilder;
   // An icon to show before the input field and outside of the decoration's
   /// container.
   final Widget? icon;
@@ -95,7 +95,7 @@ class QtyDecorationProps {
 
   const QtyDecorationProps({
     this.icon,
-    this.counterBuilder,
+    this.messageBuilder,
     this.minusBtn,
     this.minusButtonConstrains = const BoxConstraints(),
     this.plusBtn,

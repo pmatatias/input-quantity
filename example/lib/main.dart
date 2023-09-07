@@ -83,9 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   boxDecoration: const BoxDecoration(),
                   decoration: QtyDecorationProps(
                     icon: const Icon(Icons.abc),
-                    counterBuilder: (maxVal, minVal, value) {
-                      print(value);
-                      print("UI this value");
+                    messageBuilder: (maxVal, minVal, value) {
                       return Text("$maxVal, $minVal, $value");
                     },
                   ),

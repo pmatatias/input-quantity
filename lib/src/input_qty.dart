@@ -7,7 +7,7 @@ import 'package:input_quantity/src/decoration_props.dart';
 
 import 'build_btn.dart';
 
-typedef CounterBuilder<T> = Widget Function(T minVal, T maxVal, T? value);
+typedef MessageBuilder<T> = Widget Function(T minVal, T maxVal, T? value);
 
 class InputQty extends StatefulWidget {
   /// maximum value input
@@ -78,15 +78,8 @@ class InputQty extends StatefulWidget {
   /// minimum value
   final bool showMessageLimit;
 
-  /// Custom decoration of [TextFormField]
-  /// default value:
-  ///```dart
-  /// const InputDecoration(
-  ///  border: UnderlineInputBorder(),
-  ///  isCollapsed: true,)
-  ///```
-  /// add [contentPadding] to costumize distance between value
-  /// and the button
+  ///
+  @Deprecated("Change into QtyDecorationProps")
   final InputDecoration? textFieldDecoration;
 
   /// if `true` use value as double
@@ -202,7 +195,7 @@ class _InputQtyState extends State<InputQty> {
 
   InputDecoration decorationProps(InputDecoration? customProps) {
     return InputDecoration(
-      counter: Center(child: _buildMsgLimit()),
+      counter: _buildMessageWidget(),
       // counter: counterWidget.value,
       fillColor: Colors.amber,
       filled: true,
@@ -281,21 +274,17 @@ class _InputQtyState extends State<InputQty> {
         ],
       );
 
-  Widget _buildMsgLimit() => ValueListenableBuilder<num?>(
+  Widget? _buildMessageWidget() => ValueListenableBuilder<num?>(
       valueListenable: currentval,
       builder: (context, val, __) {
-        final widge = widget.decoration.counterBuilder
-            ?.call(widget.maxVal, widget.minVal, val);
-        if (val == null) return const SizedBox();
-        return widge ?? const Text("defautlr");
+        return Center(
+          child: widget.decoration.messageBuilder
+              ?.call(widget.maxVal, widget.minVal, val),
+        );
       });
 
   @override
   Widget build(BuildContext context) {
-    if (widget.decoration.counterBuilder != null) {
-      widget.decoration.counterBuilder!(
-          widget.maxVal, widget.minVal, currentval.value ?? widget.initVal);
-    }
     return widget.isIntrinsicWidth
         ? IntrinsicWidth(child: _buildtextfield())
         : _buildtextfield();
