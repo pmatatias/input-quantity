@@ -228,7 +228,7 @@ class _InputQtyState extends State<InputQty> {
       border: widget.decoration.border,
       isCollapsed: widget.decoration.isCollapsed,
       hoverColor: widget.decoration.hoverColor,
-      hintText: ''.padRight(widget.decoration.width,'_'),
+      hintText: ''.padRight(widget.decoration.width, '_'),
       constraints: widget.decoration.constraints,
       prefixIcon: ValueListenableBuilder<num?>(
           valueListenable: currentval,
@@ -236,9 +236,9 @@ class _InputQtyState extends State<InputQty> {
             bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
             return BuildBtn(
               // btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
+              // splashRadius: widget.splashRadius,
               isPlus: false,
               borderShape: widget.decoration.borderShape,
-              // splashRadius: widget.splashRadius,
               onChanged: limitBtmState ? minus : null,
               child: widget.decoration.minusBtn,
             );
@@ -251,10 +251,10 @@ class _InputQtyState extends State<InputQty> {
             bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
             return BuildBtn(
               // btnColor: limitTopState ? widget.btnColor1 : widget.btnColor2,
+              // splashRadius: widget.splashRadius,
               isPlus: true,
               borderShape: widget.decoration.borderShape,
               onChanged: limitTopState ? plus : null,
-              // splashRadius: widget.splashRadius,
               child: widget.decoration.plusBtn,
             );
           }),

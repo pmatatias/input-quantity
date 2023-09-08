@@ -79,6 +79,7 @@ class QtyDecorationProps {
   /// This property is false by default.
   final bool? filled;
 
+  /// set color when filled `true`
   final Color? fillColor;
 
   /// Whether the decoration is the same size as the input field.
@@ -103,7 +104,6 @@ class QtyDecorationProps {
 
   const QtyDecorationProps({
     this.icon,
-    // this.messageBuilder,
     this.minusBtn,
     this.borderShape = BorderShapeBtn.none,
     this.minusButtonConstrains = const BoxConstraints(),
