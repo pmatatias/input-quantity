@@ -82,11 +82,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   minVal: -5,
                   borderShape: BorderShapeBtn.circle,
                   boxDecoration: const BoxDecoration(),
-                  decoration: QtyDecorationProps(
-                    icon: const Icon(Icons.abc),
-                    messageBuilder: (maxVal, minVal, value) {
-                      return Text("$maxVal, $minVal, $value");
-                    },
+                  messageBuilder: (maxVal, minVal, value) {
+                    return Text("$maxVal, $minVal, $value");
+                  },
+                  decoration: const QtyDecorationProps(
+                    icon: Icon(Icons.abc),
                   ),
                   minusBtn:
                       const Icon(Icons.accessibility_new_outlined, size: 18),

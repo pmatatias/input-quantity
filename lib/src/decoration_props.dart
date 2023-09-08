@@ -9,10 +9,6 @@ class QtyDecorationProps {
   /// - square'
   final BorderShapeBtn borderShape;
 
-  /// Widget for display text below the input quantity widget
-  /// set into counter text with aling center
-  /// only displayed if `validator` is null
-  final MessageBuilder<num>? messageBuilder;
   // An icon to show before the input field and outside of the decoration's
   /// container.
   final Widget? icon;
@@ -76,6 +72,8 @@ class QtyDecorationProps {
   /// This property is false by default.
   final bool? filled;
 
+  final Color? fillColor;
+
   /// Whether the decoration is the same size as the input field.
   /// Defaults to true
   final bool isCollapsed;
@@ -86,25 +84,9 @@ class QtyDecorationProps {
   /// Defaults to false.
   final bool? isDense;
 
-  /// Optional text to place below the line as a character count.
-  /// If null or an empty string and [counter] isn't specified, then nothing
-  /// will appear in the counter's location.
-  final String? counterText;
-
-  /// Optional custom counter widget to go in the place otherwise occupied by
-  /// [counterText]. If this property is non null, then [counterText] is
-  /// ignored.
-  final Widget? counter;
-
-  /// Only one of [error] and [errorText] can be specified.
-  final Widget? error;
-
-  /// Only one of [error] and [errorText] can be specified.
-  final String? errorText;
-
   const QtyDecorationProps({
     this.icon,
-    this.messageBuilder,
+    // this.messageBuilder,
     this.minusBtn,
     this.borderShape = BorderShapeBtn.none,
     this.minusButtonConstrains = const BoxConstraints(),
@@ -119,10 +101,7 @@ class QtyDecorationProps {
     this.focusedBorder,
     this.hoverColor,
     this.contentPadding,
-    this.counter,
-    this.counterText,
-    this.error,
-    this.errorText,
+    this.fillColor,
     this.filled,
     this.isCollapsed = true,
     this.isDense,

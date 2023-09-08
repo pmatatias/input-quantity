@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:input_quantity/src/constant.dart';
 import 'package:input_quantity/src/decoration_props.dart';
+import 'package:input_quantity/src/form_props.dart';
 
 import 'build_btn.dart';
 
-/// builder text widget below input
+/// builder text widget under the InputQty
 typedef MessageBuilder<T> = Widget Function(T minVal, T maxVal, T? value);
 
 class InputQty extends StatefulWidget {
@@ -60,6 +61,14 @@ class InputQty extends StatefulWidget {
   /// validator
   final String? Function(String?)? validator;
 
+  /// property for input quantity widget
+  final QtyFormProps qtyFormProps;
+
+  /// Widget for display text below the input quantity widget
+  /// set into counter text with aling center
+  /// only displayed if `validator` is null
+  final MessageBuilder<num>? messageBuilder;
+
   @Deprecated(
       'Use messageBuilder from QtyDecorationProps to specify message widget'
       'If null, no message will displayed')
@@ -94,26 +103,29 @@ class InputQty extends StatefulWidget {
   @Deprecated('Use inside QtyDecorationProps instead')
   final BorderShapeBtn borderShape;
 
-  const InputQty({
-    Key? key,
-    this.initVal = 1,
-    this.showMessageLimit = true,
-    this.boxDecoration,
-    this.borderShape = BorderShapeBtn.none,
-    this.splashRadius,
-    this.textFieldDecoration,
-    this.isIntrinsicWidth = true,
-    required this.onQtyChanged,
-    this.maxVal = double.maxFinite,
-    this.minVal = 0,
-    this.plusBtn,
-    this.minusBtn,
-    this.steps = 1,
-    this.btnColor1 = Colors.green,
-    this.btnColor2 = Colors.grey,
-    this.validator,
-    this.decoration = const QtyDecorationProps(),
-  })  : _isDecimal = false,
+  const InputQty(
+      {Key? key,
+      this.initVal = 1,
+      this.messageBuilder,
+      this.showMessageLimit = true,
+      this.boxDecoration,
+      this.borderShape = BorderShapeBtn.none,
+      this.splashRadius,
+      this.textFieldDecoration,
+      this.isIntrinsicWidth = true,
+      required this.onQtyChanged,
+      this.maxVal = double.maxFinite,
+      this.minVal = 0,
+      this.plusBtn,
+      this.minusBtn,
+      this.steps = 1,
+      this.btnColor1 = Colors.green,
+      this.btnColor2 = Colors.grey,
+      this.validator,
+      this.decoration = const QtyDecorationProps(),
+      this.qtyFormProps = const QtyFormProps()})
+      : _isDecimal = false,
+        assert((validator == null) || (messageBuilder == null)),
         super(key: key);
 
   const InputQty.double({
@@ -124,6 +136,7 @@ class InputQty extends StatefulWidget {
     this.borderShape = BorderShapeBtn.none,
     this.splashRadius,
     this.textFieldDecoration,
+    this.messageBuilder,
     this.isIntrinsicWidth = true,
     required this.onQtyChanged,
     this.maxVal = double.maxFinite,
@@ -132,10 +145,12 @@ class InputQty extends StatefulWidget {
     this.validator,
     this.minusBtn,
     this.decoration = const QtyDecorationProps(),
+    this.qtyFormProps = const QtyFormProps(),
     this.steps = 1.0,
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
   })  : _isDecimal = true,
+        assert((validator == null) || (messageBuilder == null)),
         super(key: key);
 
   @override
@@ -199,15 +214,12 @@ class _InputQtyState extends State<InputQty> {
   InputDecoration decorationProps() {
     return InputDecoration(
       counter: _buildMessageWidget(),
-      // counter: counterWidget.value,
-      fillColor: Colors.amber,
+      fillColor: widget.decoration.fillColor,
       filled: widget.decoration.filled,
-      // counter: const Text("asas"),
-      // border: InputBorder.none,
+      border: widget.decoration.border,
       isCollapsed: widget.decoration.isCollapsed,
       hoverColor: widget.decoration.hoverColor,
       hintText: "_____",
-      border: const OutlineInputBorder(),
       constraints: const BoxConstraints(),
       prefixIcon: ValueListenableBuilder<num?>(
           valueListenable: currentval,
@@ -238,7 +250,7 @@ class _InputQtyState extends State<InputQty> {
             );
           }),
     );
-}
+  }
 
   /// widget textformfield
   Widget _buildtextfield() => TextFormField(
@@ -281,7 +293,7 @@ class _InputQtyState extends State<InputQty> {
       valueListenable: currentval,
       builder: (context, val, __) {
         return Center(
-          child: widget.decoration.messageBuilder
+          child: widget.messageBuilder
               ?.call(widget.maxVal, widget.minVal, val),
         );
       });
