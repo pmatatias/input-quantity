@@ -7,6 +7,7 @@ import 'package:input_quantity/src/decoration_props.dart';
 
 import 'build_btn.dart';
 
+/// builder text widget below input
 typedef MessageBuilder<T> = Widget Function(T minVal, T maxVal, T? value);
 
 class InputQty extends StatefulWidget {
@@ -195,16 +196,16 @@ class _InputQtyState extends State<InputQty> {
     widget.onQtyChanged(value);
   }
 
-  InputDecoration decorationProps(InputDecoration? customProps) {
+  InputDecoration decorationProps() {
     return InputDecoration(
       counter: _buildMessageWidget(),
       // counter: counterWidget.value,
       fillColor: Colors.amber,
-      filled: true,
+      filled: widget.decoration.filled,
       // counter: const Text("asas"),
       // border: InputBorder.none,
-      isCollapsed: true,
-      hoverColor: Colors.red,
+      isCollapsed: widget.decoration.isCollapsed,
+      hoverColor: widget.decoration.hoverColor,
       hintText: "_____",
       border: const OutlineInputBorder(),
       constraints: const BoxConstraints(),
@@ -213,12 +214,12 @@ class _InputQtyState extends State<InputQty> {
           builder: (context, value, child) {
             bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
             return BuildBtn(
-              btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
+              // btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
               isPlus: false,
-              borderShape: widget.borderShape,
-              splashRadius: widget.splashRadius,
+              borderShape: widget.decoration.borderShape,
+              // splashRadius: widget.splashRadius,
               onChanged: limitBtmState ? minus : null,
-              child: widget.minusBtn,
+              child: widget.decoration.minusBtn,
             );
           }),
       prefixIconConstraints: const BoxConstraints(),
@@ -228,22 +229,22 @@ class _InputQtyState extends State<InputQty> {
           builder: (context, value, child) {
             bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
             return BuildBtn(
-              btnColor: limitTopState ? widget.btnColor1 : widget.btnColor2,
+              // btnColor: limitTopState ? widget.btnColor1 : widget.btnColor2,
               isPlus: true,
-              borderShape: widget.borderShape,
+              borderShape: widget.decoration.borderShape,
               onChanged: limitTopState ? plus : null,
-              splashRadius: widget.splashRadius,
-              child: widget.plusBtn,
+              // splashRadius: widget.splashRadius,
+              child: widget.decoration.plusBtn,
             );
           }),
     );
-  }
+}
 
   /// widget textformfield
   Widget _buildtextfield() => TextFormField(
         textAlign: TextAlign.center,
         textAlignVertical: TextAlignVertical.center,
-        decoration: decorationProps(widget.textFieldDecoration),
+        decoration: decorationProps(),
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         controller: _valCtrl,
