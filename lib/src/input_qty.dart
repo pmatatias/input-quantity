@@ -150,7 +150,9 @@ class InputQty extends StatefulWidget {
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
   })  : _isDecimal = true,
-        assert((validator == null) || (messageBuilder == null)),
+
+        /// can use both property. choose only on
+        assert(!(validator == null) || (messageBuilder == null)),
         super(key: key);
 
   @override
@@ -163,7 +165,6 @@ class _InputQtyState extends State<InputQty> {
 
   /// current value of quantity
   late ValueNotifier<num?> currentval;
-  ValueNotifier<Widget?> counterWidget = ValueNotifier(const SizedBox());
 
   @override
   void initState() {
@@ -213,14 +214,22 @@ class _InputQtyState extends State<InputQty> {
 
   InputDecoration decorationProps() {
     return InputDecoration(
+      contentPadding: widget.decoration.contentPadding,
+      disabledBorder: widget.decoration.disabledBorder,
+      enabledBorder: widget.decoration.enabledBorder,
+      errorBorder: widget.decoration.errorBorder,
+      focusedBorder: widget.decoration.focusedBorder,
+      icon: widget.decoration.icon,
+      isDense: widget.decoration.isDense,
+      iconColor: widget.decoration.iconColor,
       counter: _buildMessageWidget(),
       fillColor: widget.decoration.fillColor,
       filled: widget.decoration.filled,
       border: widget.decoration.border,
       isCollapsed: widget.decoration.isCollapsed,
       hoverColor: widget.decoration.hoverColor,
-      hintText: "_____",
-      constraints: const BoxConstraints(),
+      hintText: ''.padRight(widget.decoration.width,'_'),
+      constraints: widget.decoration.constraints,
       prefixIcon: ValueListenableBuilder<num?>(
           valueListenable: currentval,
           builder: (context, value, child) {
@@ -234,8 +243,8 @@ class _InputQtyState extends State<InputQty> {
               child: widget.decoration.minusBtn,
             );
           }),
-      prefixIconConstraints: const BoxConstraints(),
-      suffixIconConstraints: const BoxConstraints(),
+      prefixIconConstraints: widget.decoration.minusButtonConstrains,
+      suffixIconConstraints: widget.decoration.plusButtonConstrains,
       suffixIcon: ValueListenableBuilder<num?>(
           valueListenable: currentval,
           builder: (context, value, child) {
@@ -293,8 +302,7 @@ class _InputQtyState extends State<InputQty> {
       valueListenable: currentval,
       builder: (context, val, __) {
         return Center(
-          child: widget.messageBuilder
-              ?.call(widget.maxVal, widget.minVal, val),
+          child: widget.messageBuilder?.call(widget.maxVal, widget.minVal, val),
         );
       });
 

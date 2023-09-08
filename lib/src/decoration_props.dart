@@ -13,6 +13,13 @@ class QtyDecorationProps {
   /// container.
   final Widget? icon;
 
+  /// The color of the [icon].
+  ///
+  /// If [iconColor] is a [MaterialStateColor], then the effective
+  /// color can depend on the [MaterialState.focused] state, i.e.
+  /// if the [InputQty] is focused or not.
+  final Color? iconColor;
+
   /// Defines minimum and maximum sizes for the [InputDecorator].
   final BoxConstraints? constraints;
 
@@ -84,6 +91,16 @@ class QtyDecorationProps {
   /// Defaults to false.
   final bool? isDense;
 
+  /// set border for InputQuantity widget
+  /// if not `null`, default styling of `InputBorder` will be used
+  ///default is null
+  final bool? isBordered;
+
+  /// use for width of InputQty widget based on number of character
+  /// default is `6`
+  /// it will generate 6 character _ as hint text
+  final int width;
+
   const QtyDecorationProps({
     this.icon,
     // this.messageBuilder,
@@ -95,16 +112,19 @@ class QtyDecorationProps {
     this.style = QtyStyle.classic,
     this.border,
     this.constraints,
+    this.iconColor,
     this.disabledBorder,
     this.enabledBorder,
     this.errorBorder,
     this.focusedBorder,
     this.hoverColor,
+    this.width = 6,
     this.contentPadding,
     this.fillColor,
     this.filled,
     this.isCollapsed = true,
     this.isDense,
+    this.isBordered,
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
   });
