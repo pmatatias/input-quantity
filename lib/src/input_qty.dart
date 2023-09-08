@@ -45,42 +45,10 @@ class InputQty extends StatefulWidget {
   /// if `false` wrapped with `Expanded`
   final bool isIntrinsicWidth;
 
-  /// Icon widget for button plus
-  final Widget? plusBtn;
-
-  /// Icon widget for button minus
-  final Widget? minusBtn;
-
-  /// primary color applied on Button widget
-  /// used when availabe to press
-  final Color btnColor1;
-
-  /// secondary color applied for button
-  /// This value will used for disabled color button
-  final Color btnColor2;
-
-  /// spalsh radius effect
-  /// show spalsh effect when the button are pressed
-  final double? splashRadius;
-
-  /// border shape of button
-  /// - none,
-  /// - circle,
-  /// - square
-  final BorderShapeBtn borderShape;
-
   ///boxdecoration
   ///use when you want to customize border
   ///around widget
   final BoxDecoration? boxDecoration;
-
-  /// show message when the value reach the maximum or
-  /// minimum value
-  final bool showMessageLimit;
-
-  ///
-  @Deprecated("Change into QtyDecorationProps")
-  final InputDecoration? textFieldDecoration;
 
   /// if `true` use value as double
   final bool _isDecimal;
@@ -90,6 +58,40 @@ class InputQty extends StatefulWidget {
 
   /// validator
   final String? Function(String?)? validator;
+
+  @Deprecated(
+      'Use messageBuilder from QtyDecorationProps to specify message widget'
+      'If null, no message will displayed')
+  final bool showMessageLimit;
+
+  @Deprecated('Use QtyDecorationProps instead')
+  final InputDecoration? textFieldDecoration;
+
+  /// Icon widget for button plus
+  @Deprecated('Use inside QtyDecorationProps instead')
+  final Widget? plusBtn;
+
+  /// Icon widget for button minus
+  @Deprecated('Use inside QtyDecorationProps instead')
+  final Widget? minusBtn;
+
+  /// primary color applied on Button widget
+  /// used when availabe to press
+  @Deprecated('Use inside QtyDecorationProps instead')
+  final Color btnColor1;
+
+  /// secondary color applied for button
+  /// This value will used for disabled color button
+  @Deprecated('Use inside QtyDecorationProps instead')
+  final Color btnColor2;
+
+  /// spalsh radius effect
+  /// show spalsh effect when the button are pressed
+  @Deprecated('Use inside QtyDecorationProps instead')
+  final double? splashRadius;
+
+  @Deprecated('Use inside QtyDecorationProps instead')
+  final BorderShapeBtn borderShape;
 
   const InputQty({
     Key? key,

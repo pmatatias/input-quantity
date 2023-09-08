@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 import '../input_quantity.dart';
 
 class QtyDecorationProps {
+  /// border shape of button'
+  /// - none,
+  /// - circle,
+  /// - square'
+  final BorderShapeBtn borderShape;
+
+  /// Widget for display text below the input quantity widget
+  /// set into counter text with aling center
+  /// only displayed if `validator` is null
   final MessageBuilder<num>? messageBuilder;
   // An icon to show before the input field and outside of the decoration's
   /// container.
@@ -97,6 +106,7 @@ class QtyDecorationProps {
     this.icon,
     this.messageBuilder,
     this.minusBtn,
+    this.borderShape = BorderShapeBtn.none,
     this.minusButtonConstrains = const BoxConstraints(),
     this.plusBtn,
     this.plusButtonConstrains = const BoxConstraints(),

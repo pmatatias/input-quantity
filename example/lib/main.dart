@@ -148,6 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 InputQty(
                   maxVal: 100,
                   initVal: 0,
+                  textFieldDecoration: const InputDecoration(),
+                  showMessageLimit: false,
                   onQtyChanged: (val) {
                     if (kDebugMode) {
                       print("UI : $val ");
