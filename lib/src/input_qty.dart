@@ -41,7 +41,7 @@ class InputQty extends StatefulWidget {
   /// the `runType` is `num`. you may need to parse the data type
   /// parse to `int` : `value.toInt();`
   /// parse to `double` : `value.toDouble();`
-  final ValueChanged onQtyChanged;
+  final ValueChanged? onQtyChanged;
 
   /// wrap [TextFormField] with [IntrinsicWidth] widget
   /// this will make the width of [InputQty] set to intrinsic width
@@ -104,50 +104,50 @@ class InputQty extends StatefulWidget {
   @Deprecated('Use inside QtyDecorationProps instead')
   final BorderShapeBtn borderShape;
 
-  const InputQty(
-      {Key? key,
-      this.initVal = 1,
-      this.messageBuilder,
-      this.showMessageLimit = true,
-      this.boxDecoration,
-      this.borderShape = BorderShapeBtn.none,
-      this.splashRadius,
-      this.textFieldDecoration,
-      this.isIntrinsicWidth = true,
-      required this.onQtyChanged,
-      this.maxVal = double.maxFinite,
-      this.minVal = 0,
-      this.plusBtn,
-      this.minusBtn,
-      this.steps = 1,
-      this.btnColor1 = Colors.green,
-      this.btnColor2 = Colors.grey,
-      this.validator,
-      this.decoration = const QtyDecorationProps(),
-      this.qtyFormProps = const QtyFormProps()})
-      : _outputType = _OutputType.num,
+  const InputQty({
+    Key? key,
+    this.initVal = 1,
+    this.maxVal = double.maxFinite,
+    this.minVal = 0,
+    this.steps = 1,
+    this.onQtyChanged,
+    this.messageBuilder,
+    this.validator,
+    this.decoration = const QtyDecorationProps(),
+    this.qtyFormProps = const QtyFormProps(),
+    this.isIntrinsicWidth = true,
+    this.boxDecoration,
+    this.borderShape = BorderShapeBtn.none,
+    this.splashRadius,
+    this.textFieldDecoration,
+    this.plusBtn,
+    this.minusBtn,
+    this.btnColor1 = Colors.green,
+    this.btnColor2 = Colors.grey,
+    this.showMessageLimit = true,
+  })  : _outputType = _OutputType.num,
         assert(!((validator != null) && (messageBuilder != null))),
         super(key: key);
 
   const InputQty.double({
     Key? key,
     this.initVal = 1.0,
+    this.maxVal = double.maxFinite,
+    this.minVal = 0.0,
+    this.steps = 1.0,
+    this.onQtyChanged,
+    this.messageBuilder,
+    this.validator,
+    this.decoration = const QtyDecorationProps(),
+    this.qtyFormProps = const QtyFormProps(),
+    this.isIntrinsicWidth = true,
     this.showMessageLimit = true,
     this.boxDecoration,
     this.borderShape = BorderShapeBtn.none,
     this.splashRadius,
     this.textFieldDecoration,
-    this.messageBuilder,
-    this.isIntrinsicWidth = true,
-    required this.onQtyChanged,
-    this.maxVal = double.maxFinite,
-    this.minVal = 0.0,
     this.plusBtn,
-    this.validator,
     this.minusBtn,
-    this.decoration = const QtyDecorationProps(),
-    this.qtyFormProps = const QtyFormProps(),
-    this.steps = 1.0,
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
   })  : _outputType = _OutputType.double,
@@ -159,22 +159,22 @@ class InputQty extends StatefulWidget {
   const InputQty.int({
     Key? key,
     this.initVal = 1,
+    this.maxVal = double.maxFinite,
+    this.minVal = 0,
+    this.steps = 1,
+    this.onQtyChanged,
+    this.messageBuilder,
+    this.validator,
+    this.decoration = const QtyDecorationProps(),
+    this.qtyFormProps = const QtyFormProps(),
+    this.isIntrinsicWidth = true,
     this.showMessageLimit = true,
     this.boxDecoration,
     this.borderShape = BorderShapeBtn.none,
     this.splashRadius,
     this.textFieldDecoration,
-    this.messageBuilder,
-    this.isIntrinsicWidth = true,
-    required this.onQtyChanged,
-    this.maxVal = double.maxFinite,
-    this.minVal = 0,
     this.plusBtn,
-    this.validator,
     this.minusBtn,
-    this.decoration = const QtyDecorationProps(),
-    this.qtyFormProps = const QtyFormProps(),
-    this.steps = 1,
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
   })  : _outputType = _OutputType.integer,
@@ -231,7 +231,7 @@ class _InputQtyState extends State<InputQty> {
     /// set back to the controller
     _valCtrl.text = "$value";
     currentval.value = value;
-    widget.onQtyChanged(value);
+    widget.onQtyChanged?.call(value);
   }
 
   /// decrese current value based on stpes
@@ -261,7 +261,7 @@ class _InputQtyState extends State<InputQty> {
     /// set back to the controller
     _valCtrl.text = "$value";
     currentval.value = value;
-    widget.onQtyChanged(value);
+    widget.onQtyChanged?.call(value);
   }
 
   InputDecoration decorationProps() {
@@ -349,7 +349,7 @@ class _InputQtyState extends State<InputQty> {
             temp = widget.maxVal;
             _valCtrl.text = "$temp";
           }
-          widget.onQtyChanged(temp);
+          widget.onQtyChanged?.call(temp);
           currentval.value = temp;
         },
         keyboardType: TextInputType.number,
