@@ -13,6 +13,7 @@ typedef MessageBuilder<T> = Widget Function(T minVal, T maxVal, T? value);
 
 enum _OutputType { num, integer, double }
 
+/// Widget to handle quantity input
 class InputQty extends StatefulWidget {
   /// maximum value input
   /// default  `maxVal = num.maxFinite`,
@@ -104,6 +105,11 @@ class InputQty extends StatefulWidget {
   @Deprecated('Use inside QtyDecorationProps instead')
   final BorderShapeBtn borderShape;
 
+  /// Widget to handle quantity input
+  ///
+  /// for specific output, use `InputQty.int` or
+  /// `InputQty.double`
+  /// in not specify, the output will return as `num` type
   const InputQty({
     Key? key,
     this.initVal = 1,
@@ -129,6 +135,9 @@ class InputQty extends StatefulWidget {
         assert(!((validator != null) && (messageBuilder != null))),
         super(key: key);
 
+  /// Widget to handle quantity input
+  ///
+  ///output value from `onQtyChanged` will convert into `double`
   const InputQty.double({
     Key? key,
     this.initVal = 1.0,
@@ -156,6 +165,9 @@ class InputQty extends StatefulWidget {
         assert(!((validator != null) && (messageBuilder != null))),
         super(key: key);
 
+  /// Widget to handle quantity input
+  ///
+  /// output value from `onQtyChanged` will convert into `int`
   const InputQty.int({
     Key? key,
     this.initVal = 1,
