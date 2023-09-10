@@ -11,6 +11,8 @@ import 'build_btn.dart';
 /// builder text widget under the InputQty
 typedef MessageBuilder<T> = Widget Function(T minVal, T maxVal, T? value);
 
+enum _OutputType { num, integer, double }
+
 class InputQty extends StatefulWidget {
   /// maximum value input
   /// default  `maxVal = num.maxFinite`,
@@ -53,7 +55,7 @@ class InputQty extends StatefulWidget {
   final BoxDecoration? boxDecoration;
 
   /// if `true` use value as double
-  final bool _isDecimal;
+  final _OutputType _outputType;
 
   /// decoration property for input quantity
   final QtyDecorationProps decoration;
@@ -70,8 +72,7 @@ class InputQty extends StatefulWidget {
   final MessageBuilder<num>? messageBuilder;
 
   @Deprecated(
-      'Use messageBuilder from QtyDecorationProps to specify message widget'
-      'If null, no message will displayed')
+      'Use messageBuilder from QtyDecorationProps to specify message widget')
   final bool showMessageLimit;
 
   @Deprecated('Use QtyDecorationProps instead')
@@ -124,8 +125,8 @@ class InputQty extends StatefulWidget {
       this.validator,
       this.decoration = const QtyDecorationProps(),
       this.qtyFormProps = const QtyFormProps()})
-      : _isDecimal = false,
-        assert((validator == null) || (messageBuilder == null)),
+      : _outputType = _OutputType.num,
+        assert(!((validator != null) && (messageBuilder != null))),
         super(key: key);
 
   const InputQty.double({
@@ -149,10 +150,37 @@ class InputQty extends StatefulWidget {
     this.steps = 1.0,
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
-  })  : _isDecimal = true,
+  })  : _outputType = _OutputType.double,
 
-        /// can use both property. choose only on
-        assert(!(validator == null) || (messageBuilder == null)),
+        /// cant use both property. choose only on
+        assert(!((validator != null) && (messageBuilder != null))),
+        super(key: key);
+
+  const InputQty.int({
+    Key? key,
+    this.initVal = 1,
+    this.showMessageLimit = true,
+    this.boxDecoration,
+    this.borderShape = BorderShapeBtn.none,
+    this.splashRadius,
+    this.textFieldDecoration,
+    this.messageBuilder,
+    this.isIntrinsicWidth = true,
+    required this.onQtyChanged,
+    this.maxVal = double.maxFinite,
+    this.minVal = 0,
+    this.plusBtn,
+    this.validator,
+    this.minusBtn,
+    this.decoration = const QtyDecorationProps(),
+    this.qtyFormProps = const QtyFormProps(),
+    this.steps = 1,
+    this.btnColor1 = Colors.green,
+    this.btnColor2 = Colors.grey,
+  })  : _outputType = _OutputType.integer,
+
+        /// cant use both property. choose only on
+        assert(!((validator != null) && (messageBuilder != null))),
         super(key: key);
 
   @override
@@ -185,7 +213,20 @@ class _InputQtyState extends State<InputQty> {
     if (value >= widget.maxVal) {
       value = widget.maxVal;
     }
-    value = widget._isDecimal ? value.toDouble() : value.toInt();
+
+    switch (widget._outputType) {
+      case _OutputType.double:
+        value = value.toDouble();
+        break;
+      case _OutputType.integer:
+        value = value.toInt();
+        break;
+
+      default:
+        value = value;
+        break;
+    }
+    // value = widget._outputType ? value.toDouble() : value.toInt();
 
     /// set back to the controller
     _valCtrl.text = "$value";
@@ -204,7 +245,18 @@ class _InputQtyState extends State<InputQty> {
     if (value <= widget.minVal) {
       value = widget.minVal;
     }
-    value = widget._isDecimal ? value.toDouble() : value.toInt();
+    // value = widget._isDecimal ? value.toDouble() : value.toInt();
+    switch (widget._outputType) {
+      case _OutputType.double:
+        value = value.toDouble();
+        break;
+      case _OutputType.integer:
+        value = value.toInt();
+        break;
+      default:
+        value = value;
+        break;
+    }
 
     /// set back to the controller
     _valCtrl.text = "$value";
@@ -275,7 +327,18 @@ class _InputQtyState extends State<InputQty> {
           if (strVal.isEmpty || strVal == '-') return;
           num? temp = num.tryParse(strVal);
           if (temp == null) return;
-          temp = widget._isDecimal ? temp.toDouble() : temp.toInt();
+          // temp = widget._isDecimal ? temp.toDouble() : temp.toInt();
+          switch (widget._outputType) {
+            case _OutputType.double:
+              temp = temp.toDouble();
+              break;
+            case _OutputType.integer:
+              temp = temp.toInt();
+              break;
+            default:
+              temp = temp;
+              break;
+          }
           // temp = temp.clamp(widget.minVal, widget.maxVal);
 
           // not using clamp, since need to update controller each limit
