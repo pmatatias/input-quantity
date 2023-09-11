@@ -137,7 +137,8 @@ class InputQty extends StatefulWidget {
 
   /// Widget to handle quantity input
   ///
-  ///output value from `onQtyChanged` will convert into `double`
+  /// output value from `onQtyChanged` will convert into `double`
+  ///
   const InputQty.double({
     Key? key,
     this.initVal = 1.0,
@@ -292,54 +293,117 @@ class _InputQtyState extends State<InputQty> {
       border: widget.decoration.border,
       isCollapsed: widget.decoration.isCollapsed,
       hoverColor: widget.decoration.hoverColor,
-      hintText: ''.padRight(widget.decoration.width, '_'),
+      hintText: ''.padRight(widget.decoration.width, ' '),
       constraints: widget.decoration.constraints,
       prefixIcon: ValueListenableBuilder<num?>(
           valueListenable: currentval,
           builder: (context, value, child) {
             bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
-            return BuildBtn(
-              // btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
-              // splashRadius: widget.splashRadius,
-              isPlus: false,
-              borderShape: widget.decoration.borderShape,
-              onChanged: limitBtmState ? minus : null,
-              child: widget.decoration.minusBtn,
-            );
+            bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
+
+            switch (widget.decoration.qtyStyle) {
+              case QtyStyle.btnOnLeft:
+                return Column(
+                  children: [
+                    BuildBtn(
+                      isPlus: true,
+                      borderShape: widget.decoration.borderShape,
+                      onChanged: limitTopState ? plus : null,
+                      child: widget.decoration.plusBtn,
+                    ),
+                    const SizedBox(height: 2),
+                    BuildBtn(
+                      isPlus: false,
+                      borderShape: widget.decoration.borderShape,
+                      onChanged: limitBtmState ? minus : null,
+                      child: widget.decoration.minusBtn,
+                    ),
+                  ],
+                );
+              case QtyStyle.btnOnRight:
+                return const SizedBox();
+              default:
+                return BuildBtn(
+                  // btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
+                  // splashRadius: widget.splashRadius,
+                  isPlus: false,
+                  borderShape: widget.decoration.borderShape,
+                  onChanged: limitBtmState ? minus : null,
+                  child: widget.decoration.minusBtn,
+                );
+            }
           }),
       prefixIconConstraints: widget.decoration.minusButtonConstrains,
       suffixIconConstraints: widget.decoration.plusButtonConstrains,
       suffixIcon: ValueListenableBuilder<num?>(
           valueListenable: currentval,
           builder: (context, value, child) {
+            bool limitBtmState = (value ?? widget.initVal) > widget.minVal;
             bool limitTopState = (value ?? widget.initVal) < widget.maxVal;
-            return BuildBtn(
-              // btnColor: limitTopState ? widget.btnColor1 : widget.btnColor2,
-              // splashRadius: widget.splashRadius,
-              isPlus: true,
-              borderShape: widget.decoration.borderShape,
-              onChanged: limitTopState ? plus : null,
-              child: widget.decoration.plusBtn,
-            );
+
+            switch (widget.decoration.qtyStyle) {
+              case QtyStyle.btnOnRight:
+                return Column(
+                  children: [
+                    BuildBtn(
+                      isPlus: true,
+                      borderShape: widget.decoration.borderShape,
+                      onChanged: limitTopState ? plus : null,
+                      child: widget.decoration.plusBtn,
+                    ),
+                    const SizedBox(height: 2),
+                    BuildBtn(
+                      isPlus: false,
+                      borderShape: widget.decoration.borderShape,
+                      onChanged: limitBtmState ? minus : null,
+                      child: widget.decoration.minusBtn,
+                    ),
+                  ],
+                );
+              case QtyStyle.btnOnLeft:
+                return const SizedBox();
+              default:
+                return BuildBtn(
+                  isPlus: true,
+                  borderShape: widget.decoration.borderShape,
+                  onChanged: limitTopState ? plus : null,
+                  child: widget.decoration.plusBtn,
+                );
+            }
           }),
     );
   }
 
   /// widget textformfield
   Widget _buildtextfield() => TextFormField(
-        textAlign: TextAlign.center,
-        textAlignVertical: TextAlignVertical.center,
         decoration: decorationProps(),
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         controller: _valCtrl,
-        validator: (value) => "sadads",
+        validator: widget.validator,
+        textAlign: widget.qtyFormProps.textAlign,
+        textAlignVertical: widget.qtyFormProps.textAlignVertical,
+        style: widget.qtyFormProps.style,
+        obscureText: widget.qtyFormProps.obscureText,
+        obscuringCharacter: widget.qtyFormProps.obscuringCharacter,
+        cursorColor: widget.qtyFormProps.cursorColor,
+        cursorHeight: widget.qtyFormProps.cursorHeight,
+        cursorOpacityAnimates: widget.qtyFormProps.cursorOpacityAnimates,
+        cursorRadius: widget.qtyFormProps.cursorRadius,
+        cursorWidth: widget.qtyFormProps.cursorWidth,
+        keyboardType: widget.qtyFormProps.keyboardType,
+        enabled: widget.qtyFormProps.enabled,
+        showCursor: widget.qtyFormProps.showCursor,
         onChanged: (String strVal) {
+          print(strVal);
           // avoid parsing value
           if (strVal.isEmpty || strVal == '-') return;
           num? temp = num.tryParse(strVal);
-          if (temp == null) return;
-          // temp = widget._isDecimal ? temp.toDouble() : temp.toInt();
+          if (temp == null) {
+            _valCtrl.text = '${currentval.value}';
+            _valCtrl.selection = TextSelection.fromPosition(
+                TextPosition(offset: _valCtrl.text.length));
+            return;
+          }
           switch (widget._outputType) {
             case _OutputType.double:
               temp = temp.toDouble();
@@ -352,19 +416,19 @@ class _InputQtyState extends State<InputQty> {
               break;
           }
           // temp = temp.clamp(widget.minVal, widget.maxVal);
-
           // not using clamp, since need to update controller each limit
           if (temp >= widget.maxVal) {
             temp = widget.maxVal;
+
             _valCtrl.text = "$temp";
           } else if (temp <= widget.minVal) {
-            temp = widget.maxVal;
+            temp = widget.minVal;
+
             _valCtrl.text = "$temp";
           }
           widget.onQtyChanged?.call(temp);
           currentval.value = temp;
         },
-        keyboardType: TextInputType.number,
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*'))
           // widget._isDecimal

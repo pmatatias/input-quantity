@@ -61,7 +61,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(fontSize: 14, color: Colors.blue),
                   ),
                 ),
-                const InputQty.double(),
+                const InputQty.double(
+                  decoration: QtyDecorationProps(qtyStyle: QtyStyle.btnOnLeft),
+                ),
+                const Divider(),
+                const InputQty.double(
+                  decoration: QtyDecorationProps(qtyStyle: QtyStyle.btnOnRight),
+                ),
                 ElevatedButton(
                     onPressed: () {
                       _formKey.currentState!.validate();

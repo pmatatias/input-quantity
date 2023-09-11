@@ -44,7 +44,7 @@ class QtyDecorationProps {
   final Color btnColor2;
 
   /// define style widget
-  final QtyStyle style;
+  final QtyStyle qtyStyle;
 
   /// The shape of the border to draw around the decoration's container.
   ///
@@ -109,7 +109,7 @@ class QtyDecorationProps {
     this.minusButtonConstrains = const BoxConstraints(),
     this.plusBtn,
     this.plusButtonConstrains = const BoxConstraints(),
-    this.style = QtyStyle.classic,
+    this.qtyStyle = QtyStyle.classic,
     this.border,
     this.constraints,
     this.iconColor,

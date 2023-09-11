@@ -26,13 +26,13 @@ class QtyFormProps {
   final Radius? cursorRadius;
 
   /// set width cursor
-  final double? cursorWidth;
+  final double cursorWidth;
 
   /// enabale qty formfield
   final bool? enabled;
 
   /// obsecure text
-  final bool? obscureText;
+  final bool obscureText;
 
   /// character for obescure text
   final String obscuringCharacter;
@@ -49,10 +49,10 @@ class QtyFormProps {
     this.cursorRadius,
     this.keyboardType = TextInputType.number,
     this.style,
-    this.cursorWidth,
+    this.cursorWidth = 2.0,
     this.enabled,
     this.showCursor,
-    this.obscureText,
+    this.obscureText = false,
     this.obscuringCharacter = '•',
   });
 }
