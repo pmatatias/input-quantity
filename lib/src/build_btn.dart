@@ -28,6 +28,7 @@ class BuildBtn extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.amber,
         radius: 50,
+
         // splashFactory: InkRipple.splashFactory,
         // borderRadius: BorderRadius.circular(50),
         onTap: onPressed,
