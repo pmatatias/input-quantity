@@ -62,7 +62,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const InputQty.double(
-                  decoration: QtyDecorationProps(qtyStyle: QtyStyle.btnOnLeft),
+                  decoration: QtyDecorationProps(
+                      qtyStyle: QtyStyle.btnOnLeft,
+                      width: 24,
+                      isBordered: true,
+                      borderShape: BorderShapeBtn.square),
                 ),
                 const Divider(),
                 const InputQty.double(
@@ -74,10 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     child: const Text("validate")),
                 const Divider(),
-                InputQty(onQtyChanged: (val) {
-                  print(val.runtimeType);
-                  abf = val;
-                }),
+                InputQty(
+                    decoration: const QtyDecorationProps(
+                        isBordered: false, enabledBorder: OutlineInputBorder()),
+                    onQtyChanged: (val) {
+                      print(val.runtimeType);
+                      abf = val;
+                    }),
                 const Divider(),
                 const Padding(
                     padding: EdgeInsets.all(8.0),
@@ -87,21 +94,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   initVal: 0,
                   steps: 1,
                   minVal: -5,
-                  borderShape: BorderShapeBtn.circle,
+                  borderShape: BorderShapeBtn.square,
                   boxDecoration: const BoxDecoration(),
                   messageBuilder: (maxVal, minVal, value) {
                     return Text("$maxVal, $minVal, $value");
                   },
                   decoration: const QtyDecorationProps(
                     icon: Icon(Icons.abc),
+                    minusBtn: Icon(
+                      Icons.accessibility_new_outlined,
+                      size: 18,
+                      color: Colors.amber,
+                    ),
+                    plusBtn: Icon(Icons.accessible_forward, size: 18),
+                    btnColor1: Colors.indigo,
                   ),
-                  minusBtn:
-                      const Icon(Icons.accessibility_new_outlined, size: 18),
-                  plusBtn: const Icon(
-                    Icons.accessible_forward,
-                    size: 18,
-                  ),
-                  btnColor1: Colors.indigo,
                   onQtyChanged: (val) {
                     if (kDebugMode) {
                       // print("UI : $val ");
@@ -138,8 +145,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   minVal: -50,
                   steps: 10,
                   borderShape: BorderShapeBtn.none,
-                  plusBtn: const Icon(Icons.add_box),
-                  minusBtn: const Icon(Icons.indeterminate_check_box),
+                  decoration: const QtyDecorationProps(
+                    plusBtn: Icon(Icons.add_box),
+                    minusBtn: Icon(Icons.indeterminate_check_box),
+                  ),
                   btnColor1: Colors.teal,
                   btnColor2: Colors.red,
                   onQtyChanged: (val) {

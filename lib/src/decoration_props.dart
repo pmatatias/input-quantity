@@ -93,9 +93,10 @@ class QtyDecorationProps {
   final bool? isDense;
 
   /// set border for InputQuantity widget
-  /// if not `null`, default styling of `InputBorder` will be used
-  ///default is null
-  final bool? isBordered;
+  ///
+  /// default is true
+  /// border decoration will be override if `InputBorder` are defined
+  final bool isBordered;
 
   /// use for width of InputQty widget based on number of character
   /// default is `6`
@@ -124,7 +125,7 @@ class QtyDecorationProps {
     this.filled,
     this.isCollapsed = true,
     this.isDense,
-    this.isBordered,
+    this.isBordered = true,
     this.btnColor1 = Colors.green,
     this.btnColor2 = Colors.grey,
   });

@@ -284,13 +284,17 @@ class _InputQtyState extends State<InputQty> {
       enabledBorder: widget.decoration.enabledBorder,
       errorBorder: widget.decoration.errorBorder,
       focusedBorder: widget.decoration.focusedBorder,
+      border: widget.decoration.border ??
+          OutlineInputBorder(
+              borderSide: widget.decoration.isBordered
+                  ? const BorderSide()
+                  : BorderSide.none),
       icon: widget.decoration.icon,
       isDense: widget.decoration.isDense,
       iconColor: widget.decoration.iconColor,
       counter: _buildMessageWidget(),
       fillColor: widget.decoration.fillColor,
       filled: widget.decoration.filled,
-      border: widget.decoration.border,
       isCollapsed: widget.decoration.isCollapsed,
       hoverColor: widget.decoration.hoverColor,
       hintText: ''.padRight(widget.decoration.width, ' '),
@@ -308,14 +312,14 @@ class _InputQtyState extends State<InputQty> {
                     BuildBtn(
                       isPlus: true,
                       borderShape: widget.decoration.borderShape,
-                      onChanged: limitTopState ? plus : null,
+                      onPressed: limitTopState ? plus : null,
                       child: widget.decoration.plusBtn,
                     ),
                     const SizedBox(height: 2),
                     BuildBtn(
                       isPlus: false,
                       borderShape: widget.decoration.borderShape,
-                      onChanged: limitBtmState ? minus : null,
+                      onPressed: limitBtmState ? minus : null,
                       child: widget.decoration.minusBtn,
                     ),
                   ],
@@ -324,11 +328,9 @@ class _InputQtyState extends State<InputQty> {
                 return const SizedBox();
               default:
                 return BuildBtn(
-                  // btnColor: limitBtmState ? widget.btnColor1 : widget.btnColor2,
-                  // splashRadius: widget.splashRadius,
                   isPlus: false,
                   borderShape: widget.decoration.borderShape,
-                  onChanged: limitBtmState ? minus : null,
+                  onPressed: limitBtmState ? minus : null,
                   child: widget.decoration.minusBtn,
                 );
             }
@@ -348,14 +350,14 @@ class _InputQtyState extends State<InputQty> {
                     BuildBtn(
                       isPlus: true,
                       borderShape: widget.decoration.borderShape,
-                      onChanged: limitTopState ? plus : null,
+                      onPressed: limitTopState ? plus : null,
                       child: widget.decoration.plusBtn,
                     ),
-                    const SizedBox(height: 2),
+                    // const SizedBox(height: 2),
                     BuildBtn(
                       isPlus: false,
                       borderShape: widget.decoration.borderShape,
-                      onChanged: limitBtmState ? minus : null,
+                      onPressed: limitBtmState ? minus : null,
                       child: widget.decoration.minusBtn,
                     ),
                   ],
@@ -366,7 +368,7 @@ class _InputQtyState extends State<InputQty> {
                 return BuildBtn(
                   isPlus: true,
                   borderShape: widget.decoration.borderShape,
-                  onChanged: limitTopState ? plus : null,
+                  onPressed: limitTopState ? plus : null,
                   child: widget.decoration.plusBtn,
                 );
             }
@@ -394,7 +396,6 @@ class _InputQtyState extends State<InputQty> {
         enabled: widget.qtyFormProps.enabled,
         showCursor: widget.qtyFormProps.showCursor,
         onChanged: (String strVal) {
-          print(strVal);
           // avoid parsing value
           if (strVal.isEmpty || strVal == '-') return;
           num? temp = num.tryParse(strVal);
