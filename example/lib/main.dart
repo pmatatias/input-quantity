@@ -64,7 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 const InputQty.double(
                   decoration: QtyDecorationProps(
                       qtyStyle: QtyStyle.btnOnLeft,
-                      width: 24,
+                      width: 16,
+                      fillColor: Colors.amber,
+                      filled: true,
                       isBordered: true,
                       borderShape: BorderShapeBtn.square),
                 ),
@@ -80,7 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Divider(),
                 InputQty(
                     decoration: const QtyDecorationProps(
-                        isBordered: false, enabledBorder: OutlineInputBorder()),
+                      isBordered: false,
+                    ),
                     onQtyChanged: (val) {
                       print(val.runtimeType);
                       abf = val;

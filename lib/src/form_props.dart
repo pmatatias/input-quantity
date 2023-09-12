@@ -43,16 +43,16 @@ class QtyFormProps {
   const QtyFormProps({
     this.textAlign = TextAlign.center,
     this.textAlignVertical = TextAlignVertical.center,
+    this.keyboardType = TextInputType.number,
+    this.style = const TextStyle(fontWeight: FontWeight.bold),
+    this.cursorWidth = 2.0,
+    this.obscureText = false,
+    this.obscuringCharacter = '•',
     this.cursorColor,
     this.cursorHeight,
     this.cursorOpacityAnimates,
     this.cursorRadius,
-    this.keyboardType = TextInputType.number,
-    this.style,
-    this.cursorWidth = 2.0,
     this.enabled,
     this.showCursor,
-    this.obscureText = false,
-    this.obscuringCharacter = '•',
   });
 }
