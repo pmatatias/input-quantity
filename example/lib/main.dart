@@ -64,14 +64,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 const InputQty.double(
                   decoration: QtyDecorationProps(
                       qtyStyle: QtyStyle.btnOnLeft,
-                      width: 16,
+                      width: 12,
                       fillColor: Colors.amber,
                       isBordered: true,
-                      borderShape: BorderShapeBtn.square),
+                      borderShape: BorderShapeBtn.none),
                 ),
                 const Divider(),
                 const InputQty.double(
-                  decoration: QtyDecorationProps(qtyStyle: QtyStyle.btnOnRight),
+                  decoration: QtyDecorationProps(
+                      width: 12,
+                      borderShape: BorderShapeBtn.square,
+                      qtyStyle: QtyStyle.btnOnRight),
                 ),
                 ElevatedButton(
                     onPressed: () {

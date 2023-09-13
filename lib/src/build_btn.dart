@@ -24,29 +24,60 @@ class BuildBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isCircleBorder = borderShape == BorderShapeBtn.circle;
     switch (qtyStyle) {
       case QtyStyle.btnOnLeft:
         return InkWell(
           onTap: onTap,
           child: DecoratedBox(
             decoration: BoxDecoration(
-                shape: borderShape == BorderShapeBtn.circle
-                    ? BoxShape.circle
-                    : BoxShape.rectangle,
+                shape: isCircleBorder ? BoxShape.circle : BoxShape.rectangle,
                 border: borderShape == BorderShapeBtn.none
                     ? null
                     : Border.all(color: btnColor, width: 1),
-                borderRadius: BorderRadius.only(
-                    topLeft: isPlus ? const Radius.circular(5) : Radius.zero,
-                    bottomLeft:
-                        isPlus ? Radius.zero : const Radius.circular(5))),
+                borderRadius: isCircleBorder
+                    ? null
+                    : BorderRadius.only(
+                        topLeft:
+                            isPlus ? const Radius.circular(5) : Radius.zero,
+                        bottomLeft:
+                            isPlus ? Radius.zero : const Radius.circular(5))),
             child: child ??
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: isCircleBorder ? 2 : 8.0),
                   child: Icon(
                     isPlus ? Icons.add : Icons.remove,
                     size: 18,
-                    color: Colors.pink,
+                    color: btnColor,
+                  ),
+                ),
+          ),
+        );
+      case QtyStyle.btnOnRight:
+        return InkWell(
+          onTap: onTap,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              shape: isCircleBorder ? BoxShape.circle : BoxShape.rectangle,
+              border: borderShape == BorderShapeBtn.none
+                  ? null
+                  : Border.all(color: btnColor, width: 1),
+              borderRadius: isCircleBorder
+                  ? null
+                  : BorderRadius.only(
+                      topRight: isPlus ? const Radius.circular(5) : Radius.zero,
+                      bottomRight:
+                          isPlus ? Radius.zero : const Radius.circular(5)),
+            ),
+            child: child ??
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: isCircleBorder ? 2 : 8),
+                  child: Icon(
+                    isPlus ? Icons.add : Icons.remove,
+                    size: 18,
+                    color: btnColor,
                   ),
                 ),
           ),
