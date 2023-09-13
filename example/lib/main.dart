@@ -66,7 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       qtyStyle: QtyStyle.btnOnLeft,
                       width: 16,
                       fillColor: Colors.amber,
-                      filled: true,
                       isBordered: true,
                       borderShape: BorderShapeBtn.square),
                 ),
@@ -106,10 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icon(Icons.abc),
                     minusBtn: Icon(
                       Icons.accessibility_new_outlined,
-                      size: 18,
+                      size: 22,
                       color: Colors.amber,
                     ),
-                    plusBtn: Icon(Icons.accessible_forward, size: 18),
+                    plusBtn: Icon(Icons.accessible_forward, size: 22),
                     btnColor1: Colors.indigo,
                   ),
                   onQtyChanged: (val) {

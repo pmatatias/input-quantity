@@ -77,9 +77,6 @@ class QtyDecorationProps {
 
   /// If true the decoration's container is filled with [fillColor].
   /// This property is false by default.
-  final bool? filled;
-
-  /// set color when filled `true`
   final Color? fillColor;
 
   /// Whether the decoration is the same size as the input field.
@@ -123,7 +120,6 @@ class QtyDecorationProps {
     this.width = 6,
     this.contentPadding,
     this.fillColor,
-    this.filled,
     this.isCollapsed = true,
     this.isDense,
     this.btnColor1 = Colors.green,
