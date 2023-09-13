@@ -3,60 +3,114 @@ import 'package:input_quantity/src/constant.dart';
 import '../input_quantity.dart';
 
 class BuildBtn extends StatelessWidget {
+  /// icon widget
   final Widget? child;
-  final Function()? onPressed;
-  final bool isPlus;
-  final Color btnColor;
-  final double? splashRadius;
 
+  /// callback on tap
+  final Function()? onTap;
+
+  /// button plus or minus
+  final bool isPlus;
+
+  /// default button color
+  final Color btnColor;
+
+  /// shape border
   final BorderShapeBtn borderShape;
+
+  /// widget style
+  final QtyStyle qtyStyle;
 
   const BuildBtn({
     super.key,
-    this.splashRadius,
     this.borderShape = BorderShapeBtn.none,
     required this.isPlus,
-    this.onPressed,
+    this.onTap,
     this.btnColor = Colors.teal,
     this.child,
+    this.qtyStyle = QtyStyle.classic,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        splashColor: Colors.amber,
-        radius: 50,
-
-        // splashFactory: InkRipple.splashFactory,
-        // borderRadius: BorderRadius.circular(50),
-        onTap: onPressed,
-        child: Container(
-          margin: const EdgeInsets.all(1),
-          // padding: const EdgeInsets.all(1),
-          decoration: BoxDecoration(
+    bool isCircleBorder = borderShape == BorderShapeBtn.circle;
+    bool isSqborder = borderShape == BorderShapeBtn.square;
+    switch (qtyStyle) {
+      case QtyStyle.btnOnLeft:
+        return InkWell(
+          onTap: onTap,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+                shape: isCircleBorder ? BoxShape.circle : BoxShape.rectangle,
+                border: borderShape == BorderShapeBtn.none
+                    ? null
+                    : Border.all(color: btnColor, width: 1),
+                borderRadius: isCircleBorder
+                    ? null
+                    : BorderRadius.only(
+                        topLeft:
+                            isPlus ? const Radius.circular(5) : Radius.zero,
+                        bottomLeft:
+                            isPlus ? Radius.zero : const Radius.circular(5))),
+            child: child ??
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: isSqborder ? 8.0 : 2.0),
+                  child: Icon(
+                    isPlus ? Icons.add : Icons.remove,
+                    size: 18,
+                    color: btnColor,
+                  ),
+                ),
+          ),
+        );
+      case QtyStyle.btnOnRight:
+        return InkWell(
+          onTap: onTap,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              shape: isCircleBorder ? BoxShape.circle : BoxShape.rectangle,
+              border: borderShape == BorderShapeBtn.none
+                  ? null
+                  : Border.all(color: btnColor, width: 1),
+              borderRadius: isCircleBorder
+                  ? null
+                  : BorderRadius.only(
+                      topRight: isPlus ? const Radius.circular(5) : Radius.zero,
+                      bottomRight:
+                          isPlus ? Radius.zero : const Radius.circular(5)),
+            ),
+            child: child ??
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: isSqborder ? 8.0 : 2.0),
+                  child: Icon(
+                    isPlus ? Icons.add : Icons.remove,
+                    size: 18,
+                    color: btnColor,
+                  ),
+                ),
+          ),
+        );
+      default:
+        return InkWell(
+          onTap: onTap,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
               shape: borderShape == BorderShapeBtn.circle
                   ? BoxShape.circle
                   : BoxShape.rectangle,
               border: borderShape == BorderShapeBtn.none
                   ? null
                   : Border.all(color: btnColor, width: 1),
-              borderRadius:
-                  const BorderRadius.only(bottomLeft: Radius.circular(3))),
-          child: child ?? Icon(isPlus ? Icons.add : Icons.remove, size: 16),
-          // child: IconButton(
-          //   color: btnColor,
-          //   constraints: const BoxConstraints(),
-          //   padding: EdgeInsets.zero,
-          //   iconSize: 10,
-          //   onPressed: onChanged,
-          //   disabledColor: btnColor,
-          //   splashRadius: splashRadius ?? 16,
-          //   icon: child ?? Icon(isPlus ? Icons.add : Icons.remove, size: 16),
-          // ),
-        ),
-      ),
-    );
+            ),
+            child: child ??
+                Icon(
+                  isPlus ? Icons.add : Icons.remove,
+                  color: btnColor,
+                ),
+          ),
+        );
+    }
   }
 }

@@ -64,13 +64,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 const InputQty.double(
                   decoration: QtyDecorationProps(
                       qtyStyle: QtyStyle.btnOnLeft,
-                      width: 24,
+                      width: 12,
+                      fillColor: Colors.amber,
                       isBordered: true,
-                      borderShape: BorderShapeBtn.square),
+                      borderShape: BorderShapeBtn.none),
                 ),
                 const Divider(),
                 const InputQty.double(
-                  decoration: QtyDecorationProps(qtyStyle: QtyStyle.btnOnRight),
+                  decoration: QtyDecorationProps(
+                      width: 12,
+                      borderShape: BorderShapeBtn.square,
+                      qtyStyle: QtyStyle.btnOnRight),
                 ),
                 ElevatedButton(
                     onPressed: () {
@@ -80,7 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Divider(),
                 InputQty(
                     decoration: const QtyDecorationProps(
-                        isBordered: false, enabledBorder: OutlineInputBorder()),
+                      isBordered: false,
+                    ),
                     onQtyChanged: (val) {
                       print(val.runtimeType);
                       abf = val;
@@ -103,17 +108,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     icon: Icon(Icons.abc),
                     minusBtn: Icon(
                       Icons.accessibility_new_outlined,
-                      size: 18,
+                      size: 22,
                       color: Colors.amber,
                     ),
-                    plusBtn: Icon(Icons.accessible_forward, size: 18),
-                    btnColor1: Colors.indigo,
+                    plusBtn: Icon(Icons.accessible_forward, size: 22),
                   ),
-                  onQtyChanged: (val) {
-                    if (kDebugMode) {
-                      // print("UI : $val ");
-                    }
-                  },
                 ),
                 const Divider(),
                 const Padding(

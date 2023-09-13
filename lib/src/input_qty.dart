@@ -280,10 +280,10 @@ class _InputQtyState extends State<InputQty> {
   InputDecoration decorationProps() {
     return InputDecoration(
       contentPadding: widget.decoration.contentPadding,
-      disabledBorder: widget.decoration.disabledBorder,
-      enabledBorder: widget.decoration.enabledBorder,
+      // disabledBorder: widget.decoration.disabledBorder,
+      // enabledBorder: widget.decoration.enabledBorder,
+      // focusedBorder: widget.decoration.focusedBorder,
       errorBorder: widget.decoration.errorBorder,
-      focusedBorder: widget.decoration.focusedBorder,
       border: widget.decoration.border ??
           OutlineInputBorder(
               borderSide: widget.decoration.isBordered
@@ -291,12 +291,13 @@ class _InputQtyState extends State<InputQty> {
                   : BorderSide.none),
       icon: widget.decoration.icon,
       isDense: widget.decoration.isDense,
+
       iconColor: widget.decoration.iconColor,
       counter: _buildMessageWidget(),
       fillColor: widget.decoration.fillColor,
-      filled: widget.decoration.filled,
+      filled: widget.decoration.fillColor != null,
       isCollapsed: widget.decoration.isCollapsed,
-      hoverColor: widget.decoration.hoverColor,
+      // hoverColor: widget.decoration.hoverColor,
       hintText: ''.padRight(widget.decoration.width, ' '),
       constraints: widget.decoration.constraints,
       prefixIcon: ValueListenableBuilder<num?>(
@@ -312,14 +313,17 @@ class _InputQtyState extends State<InputQty> {
                     BuildBtn(
                       isPlus: true,
                       borderShape: widget.decoration.borderShape,
-                      onPressed: limitTopState ? plus : null,
+                      onTap: limitTopState ? plus : null,
+                      qtyStyle: widget.decoration.qtyStyle,
+                      btnColor: widget.decoration.btnColor,
                       child: widget.decoration.plusBtn,
                     ),
-                    const SizedBox(height: 2),
                     BuildBtn(
                       isPlus: false,
                       borderShape: widget.decoration.borderShape,
-                      onPressed: limitBtmState ? minus : null,
+                      onTap: limitBtmState ? minus : null,
+                      btnColor: widget.decoration.btnColor,
+                      qtyStyle: widget.decoration.qtyStyle,
                       child: widget.decoration.minusBtn,
                     ),
                   ],
@@ -329,8 +333,10 @@ class _InputQtyState extends State<InputQty> {
               default:
                 return BuildBtn(
                   isPlus: false,
+                  qtyStyle: widget.decoration.qtyStyle,
                   borderShape: widget.decoration.borderShape,
-                  onPressed: limitBtmState ? minus : null,
+                  btnColor: widget.decoration.btnColor,
+                  onTap: limitBtmState ? minus : null,
                   child: widget.decoration.minusBtn,
                 );
             }
@@ -350,14 +356,18 @@ class _InputQtyState extends State<InputQty> {
                     BuildBtn(
                       isPlus: true,
                       borderShape: widget.decoration.borderShape,
-                      onPressed: limitTopState ? plus : null,
+                      btnColor: widget.decoration.btnColor,
+                      qtyStyle: widget.decoration.qtyStyle,
+                      onTap: limitTopState ? plus : null,
                       child: widget.decoration.plusBtn,
                     ),
                     // const SizedBox(height: 2),
                     BuildBtn(
                       isPlus: false,
                       borderShape: widget.decoration.borderShape,
-                      onPressed: limitBtmState ? minus : null,
+                      onTap: limitBtmState ? minus : null,
+                      btnColor: widget.decoration.btnColor,
+                      qtyStyle: widget.decoration.qtyStyle,
                       child: widget.decoration.minusBtn,
                     ),
                   ],
@@ -368,7 +378,9 @@ class _InputQtyState extends State<InputQty> {
                 return BuildBtn(
                   isPlus: true,
                   borderShape: widget.decoration.borderShape,
-                  onPressed: limitTopState ? plus : null,
+                  onTap: limitTopState ? plus : null,
+                  btnColor: widget.decoration.btnColor,
+                  qtyStyle: widget.decoration.qtyStyle,
                   child: widget.decoration.plusBtn,
                 );
             }
