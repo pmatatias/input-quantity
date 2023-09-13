@@ -132,7 +132,8 @@ class InputQty extends StatefulWidget {
     this.btnColor2 = Colors.grey,
     this.showMessageLimit = true,
   })  : _outputType = _OutputType.num,
-        assert(!((validator != null) && (messageBuilder != null))),
+        assert(!((validator != null) && (messageBuilder != null)),
+            "Cant use `validator` and `messageBuilder` at the same time, please remove one of them"),
         super(key: key);
 
   /// Widget to handle quantity input
@@ -163,7 +164,8 @@ class InputQty extends StatefulWidget {
   })  : _outputType = _OutputType.double,
 
         /// cant use both property. choose only on
-        assert(!((validator != null) && (messageBuilder != null))),
+        assert(!((validator != null) && (messageBuilder != null)),
+            "Cant use `validator` and `messageBuilder` at the same time, please remove one of them"),
         super(key: key);
 
   /// Widget to handle quantity input
@@ -193,7 +195,8 @@ class InputQty extends StatefulWidget {
   })  : _outputType = _OutputType.integer,
 
         /// cant use both property. choose only on
-        assert(!((validator != null) && (messageBuilder != null))),
+        assert(!((validator != null) && (messageBuilder != null)),
+            "Cant use `validator` and `messageBuilder` at the same time, please remove one of them"),
         super(key: key);
 
   @override
@@ -277,6 +280,7 @@ class _InputQtyState extends State<InputQty> {
     widget.onQtyChanged?.call(value);
   }
 
+  /// setup decoration widget to textformfield
   InputDecoration decorationProps() {
     return InputDecoration(
       contentPadding: widget.decoration.contentPadding,
@@ -450,6 +454,7 @@ class _InputQtyState extends State<InputQty> {
         ],
       );
 
+  /// build message widget
   Widget? _buildMessageWidget() => ValueListenableBuilder<num?>(
       valueListenable: currentval,
       builder: (context, val, __) {
@@ -468,6 +473,7 @@ class _InputQtyState extends State<InputQty> {
   @override
   void dispose() {
     _valCtrl.dispose();
+    currentval.dispose();
     super.dispose();
   }
 }
