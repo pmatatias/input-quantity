@@ -25,6 +25,7 @@ class BuildBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isCircleBorder = borderShape == BorderShapeBtn.circle;
+    bool isSqborder = borderShape == BorderShapeBtn.square;
     switch (qtyStyle) {
       case QtyStyle.btnOnLeft:
         return InkWell(
@@ -44,8 +45,8 @@ class BuildBtn extends StatelessWidget {
                             isPlus ? Radius.zero : const Radius.circular(5))),
             child: child ??
                 Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: isCircleBorder ? 2 : 8.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: isSqborder ? 8.0 : 2.0),
                   child: Icon(
                     isPlus ? Icons.add : Icons.remove,
                     size: 18,
@@ -73,7 +74,7 @@ class BuildBtn extends StatelessWidget {
             child: child ??
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: isCircleBorder ? 2 : 8),
+                      EdgeInsets.symmetric(horizontal: isSqborder ? 8.0 : 2.0),
                   child: Icon(
                     isPlus ? Icons.add : Icons.remove,
                     size: 18,
