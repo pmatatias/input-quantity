@@ -412,10 +412,19 @@ class _InputQtyState extends State<InputQty> {
         enabled: widget.qtyFormProps.enabled,
         showCursor: widget.qtyFormProps.showCursor,
         onChanged: (String strVal) {
+          if (widget._outputType == _OutputType.integer &&
+              strVal.contains('.')) {
+            print("masuk sini ga");
+            _valCtrl.text = '${currentval.value}';
+            _valCtrl.selection = TextSelection.fromPosition(
+                TextPosition(offset: _valCtrl.text.length));
+            return;
+          }
           // avoid parsing value
           if (strVal.isEmpty || strVal == '-') return;
           num? temp = num.tryParse(strVal);
           if (temp == null) {
+            print("masuk q");
             _valCtrl.text = '${currentval.value}';
             _valCtrl.selection = TextSelection.fromPosition(
                 TextPosition(offset: _valCtrl.text.length));
@@ -438,7 +447,10 @@ class _InputQtyState extends State<InputQty> {
             temp = widget.maxVal;
 
             _valCtrl.text = "$temp";
-          } else if (temp <= widget.minVal) {
+          } else if (temp < widget.minVal) {
+            print(temp);
+            print("masuk mihvalk");
+
             temp = widget.minVal;
 
             _valCtrl.text = "$temp";
@@ -448,9 +460,6 @@ class _InputQtyState extends State<InputQty> {
         },
         inputFormatters: [
           FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*'))
-          // widget._isDecimal
-          //     ? FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*'))
-          //     : FilteringTextInputFormatter.allow(RegExp(r'^\d*\-?\d*')),
         ],
       );
 

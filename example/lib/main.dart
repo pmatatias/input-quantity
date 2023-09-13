@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const Divider(),
-                const InputQty.double(
+                const InputQty.int(
                   decoration: QtyDecorationProps(
                       qtyStyle: QtyStyle.btnOnLeft,
                       width: 12,
@@ -120,7 +120,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   maxVal: 100,
                   initVal: 0.0,
                   steps: 10,
-                  showMessageLimit: false,
                   minVal: -100,
                   onQtyChanged: (val) {
                     print(val.runtimeType);
@@ -163,8 +162,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 InputQty(
                   maxVal: 100,
                   initVal: 0,
-                  textFieldDecoration: const InputDecoration(),
-                  showMessageLimit: false,
                   onQtyChanged: (val) {
                     if (kDebugMode) {
                       print("UI : $val ");
@@ -173,9 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const Divider(),
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('Expanded width'),
-                ),
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Expanded width')),
                 InputQty(
                   maxVal: 100,
                   initVal: 0,
