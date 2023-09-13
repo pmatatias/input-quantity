@@ -36,12 +36,9 @@ class QtyDecorationProps {
   final BoxConstraints? minusButtonConstrains;
 
   /// primary color applied on Button widget
-  /// used when availabe to press
-  final Color btnColor1;
-
-  /// secondary color applied for button
-  /// This value will used for disabled color button
-  final Color btnColor2;
+  /// if `minusBtn` or `plusBtn` specified
+  /// this color will ignored
+  final Color btnColor;
 
   /// define style widget
   final QtyStyle qtyStyle;
@@ -122,7 +119,6 @@ class QtyDecorationProps {
     this.fillColor,
     this.isCollapsed = true,
     this.isDense,
-    this.btnColor1 = Colors.green,
-    this.btnColor2 = Colors.grey,
+    this.btnColor = Colors.green,
   });
 }

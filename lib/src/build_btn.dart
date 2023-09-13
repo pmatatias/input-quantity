@@ -3,17 +3,26 @@ import 'package:input_quantity/src/constant.dart';
 import '../input_quantity.dart';
 
 class BuildBtn extends StatelessWidget {
+  /// icon widget
   final Widget? child;
+
+  /// callback on tap
   final Function()? onTap;
+
+  /// button plus or minus
   final bool isPlus;
+
+  /// default button color
   final Color btnColor;
-  final double? splashRadius;
+
+  /// shape border
   final BorderShapeBtn borderShape;
+
+  /// widget style
   final QtyStyle qtyStyle;
 
   const BuildBtn({
     super.key,
-    this.splashRadius,
     this.borderShape = BorderShapeBtn.none,
     required this.isPlus,
     this.onTap,
@@ -95,7 +104,11 @@ class BuildBtn extends StatelessWidget {
                   ? null
                   : Border.all(color: btnColor, width: 1),
             ),
-            child: child ?? Icon(isPlus ? Icons.add : Icons.remove),
+            child: child ??
+                Icon(
+                  isPlus ? Icons.add : Icons.remove,
+                  color: btnColor,
+                ),
           ),
         );
     }

@@ -112,13 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.amber,
                     ),
                     plusBtn: Icon(Icons.accessible_forward, size: 22),
-                    btnColor1: Colors.indigo,
                   ),
-                  onQtyChanged: (val) {
-                    if (kDebugMode) {
-                      // print("UI : $val ");
-                    }
-                  },
                 ),
                 const Divider(),
                 const Padding(
