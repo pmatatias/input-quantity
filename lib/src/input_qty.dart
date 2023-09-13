@@ -414,7 +414,6 @@ class _InputQtyState extends State<InputQty> {
         onChanged: (String strVal) {
           if (widget._outputType == _OutputType.integer &&
               strVal.contains('.')) {
-            print("masuk sini ga");
             _valCtrl.text = '${currentval.value}';
             _valCtrl.selection = TextSelection.fromPosition(
                 TextPosition(offset: _valCtrl.text.length));
@@ -424,7 +423,6 @@ class _InputQtyState extends State<InputQty> {
           if (strVal.isEmpty || strVal == '-') return;
           num? temp = num.tryParse(strVal);
           if (temp == null) {
-            print("masuk q");
             _valCtrl.text = '${currentval.value}';
             _valCtrl.selection = TextSelection.fromPosition(
                 TextPosition(offset: _valCtrl.text.length));
@@ -448,9 +446,6 @@ class _InputQtyState extends State<InputQty> {
 
             _valCtrl.text = "$temp";
           } else if (temp < widget.minVal) {
-            print(temp);
-            print("masuk mihvalk");
-
             temp = widget.minVal;
 
             _valCtrl.text = "$temp";
