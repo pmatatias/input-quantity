@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:input_quantity/src/constant.dart';
 import '../input_quantity.dart';
@@ -20,7 +22,7 @@ class BuildBtn extends StatelessWidget {
 
   /// widget style
   final QtyStyle qtyStyle;
-
+  final Timer? time;
   const BuildBtn({
     super.key,
     this.borderShape = BorderShapeBtn.none,
@@ -29,6 +31,7 @@ class BuildBtn extends StatelessWidget {
     this.btnColor = Colors.teal,
     this.child,
     this.qtyStyle = QtyStyle.classic,
+    this.time,
   });
 
   @override
@@ -38,6 +41,7 @@ class BuildBtn extends StatelessWidget {
     switch (qtyStyle) {
       case QtyStyle.btnOnLeft:
         return InkWell(
+          radius: 12,
           onTap: onTap,
           child: DecoratedBox(
             decoration: BoxDecoration(
