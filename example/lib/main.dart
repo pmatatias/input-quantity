@@ -55,12 +55,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const Padding(
-                  padding: EdgeInsets.all(4.0),
+                  padding: EdgeInsets.all(14.0),
                   child: Text(
                     'by: pmatatias.dev',
                     style: TextStyle(fontSize: 14, color: Colors.blue),
                   ),
                 ),
+                const Divider(),
                 const InputQty.double(
                   decoration: QtyDecorationProps(
                       qtyStyle: QtyStyle.btnOnLeft,
@@ -76,11 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderShape: BorderShapeBtn.square,
                       qtyStyle: QtyStyle.btnOnRight),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      _formKey.currentState!.validate();
-                    },
-                    child: const Text("validate")),
                 const Divider(),
                 InputQty(
                     decoration: const QtyDecorationProps(
@@ -106,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   decoration: const QtyDecorationProps(
                     icon: Icon(Icons.abc),
+                    isBordered: false,
                     minusBtn: Icon(
                       Icons.accessibility_new_outlined,
                       size: 22,
@@ -145,6 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   steps: 10,
                   borderShape: BorderShapeBtn.none,
                   decoration: const QtyDecorationProps(
+                    isBordered: false,
+                    width: 12,
                     plusBtn: Icon(Icons.add_box),
                     minusBtn: Icon(Icons.indeterminate_check_box),
                   ),
@@ -205,6 +204,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     }
                   },
                 ),
+                const Divider(),
+                ElevatedButton(
+                    onPressed: () {
+                      _formKey.currentState!.validate();
+                    },
+                    child: const Text("validate")),
               ],
             ),
           ),

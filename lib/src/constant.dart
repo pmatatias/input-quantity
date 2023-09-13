@@ -12,4 +12,14 @@ enum BorderShapeBtn {
   //rhombus  // on development
 }
 
-enum QtyStyle { classic, btnOnLeft, btnOnRight }
+enum QtyStyle {
+  /// deftault style, with plus button on the right
+  /// and minus button on the left side
+  classic,
+
+  /// both button will be wraped by column on the left side
+  btnOnLeft,
+
+  /// both button will be wraped by column on the right side
+  btnOnRight
+}
