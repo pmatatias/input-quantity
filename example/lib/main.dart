@@ -195,6 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         InputQty(
                           initVal: 0,
                           minVal: -100,
+                          maxVal: 100,
                           steps: 2,
                           messageBuilder: (minVal, maxVal, value) {
                             if (value == null) return null;
@@ -211,10 +212,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 textAlign: TextAlign.center,
                               );
                             } else {
-                              return Text(
-                                "Value : $value",
-                                textAlign: TextAlign.center,
-                              );
+                              return Text("Value : $value",
+                                  textAlign: TextAlign.center);
                             }
                           },
                         ),
@@ -223,11 +222,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 const Divider(),
+                 const IconButton(onPressed: null, icon: Icon(Icons.abc_outlined,)),
                 ElevatedButton(
+                  
                     onPressed: () {
                       _formKey.currentState!.validate();
                     },
-                    child: const Text("validate")),
+                    child: const Text("validate",style: TextStyle(color: Colors.red),)),
               ],
             ),
           ),
