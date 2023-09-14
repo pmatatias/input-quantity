@@ -11,7 +11,7 @@ import 'package:input_quantity/src/form_props.dart';
 import 'build_btn.dart';
 
 /// builder text widget under the InputQty
-typedef MessageBuilder<T> = Widget Function(T minVal, T maxVal, T? value);
+typedef MessageBuilder<T> = Widget? Function(T minVal, T maxVal, T? value);
 
 enum _OutputType { num, integer, double }
 
@@ -425,6 +425,7 @@ class _InputQtyState extends State<InputQty> {
         decoration: decorationProps(),
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         controller: _valCtrl,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (val) => widget.validator?.call(num.tryParse(val ?? '')),
         textAlign: widget.qtyFormProps.textAlign,
         textAlignVertical: widget.qtyFormProps.textAlignVertical,
