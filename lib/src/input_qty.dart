@@ -212,6 +212,9 @@ class _InputQtyState extends State<InputQty> {
   /// current value of quantity
   late ValueNotifier<num?> currentval;
 
+  /// timer for  periodic call function
+  Timer? timer;
+
   @override
   void initState() {
     super.initState();
@@ -252,8 +255,7 @@ class _InputQtyState extends State<InputQty> {
     widget.onQtyChanged?.call(value);
   }
 
-  Timer? timer;
-
+  /// start timer and chhange value
   void startTimer(Function? ontap) {
     ontap?.call();
     timer = Timer.periodic(const Duration(milliseconds: 80), (timer) {
@@ -261,6 +263,7 @@ class _InputQtyState extends State<InputQty> {
     });
   }
 
+  /// stop timer
   void endTimer() {
     timer?.cancel();
   }
@@ -276,7 +279,6 @@ class _InputQtyState extends State<InputQty> {
     if (value <= widget.minVal) {
       value = widget.minVal;
     }
-    // value = widget._isDecimal ? value.toDouble() : value.toInt();
     switch (widget._outputType) {
       case _OutputType.double:
         value = value.toDouble();
