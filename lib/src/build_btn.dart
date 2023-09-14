@@ -57,7 +57,9 @@ class BuildBtn extends StatelessWidget {
                 shape: isCircleBorder ? BoxShape.circle : BoxShape.rectangle,
                 border: borderShape == BorderShapeBtn.none
                     ? null
-                    : Border.all(color: btnColor, width: 1),
+                    : Border.all(
+                        color: onTap == null ? Colors.grey : btnColor,
+                        width: 1),
                 borderRadius: isCircleBorder
                     ? null
                     : BorderRadius.only(
@@ -72,7 +74,7 @@ class BuildBtn extends StatelessWidget {
                   child: Icon(
                     isPlus ? Icons.add : Icons.remove,
                     size: 18,
-                    color: btnColor,
+                    color: onTap == null ? Colors.grey : btnColor,
                   ),
                 ),
           ),
@@ -87,7 +89,8 @@ class BuildBtn extends StatelessWidget {
               shape: isCircleBorder ? BoxShape.circle : BoxShape.rectangle,
               border: borderShape == BorderShapeBtn.none
                   ? null
-                  : Border.all(color: btnColor, width: 1),
+                  : Border.all(
+                      color: onTap == null ? Colors.grey : btnColor, width: 1),
               borderRadius: isCircleBorder
                   ? null
                   : BorderRadius.only(
@@ -102,7 +105,7 @@ class BuildBtn extends StatelessWidget {
                   child: Icon(
                     isPlus ? Icons.add : Icons.remove,
                     size: 18,
-                    color: btnColor,
+                    color: onTap == null ? Colors.grey : btnColor,
                   ),
                 ),
           ),
@@ -119,12 +122,13 @@ class BuildBtn extends StatelessWidget {
                   : BoxShape.rectangle,
               border: borderShape == BorderShapeBtn.none
                   ? null
-                  : Border.all(color: btnColor, width: 1),
+                  : Border.all(
+                      color: onTap == null ? Colors.grey : btnColor, width: 1),
             ),
             child: child ??
                 Icon(
                   isPlus ? Icons.add : Icons.remove,
-                  color: btnColor,
+                  color: onTap == null ? Colors.grey : btnColor,
                 ),
           ),
         );
