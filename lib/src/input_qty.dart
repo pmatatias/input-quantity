@@ -11,7 +11,7 @@ import 'package:input_quantity/src/form_props.dart';
 import 'build_btn.dart';
 
 /// builder text widget under the InputQty
-typedef MessageBuilder<T> = Widget Function(T minVal, T maxVal, T? value);
+typedef MessageBuilder<T> = Widget? Function(T minVal, T maxVal, T? value);
 
 enum _OutputType { num, integer, double }
 
@@ -64,7 +64,7 @@ class InputQty extends StatefulWidget {
   final QtyDecorationProps decoration;
 
   /// validator
-  final String? Function(String?)? validator;
+  final String? Function(num? value)? validator;
 
   /// property for input quantity widget
   final QtyFormProps qtyFormProps;
@@ -218,6 +218,7 @@ class _InputQtyState extends State<InputQty> {
   @override
   void initState() {
     super.initState();
+    print(widget.initVal);
     currentval = ValueNotifier(widget.initVal);
     _valCtrl.text = "${widget.initVal}";
   }
@@ -264,9 +265,7 @@ class _InputQtyState extends State<InputQty> {
   }
 
   /// stop timer
-  void endTimer() {
-    timer?.cancel();
-  }
+  void endTimer() => timer?.cancel();
 
   /// decrese current value based on stpes
   /// default [steps] = 1
@@ -314,11 +313,11 @@ class _InputQtyState extends State<InputQty> {
       isDense: widget.decoration.isDense,
 
       iconColor: widget.decoration.iconColor,
-      counter: _buildMessageWidget(),
+      counter: widget.messageBuilder != null ? _buildMessageWidget() : null,
+      errorMaxLines: 2,
       fillColor: widget.decoration.fillColor,
       filled: widget.decoration.fillColor != null,
       isCollapsed: widget.decoration.isCollapsed,
-      // hoverColor: widget.decoration.hoverColor,
       hintText: ''.padRight(widget.decoration.width, ' '),
       constraints: widget.decoration.constraints,
       prefixIcon: ValueListenableBuilder<num?>(
@@ -426,7 +425,8 @@ class _InputQtyState extends State<InputQty> {
         decoration: decorationProps(),
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         controller: _valCtrl,
-        validator: widget.validator,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: (val) => widget.validator?.call(num.tryParse(val ?? '')),
         textAlign: widget.qtyFormProps.textAlign,
         textAlignVertical: widget.qtyFormProps.textAlignVertical,
         style: widget.qtyFormProps.style,
@@ -440,6 +440,9 @@ class _InputQtyState extends State<InputQty> {
         keyboardType: widget.qtyFormProps.keyboardType,
         enabled: widget.qtyFormProps.enabled,
         showCursor: widget.qtyFormProps.showCursor,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*'))
+        ],
         onChanged: (String strVal) {
           if (widget._outputType == _OutputType.integer &&
               strVal.contains('.')) {
@@ -482,9 +485,6 @@ class _InputQtyState extends State<InputQty> {
           widget.onQtyChanged?.call(temp);
           currentval.value = temp;
         },
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*'))
-        ],
       );
 
   /// build message widget

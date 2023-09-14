@@ -114,7 +114,7 @@ class QtyDecorationProps {
     // this.enabledBorder,
     // this.focusedBorder,
     // this.hoverColor,
-    this.width = 8,
+    this.width = 10,
     this.contentPadding,
     this.fillColor,
     this.isCollapsed = true,
