@@ -1,5 +1,7 @@
 // library input_quantity;
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:input_quantity/src/constant.dart';
@@ -250,6 +252,18 @@ class _InputQtyState extends State<InputQty> {
     widget.onQtyChanged?.call(value);
   }
 
+  Timer? timer;
+
+  void startTimer(Function ontap) {
+    timer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
+      ontap.call();
+    });
+  }
+
+  void endTimer() {
+    timer?.cancel();
+  }
+
   /// decrese current value based on stpes
   /// default [steps] = 1
   /// When the current [value] is empty string, and press [minus] button
@@ -320,6 +334,8 @@ class _InputQtyState extends State<InputQty> {
                       onTap: limitTopState ? plus : null,
                       qtyStyle: widget.decoration.qtyStyle,
                       btnColor: widget.decoration.btnColor,
+                      onStart: startTimer,
+                      onEndTime: endTimer,
                       child: widget.decoration.plusBtn,
                     ),
                     BuildBtn(
@@ -328,6 +344,8 @@ class _InputQtyState extends State<InputQty> {
                       onTap: limitBtmState ? minus : null,
                       btnColor: widget.decoration.btnColor,
                       qtyStyle: widget.decoration.qtyStyle,
+                      onStart: startTimer,
+                      onEndTime: endTimer,
                       child: widget.decoration.minusBtn,
                     ),
                   ],
@@ -341,6 +359,8 @@ class _InputQtyState extends State<InputQty> {
                   borderShape: widget.decoration.borderShape,
                   btnColor: widget.decoration.btnColor,
                   onTap: limitBtmState ? minus : null,
+                  onStart: startTimer,
+                  onEndTime: endTimer,
                   child: widget.decoration.minusBtn,
                 );
             }
@@ -362,6 +382,8 @@ class _InputQtyState extends State<InputQty> {
                       borderShape: widget.decoration.borderShape,
                       btnColor: widget.decoration.btnColor,
                       qtyStyle: widget.decoration.qtyStyle,
+                      onStart: startTimer,
+                      onEndTime: endTimer,
                       onTap: limitTopState ? plus : null,
                       child: widget.decoration.plusBtn,
                     ),
@@ -371,6 +393,8 @@ class _InputQtyState extends State<InputQty> {
                       borderShape: widget.decoration.borderShape,
                       onTap: limitBtmState ? minus : null,
                       btnColor: widget.decoration.btnColor,
+                      onStart: startTimer,
+                      onEndTime: endTimer,
                       qtyStyle: widget.decoration.qtyStyle,
                       child: widget.decoration.minusBtn,
                     ),
@@ -384,6 +408,8 @@ class _InputQtyState extends State<InputQty> {
                   borderShape: widget.decoration.borderShape,
                   onTap: limitTopState ? plus : null,
                   btnColor: widget.decoration.btnColor,
+                  onStart: startTimer,
+                  onEndTime: endTimer,
                   qtyStyle: widget.decoration.qtyStyle,
                   child: widget.decoration.plusBtn,
                 );
