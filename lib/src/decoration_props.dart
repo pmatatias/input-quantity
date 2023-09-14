@@ -9,9 +9,9 @@ class QtyDecorationProps {
   /// - square'
   final BorderShapeBtn borderShape;
 
-  // An icon to show before the input field and outside of the decoration's
+  // An Widget to show before the input field and outside of the decoration's
   /// container.
-  final Widget? icon;
+  final Widget? leadingWidget;
 
   /// The color of the [icon].
   ///
@@ -98,7 +98,7 @@ class QtyDecorationProps {
   final int width;
 
   const QtyDecorationProps({
-    this.icon,
+    this.leadingWidget,
     this.minusBtn,
     this.borderShape = BorderShapeBtn.none,
     this.minusButtonConstrains = const BoxConstraints(),
@@ -114,7 +114,7 @@ class QtyDecorationProps {
     // this.enabledBorder,
     // this.focusedBorder,
     // this.hoverColor,
-    this.width = 6,
+    this.width = 8,
     this.contentPadding,
     this.fillColor,
     this.isCollapsed = true,

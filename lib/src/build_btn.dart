@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:input_quantity/src/constant.dart';
 import '../input_quantity.dart';
@@ -18,9 +20,15 @@ class BuildBtn extends StatelessWidget {
   /// shape border
   final BorderShapeBtn borderShape;
 
+  /// start increasing value
+  final void Function(Function? ontap) onStart;
+
+  /// stop increasing value
+  final VoidCallback onEndTime;
+
   /// widget style
   final QtyStyle qtyStyle;
-
+  final Timer? time;
   const BuildBtn({
     super.key,
     this.borderShape = BorderShapeBtn.none,
@@ -29,6 +37,9 @@ class BuildBtn extends StatelessWidget {
     this.btnColor = Colors.teal,
     this.child,
     this.qtyStyle = QtyStyle.classic,
+    this.time,
+    required this.onEndTime,
+    required this.onStart,
   });
 
   @override
@@ -37,7 +48,9 @@ class BuildBtn extends StatelessWidget {
     bool isSqborder = borderShape == BorderShapeBtn.square;
     switch (qtyStyle) {
       case QtyStyle.btnOnLeft:
-        return InkWell(
+        return GestureDetector(
+          onLongPressStart: (details) => onStart.call(onTap),
+          onLongPressEnd: (details) => onEndTime.call(),
           onTap: onTap,
           child: DecoratedBox(
             decoration: BoxDecoration(
@@ -65,7 +78,9 @@ class BuildBtn extends StatelessWidget {
           ),
         );
       case QtyStyle.btnOnRight:
-        return InkWell(
+        return GestureDetector(
+          onLongPressStart: (details) => onStart.call(onTap),
+          onLongPressEnd: (details) => onEndTime.call(),
           onTap: onTap,
           child: DecoratedBox(
             decoration: BoxDecoration(
@@ -93,7 +108,9 @@ class BuildBtn extends StatelessWidget {
           ),
         );
       default:
-        return InkWell(
+        return GestureDetector(
+          onLongPressStart: (details) => onStart.call(onTap),
+          onLongPressEnd: (details) => onEndTime.call(),
           onTap: onTap,
           child: DecoratedBox(
             decoration: BoxDecoration(
