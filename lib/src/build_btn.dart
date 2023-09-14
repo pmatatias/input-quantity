@@ -64,9 +64,9 @@ class BuildBtn extends StatelessWidget {
                     ? null
                     : BorderRadius.only(
                         topLeft:
-                            isPlus ? const Radius.circular(5) : Radius.zero,
+                            isPlus ? const Radius.circular(4) : Radius.zero,
                         bottomLeft:
-                            isPlus ? Radius.zero : const Radius.circular(5))),
+                            isPlus ? Radius.zero : const Radius.circular(4))),
             child: child ??
                 Padding(
                   padding:
@@ -94,9 +94,9 @@ class BuildBtn extends StatelessWidget {
               borderRadius: isCircleBorder
                   ? null
                   : BorderRadius.only(
-                      topRight: isPlus ? const Radius.circular(5) : Radius.zero,
+                      topRight: isPlus ? const Radius.circular(4) : Radius.zero,
                       bottomRight:
-                          isPlus ? Radius.zero : const Radius.circular(5)),
+                          isPlus ? Radius.zero : const Radius.circular(4)),
             ),
             child: child ??
                 Padding(
@@ -117,19 +117,28 @@ class BuildBtn extends StatelessWidget {
           onTap: onTap,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              shape: borderShape == BorderShapeBtn.circle
-                  ? BoxShape.circle
-                  : BoxShape.rectangle,
-              border: borderShape == BorderShapeBtn.none
-                  ? null
-                  : Border.all(
-                      color: onTap == null ? Colors.grey : btnColor, width: 1),
-            ),
+                shape: borderShape == BorderShapeBtn.circle
+                    ? BoxShape.circle
+                    : BoxShape.rectangle,
+                border: borderShape == BorderShapeBtn.none
+                    ? null
+                    : Border.all(
+                        color: onTap == null ? Colors.grey : btnColor,
+                        width: 1),
+                borderRadius: isCircleBorder
+                    ? null
+                    : BorderRadius.only(
+                        topLeft:
+                            isPlus ? Radius.zero : const Radius.circular(4),
+                        bottomLeft:
+                            isPlus ? Radius.zero : const Radius.circular(4),
+                        topRight:
+                            isPlus ? const Radius.circular(4) : Radius.zero,
+                        bottomRight:
+                            isPlus ? const Radius.circular(4) : Radius.zero)),
             child: child ??
-                Icon(
-                  isPlus ? Icons.add : Icons.remove,
-                  color: onTap == null ? Colors.grey : btnColor,
-                ),
+                Icon(isPlus ? Icons.add : Icons.remove,
+                    color: onTap == null ? Colors.grey : btnColor),
           ),
         );
     }

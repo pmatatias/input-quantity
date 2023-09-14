@@ -117,9 +117,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             const Text("Integer", textAlign: TextAlign.center),
                         decoration: const QtyDecorationProps(
                           fillColor: Colors.amberAccent,
+                          borderShape: BorderShapeBtn.square,
                         ),
                       ),
                       InputQty.double(
+                        initVal: 0.0,
                         messageBuilder: (minVal, maxVal, value) =>
                             const Text("Double", textAlign: TextAlign.center),
                         decoration: const QtyDecorationProps(
@@ -137,8 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             borderShape: BorderShapeBtn.circle,
                             width: 12)),
                     SizedBox(width: 30),
-                    Text(
-                        "- Click btn to increase and decrease\n- Long press to change value continuesly\n- Type value Manually")
+                    Text("- Ontap\n- Longpress \n- Typing input Manually")
                   ],
                 ),
                 const Divider(),
@@ -201,13 +202,13 @@ class _MyHomePageState extends State<MyHomePage> {
                             if (value == null) return null;
                             if (value < -20) {
                               return const Text(
-                                "Reach min qty",
+                                "Reach my limit",
                                 style: TextStyle(color: Colors.red),
                                 textAlign: TextAlign.center,
                               );
                             } else if (value > 20) {
                               return const Text(
-                                "Reach max qty",
+                                "Reach my limit",
                                 style: TextStyle(color: Colors.red),
                                 textAlign: TextAlign.center,
                               );
@@ -222,13 +223,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 const Divider(),
-                 const IconButton(onPressed: null, icon: Icon(Icons.abc_outlined,)),
                 ElevatedButton(
-                  
                     onPressed: () {
                       _formKey.currentState!.validate();
                     },
-                    child: const Text("validate",style: TextStyle(color: Colors.red),)),
+                    child: const Text("validate")),
               ],
             ),
           ),

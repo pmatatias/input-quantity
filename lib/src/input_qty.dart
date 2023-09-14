@@ -218,7 +218,6 @@ class _InputQtyState extends State<InputQty> {
   @override
   void initState() {
     super.initState();
-    print(widget.initVal);
     currentval = ValueNotifier(widget.initVal);
     _valCtrl.text = "${widget.initVal}";
   }
