@@ -20,7 +20,10 @@ class BuildBtn extends StatelessWidget {
   /// shape border
   final BorderShapeBtn borderShape;
 
-  final void Function(Function ontap) onStart;
+  /// start increasing value
+  final void Function(Function? ontap) onStart;
+
+  /// stop increasing value
   final VoidCallback onEndTime;
 
   /// widget style
@@ -46,17 +49,8 @@ class BuildBtn extends StatelessWidget {
     switch (qtyStyle) {
       case QtyStyle.btnOnLeft:
         return GestureDetector(
-          // radius: 12,
-          onLongPressStart: (details) {
-            print("onlng press");
-            onStart.call(onTap!);
-            
-          },
-          onLongPressEnd: (details) {
-            print("oncaldel");
-            onEndTime.call();
-          },
-
+          onLongPressStart: (details) => onStart.call(onTap),
+          onLongPressEnd: (details) => onEndTime.call(),
           onTap: onTap,
           child: DecoratedBox(
             decoration: BoxDecoration(
@@ -84,7 +78,9 @@ class BuildBtn extends StatelessWidget {
           ),
         );
       case QtyStyle.btnOnRight:
-        return InkWell(
+        return GestureDetector(
+          onLongPressStart: (details) => onStart.call(onTap),
+          onLongPressEnd: (details) => onEndTime.call(),
           onTap: onTap,
           child: DecoratedBox(
             decoration: BoxDecoration(
@@ -112,7 +108,9 @@ class BuildBtn extends StatelessWidget {
           ),
         );
       default:
-        return InkWell(
+        return GestureDetector(
+          onLongPressStart: (details) => onStart.call(onTap),
+          onLongPressEnd: (details) => onEndTime.call(),
           onTap: onTap,
           child: DecoratedBox(
             decoration: BoxDecoration(

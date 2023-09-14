@@ -63,10 +63,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const Divider(),
                 const InputQty.int(
+                  maxVal: 70,
                   decoration: QtyDecorationProps(
                       qtyStyle: QtyStyle.btnOnLeft,
                       width: 12,
-                      fillColor: Colors.amber,
+                      // fillColor: Colors.amber,
                       isBordered: true,
                       borderShape: BorderShapeBtn.none),
                 ),
@@ -78,14 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       qtyStyle: QtyStyle.btnOnRight),
                 ),
                 const Divider(),
-                InputQty(
-                    decoration: const QtyDecorationProps(
-                      isBordered: false,
-                    ),
-                    onQtyChanged: (val) {
-                      print(val.runtimeType);
-                      abf = val;
-                    }),
+                const InputQty(
+                    decoration: QtyDecorationProps(isBordered: false)),
                 const Divider(),
                 const Padding(
                     padding: EdgeInsets.all(8.0),
@@ -101,7 +96,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     return Text("$maxVal, $minVal, $value");
                   },
                   decoration: const QtyDecorationProps(
-                    icon: Icon(Icons.abc),
                     isBordered: false,
                     minusBtn: Icon(
                       Icons.accessibility_new_outlined,
@@ -113,22 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const Divider(),
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text('With steps : 10 (customizable)'),
-                ),
-                InputQty(
-                  maxVal: 100,
-                  initVal: 0.0,
-                  steps: 10,
-                  minVal: -100,
-                  onQtyChanged: (val) {
-                    print(val.runtimeType);
-
-                    if (kDebugMode) {
-                      print("UI : $val ");
-                    }
-                  },
-                ),
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('With steps : 10 (customizable)')),
+                const InputQty(
+                    maxVal: 100, initVal: 0.0, steps: 10, minVal: -100),
                 const Divider(),
                 const Padding(
                   padding: EdgeInsets.all(8.0),

@@ -254,9 +254,10 @@ class _InputQtyState extends State<InputQty> {
 
   Timer? timer;
 
-  void startTimer(Function ontap) {
-    timer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
-      ontap.call();
+  void startTimer(Function? ontap) {
+    ontap?.call();
+    timer = Timer.periodic(const Duration(milliseconds: 80), (timer) {
+      ontap?.call();
     });
   }
 
@@ -307,7 +308,7 @@ class _InputQtyState extends State<InputQty> {
               borderSide: widget.decoration.isBordered
                   ? const BorderSide()
                   : BorderSide.none),
-      icon: widget.decoration.icon,
+      icon: widget.decoration.leadingWidget,
       isDense: widget.decoration.isDense,
 
       iconColor: widget.decoration.iconColor,
