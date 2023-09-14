@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
 // import 'package:input_quantity/input_quantity.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -33,7 +31,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _formKey = GlobalKey<FormState>();
 
-  int abf = 123;
+  int qtyInt = 123;
+  double qtyDouble = 12.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: 12,
                       // fillColor: Colors.amber,
                       isBordered: true,
-                      borderShape: BorderShapeBtn.none),
+                      borderShape: BorderShapeBtn.square),
                 ),
                 const Divider(),
                 const InputQty.double(

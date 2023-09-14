@@ -264,9 +264,7 @@ class _InputQtyState extends State<InputQty> {
   }
 
   /// stop timer
-  void endTimer() {
-    timer?.cancel();
-  }
+  void endTimer() => timer?.cancel();
 
   /// decrese current value based on stpes
   /// default [steps] = 1
