@@ -56,18 +56,6 @@ class QtyDecorationProps {
   /// is showing an error.
   final InputBorder? errorBorder;
 
-  // /// The border to display when the [InputDecorator] has the focus and is not
-  // /// showing an error.
-  // final InputBorder? focusedBorder;
-
-  // /// The border to display when the [InputDecorator] is disabled and is not
-  // /// showing an error.
-  // final InputBorder? disabledBorder;
-
-  // /// The border to display when the [InputDecorator] is enabled and is not
-  // /// showing an error.
-  // final InputBorder? enabledBorder;
-
   /// The color of the highlight for the decoration shown if the container
   /// is being hovered over by a mouse.
   // final Color? hoverColor;
@@ -110,10 +98,6 @@ class QtyDecorationProps {
     this.isBordered = true,
     this.border,
     this.errorBorder,
-    // this.disabledBorder,
-    // this.enabledBorder,
-    // this.focusedBorder,
-    // this.hoverColor,
     this.width = 10,
     this.contentPadding,
     this.fillColor,

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
 // import 'package:input_quantity/input_quantity.dart';
@@ -61,6 +60,125 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const Divider(),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InputQty(
+                      maxVal: 50,
+                      initVal: 10,
+                      steps: 10,
+                      minVal: -50,
+                      borderShape: BorderShapeBtn.square,
+                      boxDecoration: BoxDecoration(),
+                      decoration: QtyDecorationProps(
+                        isBordered: false,
+                        minusBtn: Icon(
+                          Icons.flight_land_rounded,
+                          color: Colors.purple,
+                        ),
+                        plusBtn: Icon(Icons.flight_takeoff, color: Colors.indigo),
+                      ),
+                    ),
+                    SizedBox(width: 30),
+                    Expanded(
+                      child: Text(
+                          "- Output: int,double, num\n- initVal, maxVal, minVal, steps \n- Custom: icon,decoration,etc"),
+                    )
+                  ],
+                ),
+                const Divider(height: 30),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InputQty(
+                        decoration: QtyDecorationProps(
+                            isBordered: false,
+                            borderShape: BorderShapeBtn.circle,
+                            width: 12)),
+                    SizedBox(width: 30),
+                    Expanded(
+                        child: Text(
+                            "- Ontap\n- Longpress \n- Typing input Manually"))
+                  ],
+                ),
+                const Divider(height: 30),
+                const Divider(),
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('Use validator')),
+                        InputQty(
+                          initVal: 0,
+                          steps: 10,
+                          minVal: -100,
+                          validator: (value) {
+                            if (value == null) {
+                              return "Required field";
+                            } else if (value >= 100) {
+                              return "More than available quantity";
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                    const Expanded(
+                        child: Center(
+                            child: Text(
+                      "OR",
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                    ))),
+                    Column(
+                      children: [
+                        const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Use Message builder',
+                            )),
+                        InputQty(
+                          initVal: 0,
+                          minVal: -100,
+                          maxVal: 100,
+                          steps: 2,
+                          messageBuilder: (minVal, maxVal, value) {
+                            if (value == null) return null;
+                            if (value < -20) {
+                              return const Text(
+                                "Reach my limit",
+                                style: TextStyle(color: Colors.red),
+                                textAlign: TextAlign.center,
+                              );
+                            } else if (value > 20) {
+                              return const Text(
+                                "Reach my limit",
+                                style: TextStyle(color: Colors.red),
+                                textAlign: TextAlign.center,
+                              );
+                            } else {
+                              return Text("Value : $value",
+                                  textAlign: TextAlign.center);
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const Divider(height: 30),
+
+                // ElevatedButton(
+                //     onPressed: () {
+                //       _formKey.currentState!.validate();
+                //     },
+                //     child: const Text("validate")),
+                // const Divider(),
+
                 const Text("Style options:"),
                 const SizedBox(height: 12),
                 Row(
@@ -100,134 +218,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-                const Divider(),
-                const Text("Output types:"),
-                const SizedBox(height: 12),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InputQty(
-                        messageBuilder: (minVal, maxVal, value) =>
-                            const Text("Number", textAlign: TextAlign.center),
-                        decoration: const QtyDecorationProps(
-                            fillColor: Colors.amberAccent),
-                      ),
-                      InputQty.int(
-                        messageBuilder: (minVal, maxVal, value) =>
-                            const Text("Integer", textAlign: TextAlign.center),
-                        decoration: const QtyDecorationProps(
-                          fillColor: Colors.amberAccent,
-                          borderShape: BorderShapeBtn.square,
-                        ),
-                      ),
-                      InputQty.double(
-                        initVal: 0.0,
-                        messageBuilder: (minVal, maxVal, value) =>
-                            const Text("Double", textAlign: TextAlign.center),
-                        decoration: const QtyDecorationProps(
-                          fillColor: Colors.amberAccent,
-                        ),
-                      ),
-                    ]),
-                const Divider(),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InputQty(
-                        decoration: QtyDecorationProps(
-                            isBordered: false,
-                            borderShape: BorderShapeBtn.circle,
-                            width: 12)),
-                    SizedBox(width: 30),
-                    Text("- Ontap\n- Longpress \n- Typing input Manually")
-                  ],
-                ),
-                const Divider(),
-                const Padding(
-                    padding: EdgeInsets.all(8.0), child: Text('Customizable')),
-                const InputQty(
-                  maxVal: 5,
-                  initVal: 0,
-                  steps: 1,
-                  minVal: -5,
-                  borderShape: BorderShapeBtn.square,
-                  boxDecoration: BoxDecoration(),
-                  decoration: QtyDecorationProps(
-                    isBordered: false,
-                    minusBtn: Icon(
-                      Icons.flight_land_rounded,
-                      color: Colors.purple,
-                    ),
-                    plusBtn: Icon(Icons.flight_takeoff),
-                  ),
-                ),
-                const Divider(),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text('Use validator')),
-                        InputQty(
-                          initVal: 0,
-                          steps: 10,
-                          minVal: -100,
-                          validator: (value) {
-                            if (value == null) {
-                              return "Required field";
-                            } else if (value >= 100) {
-                              return "More than available quantity";
-                            }
-                            return null;
-                          },
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Use Message builder',
-                            )),
-                        InputQty(
-                          initVal: 0,
-                          minVal: -100,
-                          maxVal: 100,
-                          steps: 2,
-                          messageBuilder: (minVal, maxVal, value) {
-                            if (value == null) return null;
-                            if (value < -20) {
-                              return const Text(
-                                "Reach my limit",
-                                style: TextStyle(color: Colors.red),
-                                textAlign: TextAlign.center,
-                              );
-                            } else if (value > 20) {
-                              return const Text(
-                                "Reach my limit",
-                                style: TextStyle(color: Colors.red),
-                                textAlign: TextAlign.center,
-                              );
-                            } else {
-                              return Text("Value : $value",
-                                  textAlign: TextAlign.center);
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                const Divider(),
-                ElevatedButton(
-                    onPressed: () {
-                      _formKey.currentState!.validate();
-                    },
-                    child: const Text("validate")),
               ],
             ),
           ),
