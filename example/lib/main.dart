@@ -102,8 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             "- Ontap\n- Longpress \n- Typing input Manually"))
                   ],
                 ),
-                const Divider(height: 30),
-                const Divider(),
+                const Divider(height: 50),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Padding(
                             padding: EdgeInsets.all(8.0),
                             child: Text(
-                              'Use Message builder',
+                              'Message builder',
                             )),
                         InputQty(
                           initVal: 0,
@@ -164,6 +163,45 @@ class _MyHomePageState extends State<MyHomePage> {
                                   textAlign: TextAlign.center);
                             }
                           },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const Divider(height: 50),
+                const Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('integer')),
+                        InputQty.int(
+                          initVal: 0,
+                          steps: 10,
+                          minVal: -100,
+                        ),
+                      ],
+                    ),
+                    Center(
+                        child: Text(
+                      "OR",
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                    )),
+                    Column(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'double',
+                            )),
+                        InputQty(
+                          initVal: 0.0,
+                          minVal: -100.0,
+                          maxVal: 100.0,
+                          steps: 2.5,
                         ),
                       ],
                     ),
