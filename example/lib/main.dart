@@ -1,10 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
+// import 'package:input_quantity/input_quantity.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Example',
+      title: 'Input Quantity Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -30,146 +28,235 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _formKey = GlobalKey<FormState>();
+
+  int qtyInt = 123;
+  double qtyDouble = 12.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'INPUT QUANTITY',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'INPUT QUANTITY',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                  ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.all(4.0),
-                child: Text(
-                  'by: pmatatias.dev',
-                  style: TextStyle(fontSize: 14, color: Colors.blue),
+                const Padding(
+                  padding: EdgeInsets.all(14.0),
+                  child: Text(
+                    'by: pmatatias.dev',
+                    style: TextStyle(fontSize: 14, color: Colors.blue),
+                  ),
                 ),
-              ),
-              const Divider(),
-              InputQty(onQtyChanged: (val) {}),
-              const Divider(),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Easy and solid'),
-              ),
-              InputQty(
-                maxVal: 5,
-                initVal: 0,
-                steps: 1,
-                minVal: -5,
-                borderShape: BorderShapeBtn.circle,
-                boxDecoration: const BoxDecoration(),
-                minusBtn:
-                    const Icon(Icons.accessibility_new_outlined, size: 18),
-                plusBtn: const Icon(
-                  Icons.accessible_forward,
-                  size: 18,
+                const Divider(),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InputQty(
+                      maxVal: 50,
+                      initVal: 10,
+                      steps: 10,
+                      minVal: -50,
+                      borderShape: BorderShapeBtn.square,
+                      boxDecoration: BoxDecoration(),
+                      decoration: QtyDecorationProps(
+                        isBordered: false,
+                        minusBtn: Icon(
+                          Icons.flight_land_rounded,
+                          color: Colors.purple,
+                        ),
+                        plusBtn:
+                            Icon(Icons.flight_takeoff, color: Colors.indigo),
+                      ),
+                    ),
+                    SizedBox(width: 30),
+                    Expanded(
+                      child: Text(
+                          "- Output: int,double, num\n- initVal, maxVal, minVal, steps \n- Custom: icon,decoration,etc"),
+                    )
+                  ],
                 ),
-                btnColor1: Colors.indigo,
-                onQtyChanged: (val) {
-                  if (kDebugMode) {
-                    print(val);
-                  }
-                },
-              ),
-              const Divider(),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('With steps : 10 (customizable)'),
-              ),
-              InputQty(
-                maxVal: 100,
-                initVal: 0.0,
-                steps: 10,
-                showMessageLimit: false,
-                minVal: -100,
-                onQtyChanged: (val) {
-                  if (kDebugMode) {
-                    print(val);
-                  }
-                },
-              ),
-              const Divider(),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Min,max and initial value. Change color'),
-              ),
-              InputQty(
-                maxVal: 50,
-                initVal: 12,
-                minVal: -50,
-                steps: 10,
-                borderShape: BorderShapeBtn.none,
-                plusBtn: const Icon(Icons.add_box),
-                minusBtn: const Icon(Icons.indeterminate_check_box),
-                btnColor1: Colors.teal,
-                btnColor2: Colors.red,
-                onQtyChanged: (val) {
-                  if (kDebugMode) {
-                    print(val);
-                  }
-                },
-              ),
-              const Divider(),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Intrinsic width ( default )'),
-              ),
-              InputQty(
-                maxVal: 100,
-                initVal: 0,
-                onQtyChanged: (val) {
-                  if (kDebugMode) {
-                    print(val);
-                  }
-                },
-              ),
-              const Divider(),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Expanded width'),
-              ),
-              InputQty(
-                maxVal: 100,
-                initVal: 0,
-                isIntrinsicWidth: false,
-                onQtyChanged: (val) {
-                  if (kDebugMode) {
-                    print(val);
-                  }
-                },
-              ),
-              const Divider(),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('Customize input size'),
-              ),
-              InputQty(
-                maxVal: 100.0,
-                initVal: 0.0,
-                textFieldDecoration: const InputDecoration(
-                    isDense: false,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10)),
-                minVal: -100.0,
-                onQtyChanged: (val) {
-                  if (kDebugMode) {
-                    print(val);
-                  }
-                },
-              ),
-            ],
+                const Divider(height: 30),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InputQty(
+                        decoration: QtyDecorationProps(
+                            isBordered: false,
+                            borderShape: BorderShapeBtn.circle,
+                            width: 12)),
+                    SizedBox(width: 30),
+                    Expanded(
+                        child: Text(
+                            "- Ontap\n- Longpress \n- Typing input Manually"))
+                  ],
+                ),
+                const Divider(height: 50),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('Use validator')),
+                        InputQty(
+                          initVal: 0,
+                          steps: 10,
+                          minVal: -100,
+                          validator: (value) {
+                            if (value == null) {
+                              return "Required field";
+                            } else if (value >= 100) {
+                              return "More than available quantity";
+                            }
+                            return null;
+                          },
+                        ),
+                      ],
+                    ),
+                    const Center(
+                        child: Text(
+                      "OR",
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                    )),
+                    Column(
+                      children: [
+                        const Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'Message builder',
+                            )),
+                        InputQty(
+                          initVal: 0,
+                          minVal: -100,
+                          maxVal: 100,
+                          steps: 2,
+                          messageBuilder: (minVal, maxVal, value) {
+                            if (value == null) return null;
+                            if (value < -20) {
+                              return const Text(
+                                "Reach my limit",
+                                style: TextStyle(color: Colors.red),
+                                textAlign: TextAlign.center,
+                              );
+                            } else if (value > 20) {
+                              return const Text(
+                                "Reach my limit",
+                                style: TextStyle(color: Colors.red),
+                                textAlign: TextAlign.center,
+                              );
+                            } else {
+                              return Text("Value : $value",
+                                  textAlign: TextAlign.center);
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const Divider(height: 50),
+                const Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text('integer')),
+                        InputQty.int(
+                          initVal: 0,
+                          steps: 10,
+                          minVal: -100,
+                        ),
+                      ],
+                    ),
+                    Center(
+                        child: Text(
+                      "OR",
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                    )),
+                    Column(
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              'double',
+                            )),
+                        InputQty(
+                          initVal: 0.0,
+                          minVal: -100.0,
+                          maxVal: 100.0,
+                          steps: 2.5,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const Divider(height: 30),
+
+                // ElevatedButton(
+                //     onPressed: () {
+                //       _formKey.currentState!.validate();
+                //     },
+                //     child: const Text("validate")),
+                // const Divider(),
+
+                const Text("Style options:"),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InputQty.int(
+                      messageBuilder: (minVal, maxVal, value) => const Text(
+                          "Button on Left",
+                          textAlign: TextAlign.center),
+                      decoration: const QtyDecorationProps(
+                          qtyStyle: QtyStyle.btnOnLeft,
+                          width: 12,
+                          fillColor: Colors.black12,
+                          isBordered: false,
+                          borderShape: BorderShapeBtn.square),
+                    ),
+                    InputQty.int(
+                      messageBuilder: (minVal, maxVal, value) =>
+                          const Text("Classic", textAlign: TextAlign.center),
+                      decoration: const QtyDecorationProps(
+                          qtyStyle: QtyStyle.classic,
+                          width: 12,
+                          fillColor: Colors.black12,
+                          isBordered: false,
+                          borderShape: BorderShapeBtn.none),
+                    ),
+                    InputQty.int(
+                      messageBuilder: (minVal, maxVal, value) => const Text(
+                          "Button on Right",
+                          textAlign: TextAlign.center),
+                      decoration: const QtyDecorationProps(
+                          qtyStyle: QtyStyle.btnOnRight,
+                          width: 12,
+                          fillColor: Colors.black12,
+                          isBordered: false,
+                          borderShape: BorderShapeBtn.square),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
