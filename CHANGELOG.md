@@ -1,8 +1,12 @@
+## 2.0.2
+
+- format dart lints
+
 ## 2.0.1
 
 - update screenshot picture
 
-# 2.0.0
+## 2.0.0
 
 Sep 15, 2023 [#36](https://github.com/pmatatias/input-quantity/pull/36)
 
