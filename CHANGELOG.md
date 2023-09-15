@@ -1,3 +1,15 @@
+# 2.0.0
+Sep 15, 2023 [#36](https://github.com/pmatatias/input-quantity/pull/36)
+
+- Output can be specify: `int`,`double` or by default as `num`
+- Add Feature longpress to update value
+- Fix input unnecessary typing character
+- Add new feature Validator and message builder
+- Add and export more decoration for `TextFormField` and `InputDecoration` as `InputQty` property
+- @Deprecated item is not removed yet, but set the value will not taking any effect. Most of property are moved into `QtyDecorationProps`.
+  list of deprecated property :
+  `showMessageLimit`, `textFieldDecoration`, `plusBtn`, `minusBtn`, `btnColor1`,`btnColor2`,`splashRadius`, `borderShape`.
+
 ## 1.2.4
 
 Aug 30, 2023
