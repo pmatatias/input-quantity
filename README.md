@@ -44,7 +44,7 @@ import 'package:input_quantity/input_quantity.dart';
     },
   ),
 ```
-
+---
 - Output
 By default, the output will be as a `num`. 
 ```
@@ -75,6 +75,7 @@ InputQty.double(
 )
 ```
 
+---
 
 - Position of button
 by default it will set as `classic` mode. Which is the plus button on the right and minus button on the left
