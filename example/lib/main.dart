@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Inout Quantity Example',
+      title: 'Input Quantity Example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -76,7 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           Icons.flight_land_rounded,
                           color: Colors.purple,
                         ),
-                        plusBtn: Icon(Icons.flight_takeoff, color: Colors.indigo),
+                        plusBtn:
+                            Icon(Icons.flight_takeoff, color: Colors.indigo),
                       ),
                     ),
                     SizedBox(width: 30),
@@ -103,9 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const Divider(height: 30),
                 const Divider(),
-
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
@@ -128,12 +128,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ],
                     ),
-                    const Expanded(
-                        child: Center(
-                            child: Text(
+                    const Center(
+                        child: Text(
                       "OR",
                       style: TextStyle(fontSize: 20, color: Colors.black),
-                    ))),
+                    )),
                     Column(
                       children: [
                         const Padding(
