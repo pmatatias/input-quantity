@@ -1,3 +1,9 @@
+## 1.2.4
+
+Aug 30, 2023
+
+- remove expired homepage site
+
 ## 1.2.3
 
 Aug 8, 2023 [#26](https://github.com/pmatatias/input-quantity/pull/26)
