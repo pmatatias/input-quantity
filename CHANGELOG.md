@@ -1,8 +1,12 @@
 ## 2.0.2
 
+Sep 15, 2023
+
 - format dart lints
 
 ## 2.0.1
+
+Sep 15, 2023
 
 - update screenshot picture
 
