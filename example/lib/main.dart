@@ -1,3 +1,4 @@
+import 'package:example/cart/view.dart';
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
 // import 'package:input_quantity/input_quantity.dart';
@@ -255,6 +256,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
+
+                IconButton(
+                    onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Example1(),
+                        )),
+                    icon: const Icon(Icons.exit_to_app))
               ],
             ),
           ),
