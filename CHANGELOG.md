@@ -1,3 +1,7 @@
+## 2.1.0
+
+- marked deprecated property [41](https://github.com/pmatatias/input-quantity/pull/41)
+
 ## 2.0.4
 
 Sep 22, 2023 [39](https://github.com/pmatatias/input-quantity/pull/39)
