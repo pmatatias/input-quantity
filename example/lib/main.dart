@@ -82,8 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       initVal: 10,
                       steps: 10,
                       minVal: -50,
-                      borderShape: BorderShapeBtn.square,
-                      boxDecoration: BoxDecoration(),
                       decoration: QtyDecorationProps(
                         isBordered: false,
                         minusBtn: Icon(
@@ -257,7 +255,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderShape: BorderShapeBtn.none),
                     ),
                     InputQty.int(
-                      showMessageLimit: false,
                       messageBuilder: (minVal, maxVal, value) => const Text(
                           "Button on Right",
                           textAlign: TextAlign.center),

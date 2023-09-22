@@ -52,11 +52,6 @@ class InputQty extends StatefulWidget {
   /// if `false` wrapped with `Expanded`
   final bool isIntrinsicWidth;
 
-  ///boxdecoration
-  ///use when you want to customize border
-  ///around widget
-  final BoxDecoration? boxDecoration;
-
   /// if `true` use value as double
   final _OutputType _outputType;
 
@@ -73,42 +68,6 @@ class InputQty extends StatefulWidget {
   /// set into counter text with aling center
   /// only displayed if `validator` is null
   final MessageBuilder<num>? messageBuilder;
-
-  @Deprecated(
-      'Use messageBuilder from QtyDecorationProps to specify message widget'
-      'This feature was deprecated after v2.0.0')
-
-  /// show message limit
-  final bool showMessageLimit;
-
-  @Deprecated('Use QtyDecorationProps instead')
-  final InputDecoration? textFieldDecoration;
-
-  /// Icon widget for button plus
-  @Deprecated('Use inside QtyDecorationProps instead')
-  final Widget? plusBtn;
-
-  /// Icon widget for button minus
-  @Deprecated('Use inside QtyDecorationProps instead')
-  final Widget? minusBtn;
-
-  /// primary color applied on Button widget
-  /// used when availabe to press
-  @Deprecated('Use inside QtyDecorationProps instead')
-  final Color btnColor1;
-
-  /// secondary color applied for button
-  /// This value will used for disabled color button
-  @Deprecated('Use inside QtyDecorationProps instead')
-  final Color btnColor2;
-
-  /// spalsh radius effect
-  /// show spalsh effect when the button are pressed
-  @Deprecated('Use inside QtyDecorationProps instead')
-  final double? splashRadius;
-
-  @Deprecated('Use inside QtyDecorationProps instead')
-  final BorderShapeBtn borderShape;
 
   /// Widget to handle quantity input
   ///
@@ -127,15 +86,21 @@ class InputQty extends StatefulWidget {
     this.decoration = const QtyDecorationProps(),
     this.qtyFormProps = const QtyFormProps(),
     this.isIntrinsicWidth = true,
-    this.boxDecoration,
-    this.borderShape = BorderShapeBtn.none,
-    this.splashRadius,
-    this.textFieldDecoration,
-    this.plusBtn,
-    this.minusBtn,
-    this.btnColor1 = Colors.green,
-    this.btnColor2 = Colors.grey,
-    this.showMessageLimit = true,
+    @Deprecated('Use QtyDecorationProps instead') BoxDecoration? boxDecoration,
+    @Deprecated('Use inside QtyDecorationProps instead')
+    BorderShapeBtn borderShape = BorderShapeBtn.none,
+    @Deprecated('Use  QtyDecorationProps instead') double? splashRadius,
+    @Deprecated('Use QtyFormProps instead')
+    InputDecoration? textFieldDecoration,
+    @Deprecated('Use inside QtyDecorationProps instead') Widget? plusBtn,
+    @Deprecated('Use inside QtyDecorationProps instead') Widget? minusBtn,
+    @Deprecated('Use inside QtyDecorationProps instead')
+    Color btnColor1 = Colors.green,
+    @Deprecated('Removed') Color btnColor2 = Colors.grey,
+    @Deprecated(
+        'Use messageBuilder from QtyDecorationProps to specify message widget'
+        'This feature was deprecated after v2.0.0')
+    bool showMessageLimit = false,
   })  : _outputType = _OutputType.num,
         assert(!((validator != null) && (messageBuilder != null)),
             "Cant use `validator` and `messageBuilder` at the same time, please remove one of them"),
@@ -157,18 +122,24 @@ class InputQty extends StatefulWidget {
     this.decoration = const QtyDecorationProps(),
     this.qtyFormProps = const QtyFormProps(),
     this.isIntrinsicWidth = true,
-    this.showMessageLimit = true,
-    this.boxDecoration,
-    this.borderShape = BorderShapeBtn.none,
-    this.splashRadius,
-    this.textFieldDecoration,
-    this.plusBtn,
-    this.minusBtn,
-    this.btnColor1 = Colors.green,
-    this.btnColor2 = Colors.grey,
+    @Deprecated(
+        'Use messageBuilder from QtyDecorationProps to specify message widget'
+        'This feature was deprecated after v2.0.0')
+    bool showMessageLimit = false,
+    @Deprecated('Use QtyDecorationProps instead') BoxDecoration? boxDecoration,
+    @Deprecated('Use inside QtyDecorationProps instead')
+    BorderShapeBtn borderShape = BorderShapeBtn.none,
+    @Deprecated('Use inside QtyDecorationProps instead') double? splashRadius,
+    @Deprecated('Use QtyFormProps instead')
+    InputDecoration? textFieldDecoration,
+    @Deprecated('Use inside QtyDecorationProps instead') Widget? plusBtn,
+    @Deprecated('Use inside QtyDecorationProps instead') Widget? minusBtn,
+    @Deprecated('Use inside QtyDecorationProps instead')
+    Color btnColor1 = Colors.green,
+    @Deprecated('Removed') Color btnColor2 = Colors.grey,
   })  : _outputType = _OutputType.double,
 
-        /// cant use both property. choose only on
+        /// cant use both property. choose only one
         assert(!((validator != null) && (messageBuilder != null)),
             "Cant use `validator` and `messageBuilder` at the same time, please remove one of them"),
         super(key: key);
@@ -188,18 +159,24 @@ class InputQty extends StatefulWidget {
     this.decoration = const QtyDecorationProps(),
     this.qtyFormProps = const QtyFormProps(),
     this.isIntrinsicWidth = true,
-    this.showMessageLimit = true,
-    this.boxDecoration,
-    this.borderShape = BorderShapeBtn.none,
-    this.splashRadius,
-    this.textFieldDecoration,
-    this.plusBtn,
-    this.minusBtn,
-    this.btnColor1 = Colors.green,
-    this.btnColor2 = Colors.grey,
+    @Deprecated(
+        'Use messageBuilder from QtyDecorationProps to specify message widget'
+        'This feature was deprecated after v2.0.0')
+    bool showMessageLimit = false,
+    @Deprecated('Use QtyDecorationProps instead') BoxDecoration? boxDecoration,
+    @Deprecated('Use inside QtyDecorationProps instead')
+    BorderShapeBtn borderShape = BorderShapeBtn.none,
+    @Deprecated('Use inside QtyDecorationProps instead') double? splashRadius,
+    @Deprecated('Use QtyFormProps instead')
+    InputDecoration? textFieldDecoration,
+    @Deprecated('Use inside QtyDecorationProps instead') Widget? plusBtn,
+    @Deprecated('Use inside QtyDecorationProps instead') Widget? minusBtn,
+    @Deprecated('Use inside QtyDecorationProps instead')
+    Color btnColor1 = Colors.green,
+    @Deprecated('Removed') Color btnColor2 = Colors.grey,
   })  : _outputType = _OutputType.integer,
 
-        /// cant use both property. choose only on
+        /// cant use both property. choose only one
         assert(!((validator != null) && (messageBuilder != null)),
             "Cant use `validator` and `messageBuilder` at the same time, please remove one of them"),
         super(key: key);
