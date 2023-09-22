@@ -51,7 +51,8 @@ class MobileComponent extends StatelessWidget {
                       SizedBox(height: 2),
                       Text(
                         "Category",
-                        style: TextStyle(color: Colors.black38),textScaleFactor: 0.88,
+                        style: TextStyle(color: Colors.black38),
+                        textScaleFactor: 0.88,
                       ),
                       SizedBox(height: 2),
                       Text("Price")
@@ -63,7 +64,7 @@ class MobileComponent extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(onPressed: (){}, child: const Text("Tulis catatan")),
+              TextButton(onPressed: () {}, child: const Text("Tulis catatan")),
               const InputQty(),
             ],
           ),
