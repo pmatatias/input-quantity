@@ -37,15 +37,6 @@ class InputQty extends StatefulWidget {
   /// eg: `steps = 3.14`
   final num steps;
 
-  /// ```dart
-  /// Function(num? value) onChanged
-  /// ```
-  /// update value every changes
-  /// the `runType` is `num`. you may need to parse the data type
-  /// parse to `int` : `value.toInt();`
-  /// parse to `double` : `value.toDouble();`
-  final ValueChanged? onQtyChanged;
-
   /// wrap [TextFormField] with [IntrinsicWidth] widget
   /// this will make the width of [InputQty] set to intrinsic width
   /// default  `isIntrinsicWidth = true`
@@ -80,7 +71,15 @@ class InputQty extends StatefulWidget {
     this.maxVal = double.maxFinite,
     this.minVal = 0,
     this.steps = 1,
-    this.onQtyChanged,
+
+    /// ```dart
+    /// Function(num? value) onChanged
+    /// ```
+    /// update value every changes
+    /// the `runType` is `num`. you may need to parse the data type
+    /// parse to `int` : `value.toInt();`
+    /// parse to `double` : `value.toDouble();`
+     ValueChanged<num?>? onQtyChanged,
     this.messageBuilder,
     this.validator,
     this.decoration = const QtyDecorationProps(),
@@ -116,7 +115,15 @@ class InputQty extends StatefulWidget {
     this.maxVal = double.maxFinite,
     this.minVal = 0.0,
     this.steps = 1.0,
-    this.onQtyChanged,
+
+    /// ```dart
+    /// Function(num? value) onChanged
+    /// ```
+    /// update value every changes
+    /// the `runType` is `num`. you may need to parse the data type
+    /// parse to `int` : `value.toInt();`
+    /// parse to `double` : `value.toDouble();`
+     ValueChanged<double?>? onQtyChanged,
     this.messageBuilder,
     this.validator,
     this.decoration = const QtyDecorationProps(),
@@ -153,7 +160,15 @@ class InputQty extends StatefulWidget {
     this.maxVal = double.maxFinite,
     this.minVal = 0,
     this.steps = 1,
-    this.onQtyChanged,
+
+    /// ```dart
+    /// Function(num? value) onChanged
+    /// ```
+    /// update value every changes
+    /// the `runType` is `num`. you may need to parse the data type
+    /// parse to `int` : `value.toInt();`
+    /// parse to `double` : `value.toDouble();`
+     ValueChanged<int?>? onQtyChanged,
     this.messageBuilder,
     this.validator,
     this.decoration = const QtyDecorationProps(),
@@ -194,12 +209,17 @@ class _InputQtyState extends State<InputQty> {
 
   /// timer for  periodic call function
   Timer? timer;
+  
+
 
   @override
   void initState() {
     super.initState();
     currentval = ValueNotifier(widget.initVal);
     _valCtrl.text = "${widget.initVal}";
+
+    
+
   }
 
   /// Increase current value
@@ -232,7 +252,8 @@ class _InputQtyState extends State<InputQty> {
     /// set back to the controller
     _valCtrl.text = "$value";
     currentval.value = value;
-    widget.onQtyChanged?.call(value);
+      onQtyChanged?.call(value);
+      super.int(o)
   }
 
   /// start timer and chhange value
@@ -487,5 +508,24 @@ class _InputQtyState extends State<InputQty> {
     _valCtrl.dispose();
     currentval.dispose();
     super.dispose();
+  }
+}
+
+
+
+
+class Foo extends StatefulWidget {
+  const Foo.double({super.key,ValueChanged<double>? onchaged}) ;
+  const Foo.int({super.key,ValueChanged<int>? onchaged}) ;
+
+  @override
+  State<Foo> createState() => _FooState();
+}
+
+class _FooState extends State<Foo> {
+  @override
+  Widget build(BuildContext context) {
+    // how can i call the optionedVal here ?
+    return const Placeholder();
   }
 }

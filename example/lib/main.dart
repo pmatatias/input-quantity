@@ -45,6 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int qtyInt = 123;
   double qtyDouble = 12.0;
+
+  ValueChanged<num?> numOncahge = (value) {};
+  ValueChanged<int?> intOncahge = (value) {};
+  ValueChanged<double?> doubleOncahge = (value) {};
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 const Divider(),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     InputQty(
@@ -82,7 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       initVal: 10,
                       steps: 10,
                       minVal: -50,
-                      decoration: QtyDecorationProps(
+                      onQtyChanged: (value) {},
+                      decoration: const QtyDecorationProps(
                         isBordered: false,
                         minusBtn: Icon(
                           Icons.flight_land_rounded,
@@ -92,8 +97,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             Icon(Icons.flight_takeoff, color: Colors.indigo),
                       ),
                     ),
-                    SizedBox(width: 30),
-                    Expanded(
+                    const SizedBox(width: 30),
+                    const Expanded(
                       child: Text(
                           "- Output: int,double, num\n- initVal, maxVal, minVal, steps \n- Custom: icon,decoration,etc"),
                     )
