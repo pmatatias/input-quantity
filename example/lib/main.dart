@@ -247,6 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       messageBuilder: (minVal, maxVal, value) => const Text(
                           "Button on Right",
                           textAlign: TextAlign.center),
+                          qtyFormProps: const QtyFormProps(cursorColor: Colors.amber),
                       decoration: const QtyDecorationProps(
                           qtyStyle: QtyStyle.btnOnRight,
                           width: 12,
