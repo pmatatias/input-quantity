@@ -20,6 +20,18 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Testsada extends StatelessWidget {
+  const Testsada({super.key, this.titlse});
+
+  @Deprecated("test dont use")
+  final String? titlse;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(titlse ?? '');
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -46,6 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const Testsada(titlse: "asdasd"),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
@@ -244,6 +257,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderShape: BorderShapeBtn.none),
                     ),
                     InputQty.int(
+                      showMessageLimit: false,
                       messageBuilder: (minVal, maxVal, value) => const Text(
                           "Button on Right",
                           textAlign: TextAlign.center),

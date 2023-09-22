@@ -75,7 +75,10 @@ class InputQty extends StatefulWidget {
   final MessageBuilder<num>? messageBuilder;
 
   @Deprecated(
-      'Use messageBuilder from QtyDecorationProps to specify message widget')
+      'Use messageBuilder from QtyDecorationProps to specify message widget'
+      'This feature was deprecated after v2.0.0')
+
+  /// show message limit
   final bool showMessageLimit;
 
   @Deprecated('Use QtyDecorationProps instead')
