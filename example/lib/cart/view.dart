@@ -1,3 +1,6 @@
+import 'package:example/cart/commponent/mobile.dart';
+import 'package:example/cart/commponent/webv.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Example1 extends StatefulWidget {
@@ -11,10 +14,7 @@ class _Example1State extends State<Example1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Example 1")),
-      body: const Column(
-        children: [],
-      ),
-    );
+        appBar: AppBar(title: const Text("Example 1")),
+        body: kIsWeb ? const WebV() : const MobileComponent());
   }
 }

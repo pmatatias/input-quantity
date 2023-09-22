@@ -1,3 +1,9 @@
+## 2.0.4
+
+Sep 22, 2023 [39](https://github.com/pmatatias/input-quantity/pull/39)
+
+- fix export `qtyFormProps` property
+
 ## 2.0.3
 
 - update `pubspec.yml` file add homepage.
