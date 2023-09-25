@@ -23,3 +23,13 @@ enum QtyStyle {
   /// both button will be wraped by column on the right side
   btnOnRight
 }
+
+enum ButtonOrientation {
+  /// Both botton will placed horizontally
+  /// left and right side
+  horizontal,
+
+  /// Both botton will placed vertically
+  /// top and bottom
+  vertical
+}

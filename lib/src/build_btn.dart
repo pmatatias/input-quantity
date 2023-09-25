@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:input_quantity/src/constant.dart';
 import '../input_quantity.dart';
 
+/// default
+const cRad = Radius.circular(4);
+
 class BuildBtn extends StatelessWidget {
   /// icon widget
   final Widget? child;
@@ -26,8 +29,13 @@ class BuildBtn extends StatelessWidget {
   /// stop increasing value
   final VoidCallback onEndTime;
 
+  /// orientation button
+  final ButtonOrientation? orientation;
+
   /// widget style
   final QtyStyle qtyStyle;
+
+  /// timer for longpress
   final Timer? time;
   const BuildBtn({
     super.key,
@@ -37,6 +45,7 @@ class BuildBtn extends StatelessWidget {
     this.btnColor = Colors.teal,
     this.child,
     this.qtyStyle = QtyStyle.classic,
+    this.orientation,
     this.time,
     required this.onEndTime,
     required this.onStart,
@@ -46,6 +55,8 @@ class BuildBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isCircleBorder = borderShape == BorderShapeBtn.circle;
     bool isSqborder = borderShape == BorderShapeBtn.square;
+
+    print(orientation);
     switch (qtyStyle) {
       case QtyStyle.btnOnLeft:
         return GestureDetector(
@@ -62,11 +73,11 @@ class BuildBtn extends StatelessWidget {
                         width: 1),
                 borderRadius: isCircleBorder
                     ? null
-                    : BorderRadius.only(
-                        topLeft:
-                            isPlus ? const Radius.circular(4) : Radius.zero,
-                        bottomLeft:
-                            isPlus ? Radius.zero : const Radius.circular(4))),
+                    : setupBorderRadiusDefault(
+                        isPlus: isPlus,
+                        style: QtyStyle.btnOnLeft,
+                        orientation:
+                            orientation ?? ButtonOrientation.vertical)),
             child: child ??
                 Padding(
                   padding:
@@ -93,10 +104,10 @@ class BuildBtn extends StatelessWidget {
                       color: onTap == null ? Colors.grey : btnColor, width: 1),
               borderRadius: isCircleBorder
                   ? null
-                  : BorderRadius.only(
-                      topRight: isPlus ? const Radius.circular(4) : Radius.zero,
-                      bottomRight:
-                          isPlus ? Radius.zero : const Radius.circular(4)),
+                  : setupBorderRadiusDefault(
+                      isPlus: isPlus,
+                      style: QtyStyle.btnOnRight,
+                      orientation: orientation ?? ButtonOrientation.vertical),
             ),
             child: child ??
                 Padding(
@@ -127,20 +138,39 @@ class BuildBtn extends StatelessWidget {
                         width: 1),
                 borderRadius: isCircleBorder
                     ? null
-                    : BorderRadius.only(
-                        topLeft:
-                            isPlus ? Radius.zero : const Radius.circular(4),
-                        bottomLeft:
-                            isPlus ? Radius.zero : const Radius.circular(4),
-                        topRight:
-                            isPlus ? const Radius.circular(4) : Radius.zero,
-                        bottomRight:
-                            isPlus ? const Radius.circular(4) : Radius.zero)),
+                    : setupBorderRadiusDefault(
+                        isPlus: isPlus,
+                        orientation: ButtonOrientation.horizontal)),
             child: child ??
                 Icon(isPlus ? Icons.add : Icons.remove,
                     color: onTap == null ? Colors.grey : btnColor),
           ),
         );
+    }
+  }
+}
+
+BorderRadius setupBorderRadiusDefault(
+    {required ButtonOrientation orientation,
+    required bool isPlus,
+    QtyStyle? style}) {
+  if (orientation == ButtonOrientation.horizontal) {
+    return BorderRadius.only(
+        topLeft: isPlus ? Radius.zero : cRad,
+        bottomLeft: isPlus ? Radius.zero : cRad,
+        topRight: isPlus ? cRad : Radius.zero,
+        bottomRight: isPlus ? cRad : Radius.zero);
+  } else {
+    if (style == QtyStyle.btnOnRight) {
+      return BorderRadius.only(
+        topRight: isPlus ? cRad : Radius.zero,
+        bottomRight: isPlus ? Radius.zero : cRad,
+      );
+    } else {
+      return BorderRadius.only(
+        topLeft: isPlus ? cRad : Radius.zero,
+        bottomLeft: isPlus ? Radius.zero : cRad,
+      );
     }
   }
 }

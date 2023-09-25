@@ -20,18 +20,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Testsada extends StatelessWidget {
-  const Testsada({super.key, this.titlse});
-
-  @Deprecated("test dont use")
-  final String? titlse;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(titlse ?? '');
-  }
-}
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -58,7 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Testsada(titlse: "asdasd"),
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
@@ -264,6 +251,38 @@ class _MyHomePageState extends State<MyHomePage> {
                           qtyStyle: QtyStyle.btnOnRight,
                           width: 12,
                           fillColor: Colors.black12,
+                          isBordered: false,
+                          borderShape: BorderShapeBtn.square),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InputQty.int(
+                      messageBuilder: (minVal, maxVal, value) => const Text(
+                          "Button on Right Horizontal",
+                          textAlign: TextAlign.center),
+                      qtyFormProps:
+                          const QtyFormProps(cursorColor: Colors.amber),
+                      decoration: const QtyDecorationProps(
+                          qtyStyle: QtyStyle.btnOnLeft,
+                          width: 12,
+                          orientation: ButtonOrientation.horizontal,
+                          isBordered: false,
+                          borderShape: BorderShapeBtn.square),
+                    ),
+                    InputQty.int(
+                      messageBuilder: (minVal, maxVal, value) => const Text(
+                          "Button on Right Horizontal",
+                          textAlign: TextAlign.center),
+                      qtyFormProps:
+                          const QtyFormProps(cursorColor: Colors.amber),
+                      decoration: const QtyDecorationProps(
+                          qtyStyle: QtyStyle.btnOnRight,
+                          width: 12,
+                          orientation: ButtonOrientation.horizontal,
                           isBordered: false,
                           borderShape: BorderShapeBtn.square),
                     ),
