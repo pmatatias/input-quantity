@@ -1,6 +1,7 @@
 ## 2.1.0
 
 - marked deprecated property [41](https://github.com/pmatatias/input-quantity/pull/41)
+- add orientation property for button side [43](https://github.com/pmatatias/input-quantity/pull/43)
 
 ## 2.0.4
 
