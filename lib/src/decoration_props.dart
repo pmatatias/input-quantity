@@ -43,6 +43,9 @@ class QtyDecorationProps {
   /// define style widget
   final QtyStyle qtyStyle;
 
+  /// set orientation of the button
+  final ButtonOrientation? orientation;
+
   /// The shape of the border to draw around the decoration's container.
   ///
   ///  * [InputBorder.none], which doesn't draw a border.
@@ -95,6 +98,7 @@ class QtyDecorationProps {
     this.qtyStyle = QtyStyle.classic,
     this.constraints,
     this.iconColor,
+    this.orientation,
     this.isBordered = true,
     this.border,
     this.errorBorder,

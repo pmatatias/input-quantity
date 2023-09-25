@@ -307,30 +307,37 @@ class _InputQtyState extends State<InputQty> {
 
             switch (widget.decoration.qtyStyle) {
               case QtyStyle.btnOnLeft:
-                return Column(
-                  children: [
-                    BuildBtn(
-                      isPlus: true,
-                      borderShape: widget.decoration.borderShape,
-                      onTap: limitTopState ? plus : null,
-                      qtyStyle: widget.decoration.qtyStyle,
-                      btnColor: widget.decoration.btnColor,
-                      onStart: startTimer,
-                      onEndTime: endTimer,
-                      child: widget.decoration.plusBtn,
-                    ),
-                    BuildBtn(
-                      isPlus: false,
-                      borderShape: widget.decoration.borderShape,
-                      onTap: limitBtmState ? minus : null,
-                      btnColor: widget.decoration.btnColor,
-                      qtyStyle: widget.decoration.qtyStyle,
-                      onStart: startTimer,
-                      onEndTime: endTimer,
-                      child: widget.decoration.minusBtn,
-                    ),
-                  ],
-                );
+                final childbtn = [
+                  BuildBtn(
+                    isPlus: true,
+                    borderShape: widget.decoration.borderShape,
+                    onTap: limitTopState ? plus : null,
+                    qtyStyle: widget.decoration.qtyStyle,
+                    btnColor: widget.decoration.btnColor,
+                    onStart: startTimer,
+                    onEndTime: endTimer,
+                    orientation: widget.decoration.orientation,
+                    child: widget.decoration.plusBtn,
+                  ),
+                  BuildBtn(
+                    isPlus: false,
+                    borderShape: widget.decoration.borderShape,
+                    onTap: limitBtmState ? minus : null,
+                    btnColor: widget.decoration.btnColor,
+                    qtyStyle: widget.decoration.qtyStyle,
+                    onStart: startTimer,
+                    onEndTime: endTimer,
+                    orientation: widget.decoration.orientation,
+                    child: widget.decoration.minusBtn,
+                  ),
+                ];
+                return widget.decoration.orientation ==
+                        ButtonOrientation.horizontal
+                    ? Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: childbtn.reversed.toList())
+                    : Column(
+                        mainAxisSize: MainAxisSize.min, children: childbtn);
               case QtyStyle.btnOnRight:
                 return const SizedBox();
               default:
@@ -342,6 +349,7 @@ class _InputQtyState extends State<InputQty> {
                   onTap: limitBtmState ? minus : null,
                   onStart: startTimer,
                   onEndTime: endTimer,
+                  orientation: widget.decoration.orientation,
                   child: widget.decoration.minusBtn,
                 );
             }
@@ -356,31 +364,38 @@ class _InputQtyState extends State<InputQty> {
 
             switch (widget.decoration.qtyStyle) {
               case QtyStyle.btnOnRight:
-                return Column(
-                  children: [
-                    BuildBtn(
-                      isPlus: true,
-                      borderShape: widget.decoration.borderShape,
-                      btnColor: widget.decoration.btnColor,
-                      qtyStyle: widget.decoration.qtyStyle,
-                      onStart: startTimer,
-                      onEndTime: endTimer,
-                      onTap: limitTopState ? plus : null,
-                      child: widget.decoration.plusBtn,
-                    ),
-                    // const SizedBox(height: 2),
-                    BuildBtn(
-                      isPlus: false,
-                      borderShape: widget.decoration.borderShape,
-                      onTap: limitBtmState ? minus : null,
-                      btnColor: widget.decoration.btnColor,
-                      onStart: startTimer,
-                      onEndTime: endTimer,
-                      qtyStyle: widget.decoration.qtyStyle,
-                      child: widget.decoration.minusBtn,
-                    ),
-                  ],
-                );
+                final childbtn = [
+                  BuildBtn(
+                    isPlus: true,
+                    borderShape: widget.decoration.borderShape,
+                    btnColor: widget.decoration.btnColor,
+                    qtyStyle: widget.decoration.qtyStyle,
+                    onStart: startTimer,
+                    orientation: widget.decoration.orientation,
+                    onEndTime: endTimer,
+                    onTap: limitTopState ? plus : null,
+                    child: widget.decoration.plusBtn,
+                  ),
+                  // const SizedBox(height: 2),
+                  BuildBtn(
+                    isPlus: false,
+                    borderShape: widget.decoration.borderShape,
+                    onTap: limitBtmState ? minus : null,
+                    btnColor: widget.decoration.btnColor,
+                    onStart: startTimer,
+                    orientation: widget.decoration.orientation,
+                    onEndTime: endTimer,
+                    qtyStyle: widget.decoration.qtyStyle,
+                    child: widget.decoration.minusBtn,
+                  ),
+                ];
+                return widget.decoration.orientation ==
+                        ButtonOrientation.horizontal
+                    ? Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: childbtn.reversed.toList())
+                    : Column(
+                        mainAxisSize: MainAxisSize.min, children: childbtn);
               case QtyStyle.btnOnLeft:
                 return const SizedBox();
               default:
@@ -392,6 +407,7 @@ class _InputQtyState extends State<InputQty> {
                   onStart: startTimer,
                   onEndTime: endTimer,
                   qtyStyle: widget.decoration.qtyStyle,
+                  orientation: widget.decoration.orientation,
                   child: widget.decoration.plusBtn,
                 );
             }
