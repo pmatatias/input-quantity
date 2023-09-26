@@ -218,7 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Text("Style options:"),
                 const SizedBox(height: 12),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InputQty.int(
                       messageBuilder: (minVal, maxVal, value) => const Text(
@@ -230,16 +230,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           fillColor: Colors.black12,
                           isBordered: false,
                           borderShape: BorderShapeBtn.square),
-                    ),
-                    InputQty.int(
-                      messageBuilder: (minVal, maxVal, value) =>
-                          const Text("Classic", textAlign: TextAlign.center),
-                      decoration: const QtyDecorationProps(
-                          qtyStyle: QtyStyle.classic,
-                          width: 12,
-                          fillColor: Colors.black12,
-                          isBordered: false,
-                          borderShape: BorderShapeBtn.none),
                     ),
                     InputQty.int(
                       messageBuilder: (minVal, maxVal, value) => const Text(
@@ -257,8 +247,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 const SizedBox(height: 30),
+
+                InputQty.int(
+                  messageBuilder: (minVal, maxVal, value) =>
+                      const Text("Classic", textAlign: TextAlign.center),
+                  decoration: const QtyDecorationProps(
+                      qtyStyle: QtyStyle.classic,
+                      width: 12,
+                      fillColor: Colors.black12,
+                      isBordered: false,
+                      borderShape: BorderShapeBtn.none),
+                ),
+                const SizedBox(height: 30),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InputQty.int(
                       messageBuilder: (minVal, maxVal, value) => const Text(
