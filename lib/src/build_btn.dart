@@ -56,7 +56,6 @@ class BuildBtn extends StatelessWidget {
     bool isCircleBorder = borderShape == BorderShapeBtn.circle;
     bool isSqborder = borderShape == BorderShapeBtn.square;
 
-    print(orientation);
     switch (qtyStyle) {
       case QtyStyle.btnOnLeft:
         return GestureDetector(

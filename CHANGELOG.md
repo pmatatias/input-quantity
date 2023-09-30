@@ -1,3 +1,9 @@
+## 2.1.1
+
+Sep 30, 2023
+
+- add feature to disable typing manual [44](https://github.com/pmatatias/input-quantity/pull/44)
+
 ## 2.1.0
 
 Sep 25, 2023
