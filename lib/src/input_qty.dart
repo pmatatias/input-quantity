@@ -420,6 +420,7 @@ class _InputQtyState extends State<InputQty> {
         decoration: decorationProps(),
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         controller: _valCtrl,
+        readOnly: !widget.qtyFormProps.enableTyping,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (val) => widget.validator?.call(num.tryParse(val ?? '')),
         textAlign: widget.qtyFormProps.textAlign,

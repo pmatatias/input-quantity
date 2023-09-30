@@ -44,7 +44,18 @@ import 'package:input_quantity/input_quantity.dart';
     },
   ),
 ```
+
 ---
+- if you want to prevent type manual, you can disable it from `enableTyping`
+```
+InputQty(
+  qtyFormProps: QtyFormProps(enableTyping: false),
+)
+```
+
+---
+
+
 - Output
 By default, the output will be as a `num`. 
 ```

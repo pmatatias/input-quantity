@@ -29,7 +29,13 @@ class QtyFormProps {
   final double cursorWidth;
 
   /// enabale qty formfield
+  /// if `false` Button and the  contoller will be disable.
   final bool? enabled;
+
+  /// set to false if want to disable typing manuall
+  /// and prevent pop up softkeyboard.
+  /// only use button to increase/decrese the value
+  final bool enableTyping;
 
   /// obsecure text
   final bool obscureText;
@@ -51,6 +57,7 @@ class QtyFormProps {
     this.cursorColor,
     this.cursorHeight,
     this.cursorOpacityAnimates,
+    this.enableTyping = true,
     this.cursorRadius,
     this.enabled,
     this.showCursor,

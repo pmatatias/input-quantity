@@ -69,6 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       initVal: 10,
                       steps: 10,
                       minVal: -50,
+                      qtyFormProps: QtyFormProps(enableTyping: false),
                       decoration: QtyDecorationProps(
                         isBordered: false,
                         minusBtn: Icon(
