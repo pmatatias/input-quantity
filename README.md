@@ -20,10 +20,10 @@ Set input limits so that input values automatically return to predefined maximum
 ## Features
 
 - Simple and easy to use
-- Customizeable
-- Output: `int`,`double`, or `num`
+- Customizable
+- Output: `int`, `double`, or `num`
 - Style options: classic, button on the left or button on the right
-- Tap once to update value, longpress for update value continuously, or type the value manually.
+- Tap once to update the value, `longpress` for update the value continuously, or type the value manually.
 - Add validator form, or use custom message builder
 
 
@@ -46,17 +46,19 @@ import 'package:input_quantity/input_quantity.dart';
 ```
 
 ---
-- if you want to prevent type manual, you can disable it from `enableTyping`
+### Typing manual
+if you want to prevent typing manually, you can disable it from `enableTyping`
 ```
 InputQty(
   qtyFormProps: QtyFormProps(enableTyping: false),
+  ...
 )
 ```
 
 ---
 
 
-- Output
+### Output
 By default, the output will be as a `num`. 
 ```
 InputQty(
@@ -66,7 +68,7 @@ InputQty(
 )
 ```
 
-in the v1, we need to parse the output back to int or double inside onchange. Now from v2, you can specify the output.
+in v1, we need to parse the output back to int or double inside `onChange`. Now from v2, you can specify the output.
 
 as `int`
 ```
@@ -88,8 +90,8 @@ InputQty.double(
 
 ---
 
-- Position of button
-by default it will set as `classic` mode. Which is the plus button on the right and minus button on the left
+### The position and orientation of the button
+by default will be set as `classic` mode. Which is the plus button on the right and the minus button on the left
 ```
 InputQty(
    decoration: const QtyDecorationProps(
@@ -102,7 +104,8 @@ Put the button on the left :
 ```
 InputQty(
    decoration: const QtyDecorationProps(
-          qtyStyle: QtyStyle.btnOnLeft
+       qtyStyle: QtyStyle.btnOnLeft
+       orientation: ButtonOrientation.horizontal
    )
 )
 ```
@@ -111,12 +114,13 @@ last choice, on the right side
 ```
 InputQty(
    decoration: const QtyDecorationProps(
-          qtyStyle: QtyStyle.btnOnRight
+      qtyStyle: QtyStyle.btnOnRight
+      orientation: ButtonOrientation.vertical
    )
 )
 ```
 
-**For others example styling, you may check on the example page**
+**For other example styling, you may check on the example page**
 
 
 ## To Do
@@ -128,7 +132,7 @@ InputQty(
 
 ## Additional information
 
-- To contrib to this project, you can open a PR or an issue.
+- To contribute to this project, you can open a PR or an issue.
 
 - Want to thank me? you can buy me a coffee
 
