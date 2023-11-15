@@ -71,6 +71,12 @@ class InputQty extends StatefulWidget {
   /// only displayed if `validator` is null
   final MessageBuilder<num>? messageBuilder;
 
+  /// In Dart, the double type follows the IEEE 754 standard for floating-point representation, which uses a 64-bit format.
+  /// The double type in Dart has a precision of about 15 to 17 decimal places.
+  /// This means that operations involving double values may lose precision beyond the 15th to 17th decimal place.
+  ///
+  final int decimalPlaces;
+
   /// Widget to handle quantity input
   ///
   /// for specific output, use `InputQty.int` or
@@ -82,6 +88,7 @@ class InputQty extends StatefulWidget {
     this.maxVal = double.maxFinite,
     this.minVal = 0,
     this.steps = 1,
+    this.decimalPlaces = 18,
     this.onQtyChanged,
     this.messageBuilder,
     this.validator,
@@ -118,6 +125,7 @@ class InputQty extends StatefulWidget {
     this.maxVal = double.maxFinite,
     this.minVal = 0.0,
     this.steps = 1.0,
+    this.decimalPlaces = 18,
     this.onQtyChanged,
     this.messageBuilder,
     this.validator,
@@ -155,6 +163,7 @@ class InputQty extends StatefulWidget {
     this.maxVal = double.maxFinite,
     this.minVal = 0,
     this.steps = 1,
+    this.decimalPlaces = 0,
     this.onQtyChanged,
     this.messageBuilder,
     this.validator,
@@ -218,12 +227,13 @@ class _InputQtyState extends State<InputQty> {
   /// after that [value] += [steps]
   void plus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
-
+    int decimalpl = 0;
     if (widget._outputType == _OutputType.integer) {
       value += widget.steps;
     } else {
       int precision = max(countDecimalPlaces(value), stepDecimalPlace);
       value = addWithPrecision(value, widget.steps, precision);
+      decimalpl = min(widget.decimalPlaces, precision);
     }
     if (value >= widget.maxVal) {
       value = widget.maxVal;
@@ -232,6 +242,7 @@ class _InputQtyState extends State<InputQty> {
     switch (widget._outputType) {
       case _OutputType.double:
         value = value.toDouble();
+
         break;
       case _OutputType.integer:
         value = value.toInt();
@@ -243,7 +254,7 @@ class _InputQtyState extends State<InputQty> {
     }
 
     /// set back to the controller
-    _valCtrl.text = "$value";
+    _valCtrl.text = value.toStringAsFixed(decimalpl);
     currentval.value = value;
     widget.onQtyChanged?.call(value);
   }
@@ -267,12 +278,14 @@ class _InputQtyState extends State<InputQty> {
   void minus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
     // value -= widget.steps;
+    int decimalpl = 0;
 
     if (widget._outputType == _OutputType.integer) {
       value -= widget.steps;
     } else {
       int precision = max(countDecimalPlaces(value), stepDecimalPlace);
       value = redWithPrecision(value, widget.steps, precision);
+      decimalpl = min(widget.decimalPlaces, precision);
     }
 
     if (value <= widget.minVal) {
@@ -291,7 +304,7 @@ class _InputQtyState extends State<InputQty> {
     }
 
     /// set back to the controller
-    _valCtrl.text = "$value";
+    _valCtrl.text = value.toStringAsFixed(decimalpl);
     currentval.value = value;
     widget.onQtyChanged?.call(value);
   }

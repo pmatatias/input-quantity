@@ -1,9 +1,5 @@
 import 'dart:math';
 
-/// In Dart, the double type follows the IEEE 754 standard for floating-point representation, which uses a 64-bit format.
-/// The double type in Dart has a precision of about 15 to 17 decimal places.
-/// This means that operations involving double values may lose precision beyond the 15th to 17th decimal place.
-///
 /// sum 2 numbers with precission
 double addWithPrecision(num a, num b, int precision) {
   num multiplier = pow(10, precision);

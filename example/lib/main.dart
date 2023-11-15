@@ -198,10 +198,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               'double',
                             )),
                         InputQty(
+                          // decimalPlaces: 4,
                           initVal: 0.0,
                           minVal: -100.0,
                           maxVal: 100.0,
-                          steps: 0.0000001,
+                          // steps: 0.00060001,
                         ),
                       ],
                     ),
