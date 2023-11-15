@@ -202,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           initVal: 0.0,
                           minVal: -100.0,
                           maxVal: 100.0,
-                          // steps: 0.00060001,
+                          steps: 0.1,
                         ),
                       ],
                     ),

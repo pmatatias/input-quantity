@@ -1,3 +1,10 @@
+## 2.2.0
+
+Nov 16, 2023
+
+- feat: handle for floating point of `double` in dart
+- feat: add new props to limit decimal places
+
 ## 2.1.1
 
 Sep 30, 2023

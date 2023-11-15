@@ -75,6 +75,7 @@ class InputQty extends StatefulWidget {
   /// The double type in Dart has a precision of about 15 to 17 decimal places.
   /// This means that operations involving double values may lose precision beyond the 15th to 17th decimal place.
   ///
+  /// this value will use to limit number of decimal places
   final int decimalPlaces;
 
   /// Widget to handle quantity input
