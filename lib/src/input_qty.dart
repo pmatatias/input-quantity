@@ -1,9 +1,11 @@
 // library input_quantity;
 
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:input_quantity/src/floating_point.dart';
 import 'package:input_quantity/src/constant.dart';
 import 'package:input_quantity/src/decoration_props.dart';
 import 'package:input_quantity/src/form_props.dart';
@@ -195,11 +197,17 @@ class _InputQtyState extends State<InputQty> {
   /// timer for  periodic call function
   Timer? timer;
 
+  /// decimal place steps
+  int stepDecimalPlace = 0;
+
   @override
   void initState() {
     super.initState();
     currentval = ValueNotifier(widget.initVal);
     _valCtrl.text = "${widget.initVal}";
+    if (widget._outputType != _OutputType.integer) {
+      stepDecimalPlace = countDecimalPlaces(widget.steps);
+    }
   }
 
   /// Increase current value
@@ -210,7 +218,13 @@ class _InputQtyState extends State<InputQty> {
   /// after that [value] += [steps]
   void plus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
-    value += widget.steps;
+
+    if (widget._outputType == _OutputType.integer) {
+      value += widget.steps;
+    } else {
+      int precision = max(countDecimalPlaces(value), stepDecimalPlace);
+      value = addWithPrecision(value, widget.steps, precision);
+    }
     if (value >= widget.maxVal) {
       value = widget.maxVal;
     }
@@ -227,7 +241,6 @@ class _InputQtyState extends State<InputQty> {
         value = value;
         break;
     }
-    // value = widget._outputType ? value.toDouble() : value.toInt();
 
     /// set back to the controller
     _valCtrl.text = "$value";
@@ -253,7 +266,15 @@ class _InputQtyState extends State<InputQty> {
   /// after that [value] -= [steps]
   void minus() {
     num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
-    value -= widget.steps;
+    // value -= widget.steps;
+
+    if (widget._outputType == _OutputType.integer) {
+      value -= widget.steps;
+    } else {
+      int precision = max(countDecimalPlaces(value), stepDecimalPlace);
+      value = redWithPrecision(value, widget.steps, precision);
+    }
+
     if (value <= widget.minVal) {
       value = widget.minVal;
     }
