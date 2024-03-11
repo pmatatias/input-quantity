@@ -1,8 +1,14 @@
+## 2.3.1
+
+Mar 11, 2024
+
+- fix image preview readme
+
 ## 2.3.0
 
 Mar 11, 2024
 
-- feat: Add property for customize border [](https://github.com/pmatatias/input-quantity/pull/)
+- feat: Add property for customize border [51](https://github.com/pmatatias/input-quantity/pull/51)
 
 ## 2.2.0
 
