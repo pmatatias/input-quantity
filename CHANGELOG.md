@@ -1,3 +1,9 @@
+## 2.3.2
+
+Mar 11, 2024
+
+- fix image preview readme
+
 ## 2.3.1
 
 Mar 11, 2024
