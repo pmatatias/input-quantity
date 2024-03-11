@@ -55,6 +55,31 @@ class QtyDecorationProps {
   ///    rounded rectangle around the input decorator's container.
   final InputBorder? border;
 
+  /// The border to display when the [InputDecorator] has the focus and is not
+  /// showing an error.
+  ///
+  /// - If `focusedBorder` is not provided but `border` is set, the `border` style will be used.
+  /// - If both `focusedBorder` and `border` are null, a default `OutlineInputBorder` will be applied.
+  final InputBorder? focusedBorder;
+
+  /// The border to display when the [InputDecorator] does not have the focus and
+  /// is showing an error.
+  ///
+  /// - If `enabledBorder` is not provided but `border` is set, the `border` style will be used.
+  /// - If both `enabledBorder` and `border` are null, a default `OutlineInputBorder` will be applied.
+  final InputBorder? enabledBorder;
+
+  /// The border to display when the [InputDecorator] is disabled and is not
+  /// showing an error.
+  ///
+  /// - If `disabledBorder` is not provided but `border` is set, the `border` style will be used.
+  /// - If both `disabledBorder` and `border` are null, a default `OutlineInputBorder` will be applied.
+  final InputBorder? disabledBorder;
+
+  /// The border to display when the [InputDecorator] has the focus and is
+  /// showing an error.
+  final InputBorder? focusedErrorBorder;
+
   /// The border to display when the [InputDecorator] does not have the focus and
   /// is showing an error.
   final InputBorder? errorBorder;
@@ -101,6 +126,10 @@ class QtyDecorationProps {
     this.orientation,
     this.isBordered = true,
     this.border,
+    this.enabledBorder,
+    this.focusedBorder,
+    this.disabledBorder,
+    this.focusedErrorBorder,
     this.errorBorder,
     this.width = 10,
     this.contentPadding,

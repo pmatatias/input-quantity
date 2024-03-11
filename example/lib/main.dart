@@ -1,4 +1,3 @@
-import 'package:example/cart/view.dart';
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
 // import 'package:input_quantity/input_quantity.dart';
@@ -36,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      // appBar: AppBar(title: Text(widget.title)),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
         child: SingleChildScrollView(
@@ -208,6 +207,37 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 30),
+                const Divider(),
+
+                const Text("Custom Border:"),
+                const SizedBox(height: 12),
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 200),
+                  child: InputQty(
+                    isIntrinsicWidth: false,
+                    qtyFormProps: const QtyFormProps(),
+                    decoration: QtyDecorationProps(
+                        qtyStyle: QtyStyle.btnOnRight,
+                        border: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(width: 5, color: Colors.green),
+                            borderRadius: BorderRadius.circular(6)),
+                        minusBtn: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Icon(Icons.keyboard_arrow_down_sharp,
+                              color: Colors.blue),
+                        ),
+                        plusBtn: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Icon(
+                            Icons.keyboard_arrow_up,
+                            color: Colors.blue,
+                          ),
+                        )),
+                    onQtyChanged: (val) {},
+                  ),
+                ),
                 const Divider(height: 30),
 
                 // ElevatedButton(
@@ -219,6 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 const Text("Style options:"),
                 const SizedBox(height: 12),
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -293,13 +324,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
 
-                IconButton(
-                    onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Example1(),
-                        )),
-                    icon: const Icon(Icons.exit_to_app))
+                // IconButton(
+                //     onPressed: () => Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => const Example1(),
+                //         )),
+                //     icon: const Icon(Icons.exit_to_app))
               ],
             ),
           ),
