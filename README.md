@@ -16,7 +16,7 @@ Set input limits so that input values automatically return to predefined maximum
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/pmatatias/input-quantity/custom-border/assets/preview.png" alt="Image Preview" title="Image Preview" style="height:680px; margin-right: 100px;" />
- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" width="120" height="0" />
+  <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" width="120" height="0" />
   <img src="https://raw.githubusercontent.com/pmatatias/input-quantity/master/assets/demo_v2.gif" alt="Demo Preview" title="Demo Preview" />
 </p>
 ## Features
@@ -27,7 +27,6 @@ Set input limits so that input values automatically return to predefined maximum
 - Style options: classic, button on the left or button on the right
 - Tap once to update the value, `longpress` for update the value continuously, or type the value manually.
 - Add validator form, or use custom message builder
-
 
 ## Usage
 
@@ -48,8 +47,11 @@ import 'package:input_quantity/input_quantity.dart';
 ```
 
 ---
+
 ### Typing manual
+
 if you want to prevent typing manually, you can disable it from `enableTyping`
+
 ```
 InputQty(
   qtyFormProps: QtyFormProps(enableTyping: false),
@@ -59,9 +61,10 @@ InputQty(
 
 ---
 
-
 ### Output
-By default, the output will be as a `num`. 
+
+By default, the output will be as a `num`.
+
 ```
 InputQty(
   onQtyChanged: (val) {
@@ -73,6 +76,7 @@ InputQty(
 in v1, we need to parse the output back to int or double inside `onChange`. Now from v2, you can specify the output.
 
 as `int`
+
 ```
 InputQty.int(
   onQtyChanged: (val) {
@@ -82,6 +86,7 @@ InputQty.int(
 ```
 
 or as `double`
+
 ```
 InputQty.double(
   onQtyChanged: (val) {
@@ -93,7 +98,9 @@ InputQty.double(
 ---
 
 ### The position and orientation of the button
+
 by default will be set as `classic` mode. Which is the plus button on the right and the minus button on the left
+
 ```
 InputQty(
    decoration: const QtyDecorationProps(
@@ -103,6 +110,7 @@ InputQty(
 ```
 
 Put the button on the left :
+
 ```
 InputQty(
    decoration: const QtyDecorationProps(
@@ -113,6 +121,7 @@ InputQty(
 ```
 
 last choice, on the right side
+
 ```
 InputQty(
    decoration: const QtyDecorationProps(
@@ -123,7 +132,6 @@ InputQty(
 ```
 
 **For other example styling, you may check on the example page**
-
 
 ## To Do
 
