@@ -1,3 +1,9 @@
+## 2.3.0
+
+Mar 11, 2024
+
+- feat: Add property for customize border [](https://github.com/pmatatias/input-quantity/pull/)
+
 ## 2.2.0
 
 Nov 16, 2023

@@ -312,20 +312,28 @@ class _InputQtyState extends State<InputQty> {
 
   /// setup decoration widget to textformfield
   InputDecoration decorationProps() {
+    final defaultBorder = widget.decoration.border ??
+        OutlineInputBorder(
+            borderSide: widget.decoration.isBordered
+                ? const BorderSide()
+                : BorderSide.none);
     return InputDecoration(
       contentPadding: widget.decoration.contentPadding,
-      // disabledBorder: widget.decoration.disabledBorder,
-      // enabledBorder: widget.decoration.enabledBorder,
-      // focusedBorder: widget.decoration.focusedBorder,
+      disabledBorder: widget.decoration.disabledBorder ??
+          defaultBorder.copyWith(
+              borderSide: defaultBorder.borderSide.copyWith(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withOpacity(0.38))),
+      enabledBorder: widget.decoration.enabledBorder ?? defaultBorder,
+      focusedBorder: widget.decoration.focusedBorder ?? defaultBorder,
+      focusedErrorBorder:
+          widget.decoration.focusedErrorBorder ?? widget.decoration.errorBorder,
       errorBorder: widget.decoration.errorBorder,
-      border: widget.decoration.border ??
-          OutlineInputBorder(
-              borderSide: widget.decoration.isBordered
-                  ? const BorderSide()
-                  : BorderSide.none),
+      border: defaultBorder,
       icon: widget.decoration.leadingWidget,
       isDense: widget.decoration.isDense,
-
       iconColor: widget.decoration.iconColor,
       counter: widget.messageBuilder != null ? _buildMessageWidget() : null,
       errorMaxLines: 2,

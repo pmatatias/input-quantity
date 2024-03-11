@@ -52,7 +52,7 @@ class MobileComponent extends StatelessWidget {
                       Text(
                         "Category",
                         style: TextStyle(color: Colors.black38),
-                        textScaleFactor: 0.88,
+                        textScaler: TextScaler.linear(0.88),
                       ),
                       SizedBox(height: 2),
                       Text("Price")
