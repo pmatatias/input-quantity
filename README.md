@@ -13,10 +13,12 @@
 Flutter widget for quantity input. Increase or decrease the input value by pressing the button. It's built with text fields, so **InputQty** also supports manually typing quantities. Very flexible for large quantities. For example, if the user wants to enter the value `19243`, it will be very difficult to only rely on buttons.
 
 Set input limits so that input values automatically return to predefined maximum/minimum values.
-<p align="center">
- <img src="https://raw.githubusercontent.com/pmatatias/input-quantity/master/assets/demo_v2.gif" alt="img prev"  title="img prev">
-</p>
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/pmatatias/input-quantity/custom-border/assets/preview.png" alt="Image Preview" title="Image Preview" style="height:680px; margin-right: 100px;" />
+ <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" width="120" height="0" />
+  <img src="https://raw.githubusercontent.com/pmatatias/input-quantity/master/assets/demo_v2.gif" alt="Demo Preview" title="Demo Preview" />
+</p>
 ## Features
 
 - Simple and easy to use
