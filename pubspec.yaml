@@ -17,6 +17,7 @@ funding:
 dependencies:
   flutter:
     sdk: flutter
+  test: ^1.24.3
 
 dev_dependencies:
   flutter_test:
