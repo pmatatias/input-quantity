@@ -24,11 +24,12 @@ int countDecimalPlaces(num number) {
     String mantissa = numberString.substring(0, indexOfE);
 
     // Count decimal places in the mantissa
-    int decimalPlaces = countDecimalPlaces(double.parse(mantissa));
+    int decimalPlacesInMantissa =
+        mantissa.contains('.') ? mantissa.split('.')[1].length : 0;
 
     // Adjust for the exponent in scientific notation
     int exponent = int.parse(numberString.substring(indexOfE + 1));
-    return decimalPlaces - exponent;
+    return max(0, decimalPlacesInMantissa - exponent);
   } else if (numberString.contains('.')) {
     // Handle regular decimal notation
     String decimalPart = numberString.split('.')[1];
