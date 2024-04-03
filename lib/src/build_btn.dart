@@ -84,7 +84,7 @@ class BuildBtn extends StatelessWidget {
                 vertical: (orientation ?? ButtonOrientation.vertical) ==
                         ButtonOrientation.vertical
                     ? 0
-                    : 12,
+                    : 4,
               ),
               child: Icon(
                 isPlus ? Icons.add : Icons.remove,
