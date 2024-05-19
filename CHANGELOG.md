@@ -1,3 +1,10 @@
+## 2.3.3
+
+May 19, 2024
+
+- doc: fix readme
+- remove materialStateColor comment
+
 ## 2.3.2
 
 Mar 11, 2024

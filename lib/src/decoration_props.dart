@@ -14,9 +14,6 @@ class QtyDecorationProps {
   final Widget? leadingWidget;
 
   /// The color of the [icon].
-  ///
-  /// If [iconColor] is a [MaterialStateColor], then the effective
-  /// color can depend on the [MaterialState.focused] state, i.e.
   /// if the [InputQty] is focused or not.
   final Color? iconColor;
 
