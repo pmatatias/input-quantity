@@ -17,6 +17,7 @@ Set input limits so that input values automatically return to predefined maximum
 <p align="center">
   <img src="https://raw.githubusercontent.com/pmatatias/input-quantity/master/assets/demo_v2.gif" alt="Demo Preview" title="Demo Preview" />
 </p>
+
 ## Features
 
 - Simple and easy to use
