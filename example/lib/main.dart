@@ -36,11 +36,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(title: Text(widget.title)),
-      body: Padding(
-        padding: const EdgeInsets.all(18.0),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
+      body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Divider(height: 50),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: [
@@ -134,10 +134,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     Column(
                       children: [
                         const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Message builder',
-                            )),
+                          padding: EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            'Message builder',
+                          ),
+                        ),
                         InputQty(
                           initVal: 0,
                           minVal: -100,
@@ -170,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Divider(height: 50),
                 const Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Column(
                       children: [
@@ -187,15 +188,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     Center(
                         child: Text(
                       "OR",
-                      style: TextStyle(fontSize: 20, color: Colors.black),
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                      ),
                     )),
                     Column(
                       children: [
                         Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'double',
-                            )),
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'double',
+                          ),
+                        ),
                         InputQty(
                           // decimalPlaces: 4,
                           initVal: 0.0,
@@ -251,7 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(height: 12),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     InputQty.int(
                       messageBuilder: (minVal, maxVal, value) => const Text(
@@ -280,7 +285,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 const SizedBox(height: 30),
-
+                const InputQty(
+                  decoration: QtyDecorationProps(
+                      orientation: ButtonOrientation.vertical),
+                ),
                 InputQty.int(
                   messageBuilder: (minVal, maxVal, value) =>
                       const Text("Classic", textAlign: TextAlign.center),
@@ -293,7 +301,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 const SizedBox(height: 30),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     InputQty.int(
                       messageBuilder: (minVal, maxVal, value) => const Text(

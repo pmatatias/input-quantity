@@ -56,96 +56,44 @@ class BuildBtn extends StatelessWidget {
     bool isCircleBorder = borderShape == BorderShapeBtn.circle;
     bool isSqborder = borderShape == BorderShapeBtn.square;
 
-    switch (qtyStyle) {
-      case QtyStyle.btnOnLeft:
-        return GestureDetector(
-          onLongPressStart: (details) => onStart.call(onTap),
-          onLongPressEnd: (details) => onEndTime.call(),
-          onTap: onTap,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-                shape: isCircleBorder ? BoxShape.circle : BoxShape.rectangle,
-                border: borderShape == BorderShapeBtn.none
-                    ? null
-                    : Border.all(
-                        color: onTap == null ? Colors.grey : btnColor,
-                        width: 1),
-                borderRadius: isCircleBorder
-                    ? null
-                    : setupBorderRadiusDefault(
-                        isPlus: isPlus,
-                        style: QtyStyle.btnOnLeft,
-                        orientation:
-                            orientation ?? ButtonOrientation.vertical)),
-            child: child ??
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: isSqborder ? 8.0 : 2.0),
-                  child: Icon(
-                    isPlus ? Icons.add : Icons.remove,
-                    size: 18,
-                    color: onTap == null ? Colors.grey : btnColor,
-                  ),
+    return GestureDetector(
+      onLongPressStart: (details) => onStart.call(onTap),
+      onLongPressEnd: (details) => onEndTime.call(),
+      onTap: onTap,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          shape: isCircleBorder ? BoxShape.circle : BoxShape.rectangle,
+          border: borderShape == BorderShapeBtn.none
+              ? null
+              : Border.all(
+                  color: onTap == null ? Colors.grey : btnColor,
+                  width: 1,
                 ),
-          ),
-        );
-      case QtyStyle.btnOnRight:
-        return GestureDetector(
-          onLongPressStart: (details) => onStart.call(onTap),
-          onLongPressEnd: (details) => onEndTime.call(),
-          onTap: onTap,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              shape: isCircleBorder ? BoxShape.circle : BoxShape.rectangle,
-              border: borderShape == BorderShapeBtn.none
-                  ? null
-                  : Border.all(
-                      color: onTap == null ? Colors.grey : btnColor, width: 1),
-              borderRadius: isCircleBorder
-                  ? null
-                  : setupBorderRadiusDefault(
-                      isPlus: isPlus,
-                      style: QtyStyle.btnOnRight,
-                      orientation: orientation ?? ButtonOrientation.vertical),
+          borderRadius: isCircleBorder
+              ? null
+              : setupBorderRadiusDefault(
+                  orientation: orientation ?? ButtonOrientation.vertical,
+                  isPlus: isPlus,
+                  style: qtyStyle,
+                ),
+        ),
+        child: child ??
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: isSqborder ? 8.0 : 2.0,
+                vertical: (orientation ?? ButtonOrientation.vertical) ==
+                        ButtonOrientation.vertical
+                    ? 0
+                    : 4,
+              ),
+              child: Icon(
+                isPlus ? Icons.add : Icons.remove,
+                size: 22,
+                color: onTap == null ? Colors.grey : btnColor,
+              ),
             ),
-            child: child ??
-                Padding(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: isSqborder ? 8.0 : 2.0),
-                  child: Icon(
-                    isPlus ? Icons.add : Icons.remove,
-                    size: 18,
-                    color: onTap == null ? Colors.grey : btnColor,
-                  ),
-                ),
-          ),
-        );
-      default:
-        return GestureDetector(
-          onLongPressStart: (details) => onStart.call(onTap),
-          onLongPressEnd: (details) => onEndTime.call(),
-          onTap: onTap,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-                shape: borderShape == BorderShapeBtn.circle
-                    ? BoxShape.circle
-                    : BoxShape.rectangle,
-                border: borderShape == BorderShapeBtn.none
-                    ? null
-                    : Border.all(
-                        color: onTap == null ? Colors.grey : btnColor,
-                        width: 1),
-                borderRadius: isCircleBorder
-                    ? null
-                    : setupBorderRadiusDefault(
-                        isPlus: isPlus,
-                        orientation: ButtonOrientation.horizontal)),
-            child: child ??
-                Icon(isPlus ? Icons.add : Icons.remove,
-                    color: onTap == null ? Colors.grey : btnColor),
-          ),
-        );
-    }
+      ),
+    );
   }
 }
 
