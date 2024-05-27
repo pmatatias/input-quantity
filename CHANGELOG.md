@@ -1,3 +1,9 @@
+## 2.3.4
+
+May 27, 2024
+
+- doc: add demo app from playstore
+
 ## 2.3.3
 
 May 19, 2024

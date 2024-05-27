@@ -10,7 +10,6 @@
   <a href="https://pub.dev/packages/input_quantity">
     <img src="https://img.shields.io/pub/v/input_quantity.svg" alt="pub pkg">
   </a>
-  
   <a href="https://pub.dev/packages/input_quantity/score">
     <img src="https://img.shields.io/pub/likes/input_quantity?logo=dart" alt="likes">
   </a>
