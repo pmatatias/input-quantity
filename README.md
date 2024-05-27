@@ -1,12 +1,38 @@
 # Input Quantity
 
-[![pub package](https://img.shields.io/pub/v/input_quantity.svg)](https://pub.dev/packages/input_quantity)
-[![likes](https://img.shields.io/pub/likes/input_quantity?logo=dart)](https://pub.dev/packages/input_quantity/score)
-[![popularity](https://img.shields.io/pub/popularity/input_quantity?logo=dart)](https://pub.dev/packages/input_quantity/score)
-[![pub points](https://img.shields.io/pub/points/input_quantity?logo=dart)](https://pub.dev/packages/input_quantity/score)
-[![package publisher](https://img.shields.io/pub/publisher/logo_n_spinner.svg)](https://pub.dev/publishers/pmatatias.dev/packages)
-<a href="https://github.com/pmatatias/input-quantity"><img src="https://img.shields.io/github/stars/pmatatias/input-quantity.svg?style=flat&logo=github&colorB=deepgreen&label=stars" alt="Star on Github"></a>
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-red.svg" alt="License: MIT"></a>
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=dev.pmatatias.gnade&pcampaignid=web_share&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1" style="display: inline-block;">
+    <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="90" style="vertical-align: middle;"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://pub.dev/packages/input_quantity">
+    <img src="https://img.shields.io/pub/v/input_quantity.svg" alt="pub pkg">
+  </a>
+  
+  <a href="https://pub.dev/packages/input_quantity/score">
+    <img src="https://img.shields.io/pub/likes/input_quantity?logo=dart" alt="likes">
+  </a>
+  <a href="https://pub.dev/packages/input_quantity/score">
+    <img src="https://img.shields.io/pub/popularity/input_quantity?logo=dart" alt="Popularity">
+  </a>
+  <a href="https://pub.dev/packages/input_quantity/score">
+    <img src="https://img.shields.io/pub/points/input_quantity?logo=dart" alt="Pub points">
+  </a>
+  <a href="https://pub.dev/publishers/pmatatias.dev/packages">
+    <img src="https://img.shields.io/pub/publisher/logo_n_spinner.svg" alt="Publisher">
+  </a>
+  <a href="https://github.com/pmatatias/input-quantity">
+    <img src="https://img.shields.io/github/stars/pmatatias/input-quantity.svg?style=flat&logo=github&colorB=deepgreen&label=stars" alt="Star on Github">
+  </a>
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/license-MIT-red.svg" alt="License: MIT">
+  </a>
+</p>
+
+
+
 
 <!-- [![GitHub stars](https://img.shields.io/github/stars/pmatatias/input-quantity.svg?style=social)](https://github.com/pmatatias/input-quantity) -->
 
