@@ -199,7 +199,7 @@ class InputQty extends StatefulWidget {
 
 class _InputQtyState extends State<InputQty> {
   /// text controller of textfield
-  final TextEditingController _valCtrl = TextEditingController();
+  late TextEditingController _valCtrl;
 
   /// current value of quantity
   late ValueNotifier<num?> currentval;
@@ -214,6 +214,7 @@ class _InputQtyState extends State<InputQty> {
   void initState() {
     super.initState();
     currentval = ValueNotifier(widget.initVal);
+    _valCtrl = widget.qtyFormProps.textEditingController ?? TextEditingController();
     _valCtrl.text = "${widget.initVal}";
     if (widget._outputType != _OutputType.integer) {
       stepDecimalPlace = countDecimalPlaces(widget.steps);
