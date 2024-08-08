@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _controller = TextEditingController();
 
   int qtyInt = 123;
   double qtyDouble = 12.0;
@@ -99,6 +100,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     Expanded(
                         child: Text(
                             "- Ontap\n- Longpress \n- Typing input Manually"))
+                  ],
+                ),
+                const Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InputQty(
+                      qtyFormProps: QtyFormProps(
+                        controller: _controller,
+                      ),
+                    ),
+                    const SizedBox(width: 30),
+                    const Expanded(
+                      child: Text("use controller to get value (string)"),
+                    )
                   ],
                 ),
                 const Divider(height: 50),
