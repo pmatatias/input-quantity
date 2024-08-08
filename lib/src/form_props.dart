@@ -46,6 +46,9 @@ class QtyFormProps {
   /// show or hide cursor
   final bool? showCursor;
 
+  /// override text controller of textfield
+  final TextEditingController? controller;
+
   const QtyFormProps({
     this.textAlign = TextAlign.center,
     this.textAlignVertical = TextAlignVertical.center,
@@ -61,5 +64,6 @@ class QtyFormProps {
     this.cursorRadius,
     this.enabled,
     this.showCursor,
+    this.controller,
   });
 }
