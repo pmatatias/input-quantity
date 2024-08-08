@@ -214,7 +214,7 @@ class _InputQtyState extends State<InputQty> {
   void initState() {
     super.initState();
     currentval = ValueNotifier(widget.initVal);
-    _valCtrl = widget.qtyFormProps.textEditingController ?? TextEditingController();
+    _valCtrl = widget.qtyFormProps.controller ?? TextEditingController();
     _valCtrl.text = "${widget.initVal}";
     if (widget._outputType != _OutputType.integer) {
       stepDecimalPlace = countDecimalPlaces(widget.steps);
