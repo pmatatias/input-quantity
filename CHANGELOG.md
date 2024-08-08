@@ -1,3 +1,10 @@
+## 2.4.0
+
+Aug 8, 2024
+
+- feat: add `TextEditingController` into `QtyFormProps`. Now we can get the string qty from your own controller.
+- add example input with controller
+
 ## 2.3.4
 
 May 27, 2024
