@@ -481,7 +481,7 @@ class _InputQtyState extends State<InputQty> {
         enabled: widget.qtyFormProps.enabled,
         showCursor: widget.qtyFormProps.showCursor,
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\-?\d*'))
+          FilteringTextInputFormatter.allow(RegExp(r'^-?\d*\.?\d*'))
         ],
         onChanged: (String strVal) {
           if (widget._outputType == _OutputType.integer &&
