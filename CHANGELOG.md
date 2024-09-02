@@ -8,8 +8,8 @@ Sept 2, 2024 [#65](https://github.com/pmatatias/input-quantity/pull/65)
 
 Aug 8, 2024
 
-- feat: add `TextEditingController` into `QtyFormProps`. Now we can get the string qty from your own controller.
-- add example input with controller by @fixiply
+- feat: add `TextEditingController` into `QtyFormProps`. Now we can get the string qty from your own controllerby  @fixiply
+- add example input with controller
 
 ## 2.3.4
 
