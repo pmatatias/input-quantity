@@ -301,10 +301,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 const SizedBox(height: 30),
-                const InputQty(
-                  decoration: QtyDecorationProps(
-                      orientation: ButtonOrientation.vertical),
-                ),
                 InputQty.int(
                   messageBuilder: (minVal, maxVal, value) =>
                       const Text("Classic", textAlign: TextAlign.center),

@@ -1,9 +1,15 @@
+## 2.4.1
+
+Sept 2, 2024 [#65](https://github.com/pmatatias/input-quantity/pull/65)
+
+- Adjust regular expression to enable negative decimals input by @tonypioneer
+
 ## 2.4.0
 
 Aug 8, 2024
 
 - feat: add `TextEditingController` into `QtyFormProps`. Now we can get the string qty from your own controller.
-- add example input with controller
+- add example input with controller by @fixiply
 
 ## 2.3.4
 
