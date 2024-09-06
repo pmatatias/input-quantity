@@ -311,6 +311,28 @@ class _InputQtyState extends State<InputQty> {
     widget.onQtyChanged?.call(value);
   }
 
+  /// check value is within range of minVal and maxVal
+  void checkValue() {
+    num? temp = num.tryParse(_valCtrl.text);
+    if (temp != null) {
+      if (temp >= widget.maxVal) {
+        temp = widget.maxVal;
+
+        _valCtrl.text = "$temp";
+      } else if (temp < widget.minVal) {
+        temp = widget.minVal;
+
+        _valCtrl.text = "$temp";
+      }
+    } else {
+      temp = widget.initVal;
+
+      _valCtrl.text = "$temp";
+    }
+    widget.onQtyChanged?.call(temp);
+    currentval.value = temp;
+  }
+
   /// setup decoration widget to textformfield
   InputDecoration decorationProps() {
     final defaultBorder = widget.decoration.border ??
@@ -462,7 +484,10 @@ class _InputQtyState extends State<InputQty> {
   /// widget textformfield
   Widget _buildtextfield() => TextFormField(
         decoration: decorationProps(),
-        onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
+        onTapOutside: (event) {
+          checkValue();
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
         controller: _valCtrl,
         readOnly: !widget.qtyFormProps.enableTyping,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -511,20 +536,8 @@ class _InputQtyState extends State<InputQty> {
               temp = temp;
               break;
           }
-          // temp = temp.clamp(widget.minVal, widget.maxVal);
-          // not using clamp, since need to update controller each limit
-          if (temp >= widget.maxVal) {
-            temp = widget.maxVal;
-
-            _valCtrl.text = "$temp";
-          } else if (temp < widget.minVal) {
-            temp = widget.minVal;
-
-            _valCtrl.text = "$temp";
-          }
-          widget.onQtyChanged?.call(temp);
-          currentval.value = temp;
         },
+        onFieldSubmitted: (_) => checkValue(),
       );
 
   /// build message widget
