@@ -1,3 +1,11 @@
+## 2.5.0
+
+Nov 9, 2024
+
+- Now we can set both `validator` and `messageBuilder`, but `validator` message will be prioritize to show when both message is displayed
+- `messageBuilder` is now by default showing max and minimum value. you can remove it by retruning empty widget to the parameter
+- User now able to type below `minVal` or above the `maxVal` but then the message will show that limit value has reached. and after `unfocus` the `Textfield`, the onchange value is invoked with returned `maxVal` or `minVal`
+
 ## 2.4.1
 
 Sept 2, 2024 [#65](https://github.com/pmatatias/input-quantity/pull/65)
@@ -8,7 +16,7 @@ Sept 2, 2024 [#65](https://github.com/pmatatias/input-quantity/pull/65)
 
 Aug 8, 2024
 
-- feat: add `TextEditingController` into `QtyFormProps`. Now we can get the string qty from your own controllerby  @fixiply
+- feat: add `TextEditingController` into `QtyFormProps`. Now we can get the string qty from your own controllerby @fixiply
 - add example input with controller
 
 ## 2.3.4
