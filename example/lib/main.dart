@@ -118,6 +118,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 const Divider(height: 50),
+                InputQty(
+                  maxVal: 100,
+                  qtyFormProps: QtyFormProps(
+                    controller: _controller,
+                  ),
+                ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -131,10 +137,11 @@ class _MyHomePageState extends State<MyHomePage> {
                           initVal: 0,
                           steps: 10,
                           minVal: -100,
+                          maxVal: 100,
                           validator: (value) {
                             if (value == null) {
                               return "Required field";
-                            } else if (value >= 100) {
+                            } else if (value >= 200) {
                               return "More than available quantity";
                             }
                             return null;

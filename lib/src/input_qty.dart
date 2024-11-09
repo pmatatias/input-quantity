@@ -13,7 +13,8 @@ import 'package:input_quantity/src/form_props.dart';
 import 'build_btn.dart';
 
 /// builder text widget under the InputQty
-typedef MessageBuilder<T> = Widget? Function(T minVal, T maxVal, T? value);
+typedef MessageBuilder<num> = Widget? Function(
+    num minVal, num maxVal, num? value);
 
 enum _OutputType { num, integer, double }
 
@@ -67,8 +68,31 @@ class InputQty extends StatefulWidget {
   final QtyFormProps qtyFormProps;
 
   /// Widget for display text below the input quantity widget
-  /// set into counter text with aling center
-  /// only displayed if `validator` is null
+  /// set into counter text, or helper text
+  /// by default, it will show the limit of the value
+  /// if the value is greater than `maxVal` or less than `minVal`
+  /// you can customize the message by using this property
+  /// ```dart
+  /// messageBuilder: (minVal, maxVal, value) {
+  ///   if (value == null) {
+  ///      return const SizedBox();
+  ///   }
+  ///   if (value > maxVal) {
+  ///     return Text(
+  ///     "max. $maxVal",
+  ///     style: Theme.of(context).inputDecorationTheme.helperStyle,
+  ///   );
+  ///   } else if (value < minVal) {
+  ///     return Text(
+  ///     "min. $minVal",
+  ///     style: Theme.of(context).inputDecorationTheme.helperStyle,
+  ///    );
+  ///   }
+  ///   return const SizedBox();
+  /// }
+  /// ```
+  /// if you want to remove the default message, return `const SizedBox()`
+  /// if you want to show custom message, return the widget
   final MessageBuilder<num>? messageBuilder;
 
   /// In Dart, the double type follows the IEEE 754 standard for floating-point representation, which uses a 64-bit format.
@@ -112,8 +136,6 @@ class InputQty extends StatefulWidget {
         'This feature was deprecated after v2.0.0')
     bool showMessageLimit = false,
   })  : _outputType = _OutputType.num,
-        assert(!((validator != null) && (messageBuilder != null)),
-            "Cant use `validator` and `messageBuilder` at the same time, please remove one of them"),
         super(key: key);
 
   /// Widget to handle quantity input
@@ -149,10 +171,6 @@ class InputQty extends StatefulWidget {
     Color btnColor1 = Colors.green,
     @Deprecated('Removed') Color btnColor2 = Colors.grey,
   })  : _outputType = _OutputType.double,
-
-        /// cant use both property. choose only one
-        assert(!((validator != null) && (messageBuilder != null)),
-            "Cant use `validator` and `messageBuilder` at the same time, please remove one of them"),
         super(key: key);
 
   /// Widget to handle quantity input
@@ -187,10 +205,6 @@ class InputQty extends StatefulWidget {
     Color btnColor1 = Colors.green,
     @Deprecated('Removed') Color btnColor2 = Colors.grey,
   })  : _outputType = _OutputType.integer,
-
-        /// cant use both property. choose only one
-        assert(!((validator != null) && (messageBuilder != null)),
-            "Cant use `validator` and `messageBuilder` at the same time, please remove one of them"),
         super(key: key);
 
   @override
@@ -210,6 +224,24 @@ class _InputQtyState extends State<InputQty> {
   /// decimal place steps
   int stepDecimalPlace = 0;
 
+  Widget _defaultMessageBuilder(num minVal, num maxVal, num? value) {
+    if (value == null) {
+      return const SizedBox();
+    }
+    if (value > maxVal) {
+      return Text(
+        "max. $maxVal",
+        style: Theme.of(context).inputDecorationTheme.helperStyle,
+      );
+    } else if (value < minVal) {
+      return Text(
+        "min. $minVal",
+        style: Theme.of(context).inputDecorationTheme.helperStyle,
+      );
+    }
+    return const SizedBox();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -218,6 +250,17 @@ class _InputQtyState extends State<InputQty> {
     _valCtrl.text = "${widget.initVal}";
     if (widget._outputType != _OutputType.integer) {
       stepDecimalPlace = countDecimalPlaces(widget.steps);
+    }
+  }
+
+  num _convertOutputType(num value) {
+    switch (widget._outputType) {
+      case _OutputType.double:
+        return value.toDouble();
+      case _OutputType.integer:
+        return value.toInt();
+      default:
+        return value;
     }
   }
 
@@ -241,19 +284,7 @@ class _InputQtyState extends State<InputQty> {
       value = widget.maxVal;
     }
 
-    switch (widget._outputType) {
-      case _OutputType.double:
-        value = value.toDouble();
-
-        break;
-      case _OutputType.integer:
-        value = value.toInt();
-        break;
-
-      default:
-        value = value;
-        break;
-    }
+    value = _convertOutputType(value);
 
     /// set back to the controller
     _valCtrl.text = value.toStringAsFixed(decimalpl);
@@ -293,17 +324,7 @@ class _InputQtyState extends State<InputQty> {
     if (value <= widget.minVal) {
       value = widget.minVal;
     }
-    switch (widget._outputType) {
-      case _OutputType.double:
-        value = value.toDouble();
-        break;
-      case _OutputType.integer:
-        value = value.toInt();
-        break;
-      default:
-        value = value;
-        break;
-    }
+    value = _convertOutputType(value);
 
     /// set back to the controller
     _valCtrl.text = value.toStringAsFixed(decimalpl);
@@ -358,7 +379,7 @@ class _InputQtyState extends State<InputQty> {
       icon: widget.decoration.leadingWidget,
       isDense: widget.decoration.isDense,
       iconColor: widget.decoration.iconColor,
-      counter: widget.messageBuilder != null ? _buildMessageWidget() : null,
+      counter: _buildMessageWidget(),
       errorMaxLines: 2,
       fillColor: widget.decoration.fillColor,
       filled: widget.decoration.fillColor != null,
@@ -525,17 +546,8 @@ class _InputQtyState extends State<InputQty> {
                 TextPosition(offset: _valCtrl.text.length));
             return;
           }
-          switch (widget._outputType) {
-            case _OutputType.double:
-              temp = temp.toDouble();
-              break;
-            case _OutputType.integer:
-              temp = temp.toInt();
-              break;
-            default:
-              temp = temp;
-              break;
-          }
+          currentval.value = temp;
+          temp = _convertOutputType(temp);
         },
         onFieldSubmitted: (_) => checkValue(),
       );
@@ -544,9 +556,10 @@ class _InputQtyState extends State<InputQty> {
   Widget? _buildMessageWidget() => ValueListenableBuilder<num?>(
       valueListenable: currentval,
       builder: (context, val, __) {
-        return Center(
-          child: widget.messageBuilder?.call(widget.maxVal, widget.minVal, val),
-        );
+        final errorText = widget.validator?.call(val);
+        if (errorText != null) return const SizedBox();
+        return widget.messageBuilder?.call(widget.maxVal, widget.minVal, val) ??
+            _defaultMessageBuilder(widget.minVal, widget.maxVal, val);
       });
 
   @override
