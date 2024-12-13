@@ -241,12 +241,27 @@ For more examples, check the [example](example) directory.
   <img src="https://raw.githubusercontent.com/pmatatias/input-quantity/master/assets/preview.png" alt="Image Preview" title="Image Preview" style="height:500px;" />
 </p>
 
-## Contribution
+## Contributons
 
 To contribute to this project, please follow the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
+
+Thank you to all contributors for their valuable contributions!
+
+
+<table align="center" style="border: none;">
+  <tr>
+    <td align="center"><a href="https://github.com/pmatatias"><img src="https://avatars.githubusercontent.com/u/33835308?v=4" width="50px;" alt="@pmatatias"/></a></td>
+    <td align="center"><a href="https://github.com/tonypioneer"><img src="https://avatars.githubusercontent.com/u/128760989?v=4" width="50px;" alt="@tonypioneer"/></a></td>
+    <td align="center"><a href="https://github.com/fixiply"><img src="https://avatars.githubusercontent.com/u/105910226?v=4" width="50px;" alt="@fixiply"/></a></td>
+    <td align="center"><a href="https://github.com/sirfaman"><img src="https://avatars.githubusercontent.com/u/175967719?v=4" width="50px;" alt="@sirfaman"/></a></td>
+  </tr>
+</table>
+
+
 
 ## Additional Information
 
 - Want to thank me? You can buy me a coffee.
 
 <a href="https://www.buymeacoffee.com/pmatatias"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=👨‍💻&slug=pmatatias&button_colour=5F7FFF&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00" /></a>
+
