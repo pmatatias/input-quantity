@@ -30,11 +30,6 @@
   </a>
 </p>
 
-
-
-
-<!-- [![GitHub stars](https://img.shields.io/github/stars/pmatatias/input-quantity.svg?style=social)](https://github.com/pmatatias/input-quantity) -->
-
 Flutter widget for quantity input. Increase or decrease the input value by pressing the button. It's built with text fields, so **InputQty** also supports manually typing quantities. Very flexible for large quantities. For example, if the user wants to enter the value `19243`, it will be very difficult to only rely on buttons.
 
 Set input limits so that input values automatically return to predefined maximum/minimum values.
@@ -52,127 +47,206 @@ Set input limits so that input values automatically return to predefined maximum
 - Tap once to update the value, `longpress` for update the value continuously, or type the value manually.
 - Add validator form, or use custom message builder
 
+## Installation
+
+To use this package, add `input_quantity` as a dependency in your `pubspec.yaml` file.
+
+```yaml
+dependencies:
+  input_quantity: ^2.5.0
+```
+
+Then, run `flutter pub get` to install the package.
+
 ## Usage
 
-- example:
+### Basic Usage
 
 ```dart
 import 'package:input_quantity/input_quantity.dart';
-...
-  InputQty(
-    maxVal: 100,
-    initVal: 0,
-    minVal: -100,
-    steps: 10,
-    onQtyChanged: (val) {
-      print(val);
-    },
-  ),
+
+InputQty(
+  maxVal: 100,
+  initVal: 0,
+  minVal: -100,
+  steps: 10,
+  onQtyChanged: (val) {
+    print(val);
+  },
+)
 ```
 
----
+### Typing Manually
 
-### Typing manual
+If you want to prevent typing manually, you can disable it from `enableTyping`.
 
-if you want to prevent typing manually, you can disable it from `enableTyping`
-
-```
+```dart
 InputQty(
   qtyFormProps: QtyFormProps(enableTyping: false),
   ...
 )
 ```
 
----
-
-### Output
+### Output Types
 
 By default, the output will be as a `num`.
 
-```
+```dart
 InputQty(
   onQtyChanged: (val) {
-      print(val.runType);// num
-    },
+    print(val.runtimeType); // num
+  },
 )
 ```
 
-in v1, we need to parse the output back to int or double inside `onChange`. Now from v2, you can specify the output.
+To specify the output type as `int`:
 
-as `int`
-
-```
+```dart
 InputQty.int(
   onQtyChanged: (val) {
-      print(val.runType);// int
-    },
+    print(val.runtimeType); // int
+  },
 )
 ```
 
-or as `double`
+To specify the output type as `double`:
 
-```
+```dart
 InputQty.double(
   onQtyChanged: (val) {
-      print(val.runType);// double
-    },
+    print(val.runtimeType); // double
+  },
 )
 ```
 
----
+### Customizing Appearance and Behavior
 
-### The position and orientation of the button
+#### Using `QtyFormProps`
 
-by default will be set as `classic` mode. Which is the plus button on the right and the minus button on the left
+You can customize the appearance and behavior of the input field using `QtyFormProps`.
 
-```
+```dart
 InputQty(
-   decoration: const QtyDecorationProps(
-          qtyStyle: QtyStyle.classic
-   )
+  qtyFormProps: QtyFormProps(
+    textAlign: TextAlign.center,
+    style: TextStyle(fontWeight: FontWeight.bold),
+    cursorColor: Colors.red,
+    enableTyping: true,
+  ),
 )
 ```
 
-Put the button on the left :
+#### Using `QtyDecorationProps`
 
-```
+You can customize the decoration of the input field using `QtyDecorationProps`.
+
+```dart
 InputQty(
-   decoration: const QtyDecorationProps(
-       qtyStyle: QtyStyle.btnOnLeft
-       orientation: ButtonOrientation.horizontal
-   )
+  decoration: QtyDecorationProps(
+    borderShape: BorderShapeBtn.circle,
+    btnColor: Colors.blue,
+    fillColor: Colors.grey[200],
+    isBordered: true,+
+  ),
 )
 ```
 
-last choice, on the right side
+### Validation
 
-```
+You can use the `validator` property to validate the input value.
+
+```dart
 InputQty(
-   decoration: const QtyDecorationProps(
-      qtyStyle: QtyStyle.btnOnRight
-      orientation: ButtonOrientation.vertical
-   )
+  validator: (value) {
+    if (value == null) {
+      return "Required field";
+    } else if (value >= 200) {
+      return "More than available quantity";
+    }
+    return null;
+  },
 )
 ```
 
+### Custom Messages
 
-**For other example styling, you may check on the example page**
+You can use the `messageBuilder` property to display custom messages based on the input value.
+
+```dart
+InputQty(
+  messageBuilder: (minVal, maxVal, value) {
+    if (value == null) return null;
+    if (value < -20) {
+      return Text(
+        "Reach my limit",
+        style: TextStyle(color: Colors.red),
+        textAlign: TextAlign.center,
+      );
+    } else if (value > 20) {
+      return Text(
+        "Reach my limit",
+        style: TextStyle(color: Colors.red),
+        textAlign: TextAlign.center,
+      );
+    } else {
+      return Text("Value : $value", textAlign: TextAlign.center);
+    }
+  },
+)
+```
+
+### Controlling Input Value Programmatically
+
+You can use `TextEditingController` to control the input value programmatically.
+
+```dart
+final TextEditingController _controller = TextEditingController();
+
+InputQty(
+  qtyFormProps: QtyFormProps(
+    controller: _controller,
+  ),
+)
+```
+
+### Button Orientation
+
+You can change the orientation of the buttons using `ButtonOrientation`.
+
+```dart
+InputQty(
+  decoration: QtyDecorationProps(
+    orientation: ButtonOrientation.horizontal,
+  ),
+)
+```
+
+### Button Position
+
+You can change the position of the buttons using `QtyStyle`.
+
+```dart
+InputQty(
+  decoration: QtyDecorationProps(
+    qtyStyle: QtyStyle.btnOnRight,
+  ),
+)
+```
+
+## Examples
+
+For more examples, check the [example](example) directory.
 
 <p align="">
   <img src="https://raw.githubusercontent.com/pmatatias/input-quantity/master/assets/preview.png" alt="Image Preview" title="Image Preview" style="height:500px;" />
 </p>
 
-## To Do
+## Contribution
 
-- Add more documentation
-- Splash effect
-- Export icon decoration
-- Add more example
+To contribute to this project, please follow the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
-## Additional information
+## Additional Information
 
-- To contribute to this project, you can open a PR or an issue.
-
-- Want to thank me? you can buy me a coffee
+- Want to thank me? You can buy me a coffee.
 
 <a href="https://www.buymeacoffee.com/pmatatias"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=👨‍💻&slug=pmatatias&button_colour=5F7FFF&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00" /></a>
