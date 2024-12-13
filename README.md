@@ -250,3 +250,22 @@ To contribute to this project, please follow the guidelines in the [CONTRIBUTING
 - Want to thank me? You can buy me a coffee.
 
 <a href="https://www.buymeacoffee.com/pmatatias"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=👨‍💻&slug=pmatatias&button_colour=5F7FFF&font_colour=ffffff&font_family=Inter&outline_colour=000000&coffee_colour=FFDD00" /></a>
+
+## Contributors
+
+<p align="center">
+  <a href="https://github.com/pmatatias">
+    <img src="https://avatars.githubusercontent.com/u/12345678?v=4" alt="@pmatatias" width="50" height="50">
+  </a>
+  <a href="https://github.com/tonypioneer">
+    <img src="https://avatars.githubusercontent.com/u/87654321?v=4" alt="@tonypioneer" width="50" height="50">
+  </a>
+  <a href="https://github.com/fixiply">
+    <img src="https://avatars.githubusercontent.com/u/23456789?v=4" alt="@fixiply" width="50" height="50">
+  </a>
+  <a href="https://github.com/sirfaman">
+    <img src="https://avatars.githubusercontent.com/u/34567890?v=4" alt="@sirfaman" width="50" height="50">
+  </a>
+</p>
+
+Thank you to all contributors for their valuable contributions!
