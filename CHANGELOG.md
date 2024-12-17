@@ -1,3 +1,10 @@
+## 2.5.1
+
+Des 17, 2024
+
+- doc: Update readme file
+- fix: change deprecated `withOpacity()` method from Flutter `3.24.1` and use `withValue()` on latest Flutter version
+
 ## 2.5.0
 
 Nov 9, 2024
