@@ -511,6 +511,7 @@ class _InputQtyState extends State<InputQty> {
         },
         controller: _valCtrl,
         readOnly: !widget.qtyFormProps.enableTyping,
+        enableInteractiveSelection: widget.qtyFormProps.enableTyping,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: (val) => widget.validator?.call(num.tryParse(val ?? '')),
         textAlign: widget.qtyFormProps.textAlign,
