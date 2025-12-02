@@ -1,7 +1,7 @@
 name: input_quantity
 description: A widget for input quantity. Built with TextFormField. Type manually or increase and decrease value with the btn
 
-version: 2.5.1
+version: 2.5.2
 
 homepage: https://github.com/pmatatias/input-quantity
 repository: https://github.com/pmatatias/input-quantity/tree/master

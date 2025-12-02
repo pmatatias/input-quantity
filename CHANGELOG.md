@@ -1,3 +1,8 @@
+## 2.5.2
+Nov 2, 2025
+
+- Enable interactive selection for input field based on enableTyping flag
+
 ## 2.5.1
 
 Des 17, 2024
