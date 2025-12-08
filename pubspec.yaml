@@ -17,12 +17,12 @@ funding:
 dependencies:
   flutter:
     sdk: flutter
-  test: ^1.24.3
 
 dev_dependencies:
+  test: ^1.25.9
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
 
 flutter:
 
