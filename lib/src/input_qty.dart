@@ -107,6 +107,15 @@ class InputQty extends StatefulWidget {
   /// When `null` (default), the widget uses `.` as decimal separator.
   /// When provided (e.g. `','`), the widget displays and accepts
   /// this character as the decimal separator instead of `.`.
+  ///
+  /// Example — derive from device locale:
+  /// ```dart
+  /// InputQty(
+  ///   decimalSeparator: NumberFormat
+  ///       .decimalPattern(Localizations.localeOf(context).toString())
+  ///       .symbols.DECIMAL_SEP,
+  /// )
+  /// ```
   final String? decimalSeparator;
 
   /// Widget to handle quantity input
