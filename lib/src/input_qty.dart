@@ -277,6 +277,12 @@ class _InputQtyState extends State<InputQty> {
   @override
   void initState() {
     super.initState();
+    assert(
+      widget.decimalSeparator == null ||
+          (widget.decimalSeparator!.length == 1 &&
+              !RegExp(r'\d').hasMatch(widget.decimalSeparator!)),
+      'decimalSeparator must be a single non-digit character',
+    );
     currentval = ValueNotifier(widget.initVal);
     _valCtrl = widget.qtyFormProps.controller ?? TextEditingController();
     _valCtrl.text = _formatNum(widget.initVal);
