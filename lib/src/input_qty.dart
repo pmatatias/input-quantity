@@ -102,6 +102,22 @@ class InputQty extends StatefulWidget {
   /// this value will use to limit number of decimal places
   final int decimalPlaces;
 
+  /// Custom decimal separator character.
+  ///
+  /// When `null` (default), the widget uses `.` as decimal separator.
+  /// When provided (e.g. `','`), the widget displays and accepts
+  /// this character as the decimal separator instead of `.`.
+  ///
+  /// Example — derive from device locale:
+  /// ```dart
+  /// InputQty(
+  ///   decimalSeparator: NumberFormat
+  ///       .decimalPattern(Localizations.localeOf(context).toString())
+  ///       .symbols.DECIMAL_SEP,
+  /// )
+  /// ```
+  final String? decimalSeparator;
+
   /// Widget to handle quantity input
   ///
   /// for specific output, use `InputQty.int` or
@@ -114,6 +130,7 @@ class InputQty extends StatefulWidget {
     this.minVal = 0,
     this.steps = 1,
     this.decimalPlaces = 18,
+    this.decimalSeparator,
     this.onQtyChanged,
     this.messageBuilder,
     this.validator,
@@ -149,6 +166,7 @@ class InputQty extends StatefulWidget {
     this.minVal = 0.0,
     this.steps = 1.0,
     this.decimalPlaces = 18,
+    this.decimalSeparator,
     this.onQtyChanged,
     this.messageBuilder,
     this.validator,
@@ -183,6 +201,7 @@ class InputQty extends StatefulWidget {
     this.minVal = 0,
     this.steps = 1,
     this.decimalPlaces = 0,
+    this.decimalSeparator,
     this.onQtyChanged,
     this.messageBuilder,
     this.validator,
@@ -224,6 +243,28 @@ class _InputQtyState extends State<InputQty> {
   /// decimal place steps
   int stepDecimalPlace = 0;
 
+  /// Effective decimal separator: custom or default `.`
+  String get _decSep => widget.decimalSeparator ?? '.';
+
+  /// Parse a display string to num, normalizing custom separator to `.`
+  num? _parseNum(String text) {
+    if (_decSep != '.') {
+      text = text.replaceAll(_decSep, '.');
+    }
+    return num.tryParse(text);
+  }
+
+  /// Format a num for display, replacing `.` with custom separator
+  String _formatNum(num value, [int? decimalPlaces]) {
+    final result = decimalPlaces != null
+        ? value.toStringAsFixed(decimalPlaces)
+        : '$value';
+    if (_decSep != '.') {
+      return result.replaceAll('.', _decSep);
+    }
+    return result;
+  }
+
   Widget _defaultMessageBuilder(num minVal, num maxVal, num? value) {
     if (value == null) {
       return const SizedBox();
@@ -245,9 +286,15 @@ class _InputQtyState extends State<InputQty> {
   @override
   void initState() {
     super.initState();
+    assert(
+      widget.decimalSeparator == null ||
+          (widget.decimalSeparator!.length == 1 &&
+              !RegExp(r'\d').hasMatch(widget.decimalSeparator!)),
+      'decimalSeparator must be a single non-digit character',
+    );
     currentval = ValueNotifier(widget.initVal);
     _valCtrl = widget.qtyFormProps.controller ?? TextEditingController();
-    _valCtrl.text = "${widget.initVal}";
+    _valCtrl.text = _formatNum(widget.initVal);
     if (widget._outputType != _OutputType.integer) {
       stepDecimalPlace = countDecimalPlaces(widget.steps);
     }
@@ -271,7 +318,7 @@ class _InputQtyState extends State<InputQty> {
   /// then firstly, it set the [value]= [initVal],
   /// after that [value] += [steps]
   void plus() {
-    num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
+    num value = _parseNum(_valCtrl.text) ?? widget.initVal;
     int decimalpl = 0;
     if (widget._outputType == _OutputType.integer) {
       value += widget.steps;
@@ -287,7 +334,7 @@ class _InputQtyState extends State<InputQty> {
     value = _convertOutputType(value);
 
     /// set back to the controller
-    _valCtrl.text = value.toStringAsFixed(decimalpl);
+    _valCtrl.text = _formatNum(value, decimalpl);
     currentval.value = value;
     widget.onQtyChanged?.call(value);
   }
@@ -309,7 +356,7 @@ class _InputQtyState extends State<InputQty> {
   /// then firstly, it set the [value]= [initVal],
   /// after that [value] -= [steps]
   void minus() {
-    num value = num.tryParse(_valCtrl.text) ?? widget.initVal;
+    num value = _parseNum(_valCtrl.text) ?? widget.initVal;
     // value -= widget.steps;
     int decimalpl = 0;
 
@@ -327,28 +374,28 @@ class _InputQtyState extends State<InputQty> {
     value = _convertOutputType(value);
 
     /// set back to the controller
-    _valCtrl.text = value.toStringAsFixed(decimalpl);
+    _valCtrl.text = _formatNum(value, decimalpl);
     currentval.value = value;
     widget.onQtyChanged?.call(value);
   }
 
   /// check value is within range of minVal and maxVal
   void checkValue() {
-    num? temp = num.tryParse(_valCtrl.text);
+    num? temp = _parseNum(_valCtrl.text);
     if (temp != null) {
       if (temp >= widget.maxVal) {
         temp = widget.maxVal;
 
-        _valCtrl.text = "$temp";
+        _valCtrl.text = _formatNum(temp);
       } else if (temp < widget.minVal) {
         temp = widget.minVal;
 
-        _valCtrl.text = "$temp";
+        _valCtrl.text = _formatNum(temp);
       }
     } else {
       temp = widget.initVal;
 
-      _valCtrl.text = "$temp";
+      _valCtrl.text = _formatNum(temp);
     }
     widget.onQtyChanged?.call(temp);
     currentval.value = temp;
@@ -513,7 +560,7 @@ class _InputQtyState extends State<InputQty> {
         readOnly: !widget.qtyFormProps.enableTyping,
         enableInteractiveSelection: widget.qtyFormProps.enableTyping,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: (val) => widget.validator?.call(num.tryParse(val ?? '')),
+        validator: (val) => widget.validator?.call(_parseNum(val ?? '')),
         textAlign: widget.qtyFormProps.textAlign,
         textAlignVertical: widget.qtyFormProps.textAlignVertical,
         style: widget.qtyFormProps.style,
@@ -528,21 +575,23 @@ class _InputQtyState extends State<InputQty> {
         enabled: widget.qtyFormProps.enabled,
         showCursor: widget.qtyFormProps.showCursor,
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^-?\d*\.?\d*'))
+          FilteringTextInputFormatter.allow(
+            RegExp('^-?\\d*${RegExp.escape(_decSep)}?\\d*'),
+          )
         ],
         onChanged: (String strVal) {
           if (widget._outputType == _OutputType.integer &&
-              strVal.contains('.')) {
-            _valCtrl.text = '${currentval.value}';
+              strVal.contains(_decSep)) {
+            _valCtrl.text = _formatNum(currentval.value ?? widget.initVal);
             _valCtrl.selection = TextSelection.fromPosition(
                 TextPosition(offset: _valCtrl.text.length));
             return;
           }
           // avoid parsing value
           if (strVal.isEmpty || strVal == '-') return;
-          num? temp = num.tryParse(strVal);
+          num? temp = _parseNum(strVal);
           if (temp == null) {
-            _valCtrl.text = '${currentval.value}';
+            _valCtrl.text = _formatNum(currentval.value ?? widget.initVal);
             _valCtrl.selection = TextSelection.fromPosition(
                 TextPosition(offset: _valCtrl.text.length));
             return;

@@ -38,4 +38,26 @@ void main() {
       expect(widget.decimalPlaces, equals(2));
     });
   });
+
+  group('decimalSeparator', () {
+    test('should default to null', () {
+      var widget = const InputQty();
+      expect(widget.decimalSeparator, isNull);
+    });
+
+    test('should accept custom decimal separator', () {
+      var widget = const InputQty(decimalSeparator: ',');
+      expect(widget.decimalSeparator, equals(','));
+    });
+
+    test('should accept decimal separator in InputQty.double', () {
+      var widget = const InputQty.double(decimalSeparator: ',');
+      expect(widget.decimalSeparator, equals(','));
+    });
+
+    test('should accept decimal separator in InputQty.int', () {
+      var widget = const InputQty.int(decimalSeparator: ',');
+      expect(widget.decimalSeparator, equals(','));
+    });
+  });
 }
