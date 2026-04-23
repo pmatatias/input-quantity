@@ -256,9 +256,8 @@ class _InputQtyState extends State<InputQty> {
 
   /// Format a num for display, replacing `.` with custom separator
   String _formatNum(num value, [int? decimalPlaces]) {
-    final result = decimalPlaces != null
-        ? value.toStringAsFixed(decimalPlaces)
-        : '$value';
+    final result =
+        decimalPlaces != null ? value.toStringAsFixed(decimalPlaces) : '$value';
     if (_decSep != '.') {
       return result.replaceAll('.', _decSep);
     }

@@ -1,3 +1,9 @@
+## 2.6.0
+
+Apr 23, 2026
+
+- feat: Add optional `decimalSeparator` parameter for locale support [#78](https://github.com/pmatatias/input-quantity/pull/78) by @daniel-pimenta-cc
+
 ## 2.5.2
 Nov 2, 2025
 
