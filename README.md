@@ -254,6 +254,8 @@ Thank you to all contributors for their valuable contributions!
     <td align="center"><a href="https://github.com/tonypioneer"><img src="https://avatars.githubusercontent.com/u/128760989?v=4" width="50px;" alt="@tonypioneer"/></a></td>
     <td align="center"><a href="https://github.com/fixiply"><img src="https://avatars.githubusercontent.com/u/105910226?v=4" width="50px;" alt="@fixiply"/></a></td>
     <td align="center"><a href="https://github.com/sirfaman"><img src="https://avatars.githubusercontent.com/u/175967719?v=4" width="50px;" alt="@sirfaman"/></a></td>
+    <td align="center"><a href="https://github.com/daniel-pimenta-cc"><img src="https://avatars.githubusercontent.com/u/42495364?v=4" width="50px;" alt="@daniel-pimenta-cc"/></a></td>
+    <td align="center"><a href="https://github.com/5amfung"><img src="https://avatars.githubusercontent.com/u/371691?v=4" width="50px;" alt="@5amfung"/></a></td>
   </tr>
 </table>
 
